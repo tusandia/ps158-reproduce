@@ -53,7 +53,7 @@ Requires Python 3 with numpy, pandas and matplotlib.
 
 ```bash
 pip install -r requirements.txt
-python get_data.py           # downloads ~25 MB of zips to data/raw/ (~200 MB unpacked; ignored by git), writes the CSV
+python get_data.py           # downloads ~25 MB of zips to data/raw/ (~340 MB unpacked; ignored by git), writes the CSV
 python plot.py               # median figure
 python plot.py --stat mean   # mean figure
 ```
