@@ -5,8 +5,8 @@ lexicon.csv.
 Rules (see CODEBOOK.md for the human coding rules these approximate):
     DIRECT    the summed weight of distinct `direct` terms is >= --direct-threshold (default 3)
     INDIRECT  not DIRECT, and either an `area_strong` term matches, or at least
-              one `area` term AND at least one anchor (an `anchor` term or any
-              `direct` term) match
+              one `area` term matches AND the summed weight of anchors (`anchor`
+              terms plus any `direct` terms) is >= --anchor-threshold (default 2)
     NONE      otherwise
 Impact areas are every area whose terms matched. Population tags are reported
 but do not change the label. Phrases of kind `exclude` are deleted from the
@@ -71,7 +71,7 @@ def load_lexicon(path=DEFAULT_LEXICON):
     return terms
 
 
-def classify(text, lexicon, direct_threshold=3.0):
+def classify(text, lexicon, direct_threshold=3.0, anchor_threshold=2.0):
     """Return a dict with the predicted label, scores, areas and matched terms."""
     text = text or ""
     for t in lexicon:
@@ -87,7 +87,7 @@ def classify(text, lexicon, direct_threshold=3.0):
     direct_score = sum(t.weight for t in direct)
     if direct_score >= direct_threshold:
         label = "direct"
-    elif areas_strong or (areas_weak and anchors):
+    elif areas_strong or (areas_weak and sum(t.weight for t in anchors) >= anchor_threshold):
         label = "indirect"
     else:
         label = "none"
@@ -106,12 +106,12 @@ def classify(text, lexicon, direct_threshold=3.0):
     }
 
 
-def flag_frame(df, lexicon, text_cols, direct_threshold=3.0):
+def flag_frame(df, lexicon, text_cols, direct_threshold=3.0, anchor_threshold=2.0):
     present = [c for c in text_cols if c in df.columns]
     if not present:
         raise ValueError(f"none of the text columns {text_cols} are in the input")
     text = df[present].fillna("").astype(str).agg("\n".join, axis=1)
-    results = pd.DataFrame([classify(t, lexicon, direct_threshold) for t in text],
+    results = pd.DataFrame([classify(t, lexicon, direct_threshold, anchor_threshold) for t in text],
                            index=df.index)
     return pd.concat([df, results], axis=1)
 
@@ -124,6 +124,7 @@ def main():
     p.add_argument("--lexicon", default=DEFAULT_LEXICON)
     p.add_argument("--text-cols", nargs="+", default=["title", "subject", "digest"])
     p.add_argument("--direct-threshold", type=float, default=3.0)
+    p.add_argument("--anchor-threshold", type=float, default=2.0)
     args = p.parse_args()
 
     inp = Path(args.input)
@@ -137,7 +138,8 @@ def main():
         out.write_text("bill_id,pred_label,score\n")
         print(f"no rows in {inp}; wrote empty {out}")
         return
-    flagged = flag_frame(df, load_lexicon(args.lexicon), args.text_cols, args.direct_threshold)
+    flagged = flag_frame(df, load_lexicon(args.lexicon), args.text_cols,
+                         args.direct_threshold, args.anchor_threshold)
     flagged.sort_values("score", ascending=False).to_csv(out, index=False)
     counts = flagged["pred_label"].value_counts()
     print(f"{len(flagged)} rows -> {out}")

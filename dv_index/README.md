@@ -38,6 +38,35 @@ code section the bill touches, which is how the lexicon catches indirect laws
 by citation (e.g. Civ. Code §1946.7, lease termination for victims).
 `--full-text` keeps the whole bill if you want to compare.
 
+## First run: 2025–26 session (downloaded 2026-11-03)
+
+- **4,262 bills** (2,811 AB, 1,451 SB). Every bill has a title and digest.
+- The tool predicts **59 direct, 73 indirect, 4,130 none**.
+- The 132 flagged bills are in `results/flagged_2025.csv`, with links and matched terms.
+- The coding sheet is drawn and ready: `coding/coding_sheet.csv` (292 bills).
+
+| Stratum | Bills | Sampled | Weight |
+|---|---|---|---|
+| direct | 59 | 59 (all) | 1 |
+| indirect | 73 | 73 (all) | 1 |
+| none | 4,130 | 160 | 25.8 |
+
+Each relevant bill you find in the `none` stratum stands for about 26 missed
+bills, which is why recall is the uncertain number. If time allows, code more
+`none` rows: draw a second sample of new bills rather than re-running
+`sample.py` with the same seed.
+
+**How the lexicon got to this version.** Before any hand-coding, I read the
+flag lists by eye and made these changes:
+- Dropped catch-all terms: `grant*`, `employee*`, `employer*`, bare `custody`, `safety plan`.
+- Required anchor weight ≥ 2 for `indirect`.
+- Down-weighted `protective order` and `restraining order`, so workplace-violence orders no longer count as direct.
+- Added DVPA citation rules (Fam. Code §§6200–6409) and forced/coerced marriage.
+
+This raised the share of plausible bills among the indirect flags from roughly
+a third to most of the 73. Report it as lexicon development. The precision and
+recall numbers should come only from your coding.
+
 ## Running it
 
 Requires Python 3 with pandas and numpy (`pip install -r ../requirements.txt`).

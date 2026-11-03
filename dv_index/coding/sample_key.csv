@@ -1,0 +1,293 @@
+row,bill_id,stratum,stratum_size,weight,pred_label,pred_areas,score,matched_terms
+1,202520260SB152,indirect,73,1.0,indirect,benefits;child_welfare;courts;custody;health;immigration;services,21.0,victim* [anchor]; survivor* [anchor]; immigra* [area]; immigration status [area]; undocumented [area]; removal proceeding* [area]; child custody [area]; custody of the child* [area]; calworks [area]; calfresh [area]; medi-cal [area]; legal services [area]; probation [area]; diversion [area]; mental health [area]; grant program* [area]; child welfare [area]; dependency [area]; foster [area]; juvenile court [area]; elder* [population]; tribal [population]; indian tribe* [population]; minor* [population]; youth [population]; immigrant* [population]
+2,202520260AB1375,direct,59,1.0,direct,custody,9.0,domestic violence [direct]; human trafficking [anchor]; child custody [area]; custody of the child* [area]; visitation [area]; best interest of the child [area]; family code [area]
+3,202520260AB2150,none,4130,25.8125,none,,1.0,workplace [area]
+4,202520260AB630,none,4130,25.8125,none,,0.0,
+5,202520260SB345,none,4130,25.8125,none,,0.0,
+6,202520260SB1095,none,4130,25.8125,none,,2.0,immigra* [area]; office of emergency services [area]
+7,202520260AB1535,indirect,73,1.0,indirect,courts,3.0,victim* [anchor]; sentenc* [area]; disabilit* [population]
+8,202520260AB1490,direct,59,1.0,direct,,5.0,domestic violence [direct]; victim* [anchor]
+9,202520260AB561,direct,59,1.0,direct,courts;custody,15.0,"domestic violence [direct]; protective order* [direct]; restraining order* [direct]; re:\b(6[23]\d\d|640\d)(\.\d+)?\b[^.;]{0,250}?family code [direct]; abuse* [anchor]; stalking [anchor]; harassment [anchor]; family code [area]; self-help [area]; remote appearance* [area]; dependent adult* [population]; elder* [population]"
+10,202520260AB668,none,4130,25.8125,none,,2.0,victim* [anchor]
+11,202520260AB857,none,4130,25.8125,none,,0.0,
+12,202520260AB1918,indirect,73,1.0,indirect,services,4.0,victim* [anchor]; human trafficking [anchor]; hotline* [area]
+13,202520260AB1562,none,4130,25.8125,none,,0.0,
+14,202520260AB2261,direct,59,1.0,direct,courts,7.0,domestic violence [direct]; protective order* [direct]; victim* [anchor]; human trafficking [anchor]
+15,202520260AB1764,none,4130,25.8125,none,,1.0,health care [area]
+16,202520260AB394,indirect,73,1.0,indirect,courts;employment,5.0,restraining order* [direct]; victim* [anchor]; harassment [anchor]; workplace [area]
+17,202520260AB1917,none,4130,25.8125,none,,0.0,
+18,202520260AB1134,direct,59,1.0,direct,custody,8.0,forced marriage [direct]; coerced marriage [direct]; victim* [anchor]; family code [area]
+19,202520260SB370,none,4130,25.8125,none,,1.0,grant program* [area]
+20,202520260SB1228,none,4130,25.8125,none,,0.0,
+21,202520260SB679,none,4130,25.8125,none,,1.0,health care [area]
+22,202520260AB2451,indirect,73,1.0,indirect,child_welfare;housing,8.0,victim* [anchor]; human trafficking [anchor]; shelter* [area]; child welfare [area]; dependency [area]; foster [area]; juvenile court [area]
+23,202520260AB1313,none,4130,25.8125,none,,0.0,
+24,202520260AB80,none,4130,25.8125,none,,0.0,
+25,202520260AB479,direct,59,1.0,direct,,7.0,intimate partner violence [direct]; intimate partner [direct]; victim* [anchor]
+26,202520260SB886,none,4130,25.8125,none,,0.0,
+27,202520260AB2526,none,4130,25.8125,none,,0.0,disabilit* [population]
+28,202520260AB909,indirect,73,1.0,indirect,financial,4.0,victim* [anchor]; abuse* [anchor]; financial institution* [area]; dependent adult* [population]; elder* [population]
+29,202520260AB704,indirect,73,1.0,indirect,courts,5.0,victim* [anchor]; human trafficking [anchor]; sentenc* [area]; probation [area]
+30,202520260SB1376,none,4130,25.8125,none,,0.0,
+31,202520260AB298,none,4130,25.8125,none,,1.0,health care [area]
+32,202520260SB1379,none,4130,25.8125,none,,0.0,
+33,202520260SB871,direct,59,1.0,direct,courts;custody,16.0,"domestic violence [direct]; domestic violence prevention act [direct]; strangulation [direct]; re:division 10 (of|of the) (the )?family code [direct]; re:\b(6[23]\d\d|640\d)(\.\d+)?\b[^.;]{0,250}?family code [direct]; abuse* [anchor]; family code [area]"
+34,202520260SB99,direct,59,1.0,direct,courts;custody,14.0,"domestic violence [direct]; domestic violence prevention act [direct]; protective order* [direct]; re:\b(6[23]\d\d|640\d)(\.\d+)?\b[^.;]{0,250}?family code [direct]; abuse* [anchor]; stalking [anchor]; family code [area]"
+35,202520260AB2384,indirect,73,1.0,indirect,courts,5.0,victim* [anchor]; human trafficking [anchor]; probation [area]; diversion [area]
+36,202520260AB312,none,4130,25.8125,none,,0.0,
+37,202520260AB2727,indirect,73,1.0,indirect,courts;health,6.0,victim* [anchor]; sexual assault [anchor]; sentenc* [area]; hospital* [area]; elder* [population]
+38,202520260AB560,none,4130,25.8125,none,,0.0,disabilit* [population]
+39,202520260AB2534,direct,59,1.0,direct,courts;custody,18.0,"domestic violence [direct]; coercive control [direct]; domestic violence prevention act [direct]; protective order* [direct]; forced marriage [direct]; re:\b(6[23]\d\d|640\d)(\.\d+)?\b[^.;]{0,250}?family code [direct]; abuse* [anchor]; family code [area]"
+40,202520260AB2749,none,4130,25.8125,none,,0.0,
+41,202520260AB2249,none,4130,25.8125,none,,0.0,
+42,202520260AB1716,indirect,73,1.0,indirect,benefits;education;health,7.0,victim* [anchor]; sexual assault [anchor]; victim compensation [area_strong]; mental health [area]; student* [area]
+43,202520260AB713,none,4130,25.8125,none,,3.0,undocumented [area]; noncitizen* [area]; student* [area]
+44,202520260AB1070,none,4130,25.8125,none,,0.0,
+45,202520260AB205,none,4130,25.8125,none,,0.0,
+46,202520260AB1646,none,4130,25.8125,none,,1.0,visitation [area]; youth [population]
+47,202520260AB87,none,4130,25.8125,none,,0.0,
+48,202520260AB941,none,4130,25.8125,none,,0.0,
+49,202520260AB938,direct,59,1.0,direct,courts,10.0,intimate partner violence [direct]; intimate partner [direct]; victim* [anchor]; human trafficking [anchor]; sentenc* [area]; probation [area]
+50,202520260AB1034,none,4130,25.8125,none,,2.0,abuse* [anchor]; mental health [area]; youth [population]
+51,202520260SB814,direct,59,1.0,direct,housing,5.0,domestic violence [direct]; survivor* [anchor]; homeless* [area]
+52,202520260AB466,none,4130,25.8125,none,,2.0,campus [area]; student* [area]
+53,202520260AB1545,indirect,73,1.0,indirect,courts;health,4.0,victim* [anchor]; sentenc* [area]; hospital* [area]
+54,202520260AB1751,none,4130,25.8125,none,,1.0,sentenc* [area]
+55,202520260SB270,none,4130,25.8125,none,,0.0,
+56,202520260SB779,none,4130,25.8125,none,,0.0,
+57,202520260AB1961,indirect,73,1.0,indirect,courts;employment,4.0,protective order* [direct]; restraining order* [direct]; harassment [anchor]; workplace [area]
+58,202520260AB790,direct,59,1.0,direct,housing;services,9.0,domestic violence [direct]; victim* [anchor]; survivor* [anchor]; fleeing [anchor]; homeless* [area]; victim service provider* [area_strong]
+59,202520260AB1566,indirect,73,1.0,indirect,housing,4.0,victim* [anchor]; abuse* [anchor]; shelter* [area]
+60,202520260AB1299,none,4130,25.8125,none,,1.0,homeless* [area]
+61,202520260AB2103,none,4130,25.8125,none,,0.0,
+62,202520260AB1363,direct,59,1.0,direct,courts;custody,5.0,"protective order* [direct]; re:\b(6[23]\d\d|640\d)(\.\d+)?\b[^.;]{0,250}?family code [direct]; family code [area]"
+63,202520260SB178,none,4130,25.8125,none,,1.0,lease* [area]; tribal [population]
+64,202520260AB172,indirect,73,1.0,indirect,benefits;courts;education;housing;services,8.0,victim* [anchor]; lease* [area]; public assistance [area]; legal services [area]; office of emergency services [area]; grant program* [area]; student* [area]; rural [population]; tribal [population]; minor* [population]
+65,202520260AB2641,none,4130,25.8125,none,,0.0,
+66,202520260AB1656,direct,59,1.0,direct,,4.0,domestic violence [direct]; human trafficking [anchor]; minor* [population]
+67,202520260AB291,none,4130,25.8125,none,,0.0,
+68,202520260AB1261,none,4130,25.8125,none,,4.0,immigra* [area]; undocumented [area]; removal proceeding* [area]; legal services [area]; minor* [population]; youth [population]; immigrant* [population]
+69,202520260AB919,direct,59,1.0,direct,privacy,10.0,domestic violence [direct]; victim* [anchor]; stalking [anchor]; sexual assault [anchor]; address confidentiality [area_strong]
+70,202520260AB1701,indirect,73,1.0,indirect,courts,3.0,victim* [anchor]; sentenc* [area]
+71,202520260SB413,none,4130,25.8125,none,,4.0,probation [area]; child welfare [area]; dependency [area]; juvenile court [area]; minor* [population]
+72,202520260AB2750,none,4130,25.8125,none,,0.0,
+73,202520260AB580,none,4130,25.8125,none,,0.0,
+74,202520260AB1471,none,4130,25.8125,none,,0.0,
+75,202520260AB2681,none,4130,25.8125,none,,0.0,
+76,202520260AB878,direct,59,1.0,direct,housing,10.0,domestic violence [direct]; victim* [anchor]; abuse* [anchor]; sexual assault [anchor]; tenant* [area]; landlord* [area]
+77,202520260SB380,indirect,73,1.0,indirect,health;housing,4.0,victim* [anchor]; transitional housing [area]; hospital* [area]
+78,202520260SB1039,none,4130,25.8125,none,,0.0,
+79,202520260AB1775,indirect,73,1.0,indirect,health;services,5.0,sexual assault [anchor]; harassment [anchor]; mental health [area]; grant program* [area]; gender identity [population]
+80,202520260AB2342,indirect,73,1.0,indirect,courts,3.0,victim* [anchor]; sentenc* [area]; elder* [population]; youth [population]
+81,202520260SB220,none,4130,25.8125,none,,0.0,
+82,202520260AB1659,none,4130,25.8125,none,,4.0,homeless* [area]; probation [area]; foster [area]; juvenile court [area]; youth [population]
+83,202520260SB496,none,4130,25.8125,none,,0.0,
+84,202520260AB406,indirect,73,1.0,indirect,employment,5.0,victim* [anchor]; abuse* [anchor]; time off [area]; re:section 12945\.8 of the government code [area_strong]
+85,202520260SB1403,none,4130,25.8125,none,,1.0,unemployment insurance [area]
+86,202520260SB452,indirect,73,1.0,indirect,child_welfare;courts;housing,7.0,victim* [anchor]; abuse* [anchor]; shelter* [area]; legal services [area]; child welfare [area]; juvenile court [area]; tribal [population]
+87,202520260AB2097,direct,59,1.0,direct,courts,5.0,re:section 273\.5 of the penal code [direct]; strangulation [direct]
+88,202520260SB50,direct,59,1.0,direct,courts;custody,9.0,"restraining order* [direct]; re:\b(6[23]\d\d|640\d)(\.\d+)?\b[^.;]{0,250}?family code [direct]; survivor* [anchor]; abuse* [anchor]; perpetrator* [anchor]; family code [area]; testimony [area]"
+89,202520260AB2201,none,4130,25.8125,none,,2.0,medi-cal [area]; health care [area]
+90,202520260AB382,none,4130,25.8125,none,,0.0,
+91,202520260AB1201,indirect,73,1.0,indirect,child_welfare;custody;housing,6.0,victim* [anchor]; shelter* [area]; custody of the child* [area]; child welfare [area]; juvenile court [area]
+92,202520260SB248,indirect,73,1.0,indirect,courts;firearms;privacy,6.0,restraining order* [direct]; firearm* [area]; gun* [area]; relinquish* [area]; gun violence restraining order* [area_strong]; personal information [area]
+93,202520260AB2590,none,4130,25.8125,none,,0.0,rural [population]; indian tribe* [population]
+94,202520260SB593,none,4130,25.8125,none,,0.0,
+95,202520260AB2711,none,4130,25.8125,none,,0.0,
+96,202520260SB521,none,4130,25.8125,none,,0.0,
+97,202520260SB652,none,4130,25.8125,none,,0.0,
+98,202520260SB777,none,4130,25.8125,none,,0.0,
+99,202520260AB2122,none,4130,25.8125,none,,1.0,bail [area]
+100,202520260SB746,none,4130,25.8125,none,,0.0,
+101,202520260AB535,indirect,73,1.0,indirect,courts,3.0,victim* [anchor]; probation [area]
+102,202520260SB265,none,4130,25.8125,none,,0.0,
+103,202520260SB184,indirect,73,1.0,indirect,financial;services,4.0,victim* [anchor]; grant fund* [area]; debt* [area]
+104,202520260AB266,none,4130,25.8125,none,,0.0,
+105,202520260AB1742,none,4130,25.8125,none,,1.0,tenant* [area]
+106,202520260AB433,indirect,73,1.0,indirect,courts;health,4.0,abuse* [anchor]; human trafficking [anchor]; diversion [area]; mental health [area]
+107,202520260AB548,indirect,73,1.0,indirect,immigration,3.0,victim* [anchor]; noncitizen* [area]
+108,202520260SB118,none,4130,25.8125,none,,6.0,calworks [area]; calfresh [area]; grant program* [area]; child welfare [area]; foster [area]; juvenile court [area]; youth [population]
+109,202520260AB701,none,4130,25.8125,none,,0.0,
+110,202520260AB230,none,4130,25.8125,none,,0.0,
+111,202520260AB1185,none,4130,25.8125,none,,0.0,
+112,202520260AB104,none,4130,25.8125,none,,0.0,
+113,202520260SB841,direct,59,1.0,direct,housing;immigration;services,13.0,domestic violence [direct]; victim* [anchor]; sexual assault [anchor]; human trafficking [anchor]; immigra* [area]; homeless* [area]; shelter* [area]; office of emergency services [area]; crisis center* [area]
+114,202520260SB925,none,4130,25.8125,none,,0.0,
+115,202520260SB642,none,4130,25.8125,none,,0.0,
+116,202520260SB756,none,4130,25.8125,none,,0.0,
+117,202520260AB146,direct,59,1.0,direct,benefits;child_welfare;health;housing,8.0,domestic violence [direct]; homeless* [area]; calworks [area]; calfresh [area]; mental health [area]; foster [area]; disabilit* [population]
+118,202520260AB2289,none,4130,25.8125,none,,0.0,tribal [population]
+119,202520260AB124,indirect,73,1.0,indirect,services,5.0,victim* [anchor]; survivor* [anchor]; grant program* [area]; grant fund* [area]
+120,202520260SB117,none,4130,25.8125,none,,0.0,
+121,202520260AB325,none,4130,25.8125,none,,0.0,
+122,202520260SB843,none,4130,25.8125,none,,0.0,
+123,202520260AB2512,none,4130,25.8125,none,,1.0,lease* [area]
+124,202520260AB2297,indirect,73,1.0,indirect,courts,3.0,victim* [anchor]; diversion [area]
+125,202520260AB2179,indirect,73,1.0,indirect,courts;employment,4.0,protective order* [direct]; restraining order* [direct]; remote appearance* [area]; workplace [area]
+126,202520260AB727,none,4130,25.8125,none,,2.0,hotline* [area]; student* [area]; lgbt* [population]
+127,202520260SB1364,indirect,73,1.0,indirect,custody,8.0,abuse* [anchor]; sexual assault [anchor]; child custody [area]; legal custody [area]; custody of the child* [area]; visitation [area]; family code [area]; gender identity [population]
+128,202520260AB1612,none,4130,25.8125,none,,0.0,
+129,202520260AB1722,none,4130,25.8125,none,,0.0,
+130,202520260AB1986,none,4130,25.8125,none,,0.0,
+131,202520260SB1034,none,4130,25.8125,none,,0.0,disabilit* [population]
+132,202520260AB1239,none,4130,25.8125,none,,3.0,victim* [anchor]; human trafficking [anchor]
+133,202520260AB2644,none,4130,25.8125,none,,0.0,
+134,202520260AB1186,none,4130,25.8125,none,,0.0,
+135,202520260AB1850,none,4130,25.8125,none,,0.0,
+136,202520260AB969,direct,59,1.0,direct,benefits,10.0,domestic abuse [direct]; family violence [direct]; victim* [anchor]; abuse* [anchor]; calworks [area]
+137,202520260SB174,none,4130,25.8125,none,,1.0,juvenile court [area]
+138,202520260AB2396,none,4130,25.8125,none,,1.0,lease* [area]
+139,202520260AB1100,indirect,73,1.0,indirect,benefits;health,5.0,victim* [anchor]; violent crime* [anchor]; victim compensation [area_strong]; hospital* [area]; minor* [population]
+140,202520260AB38,indirect,73,1.0,indirect,courts;immigration,6.0,victim* [anchor]; sexual assault [anchor]; deportation [area]; sentenc* [area]; disabilit* [population]; minor* [population]
+141,202520260SB1217,indirect,73,1.0,indirect,firearms;privacy,5.0,victim* [anchor]; violent crime* [anchor]; firearm* [area]; personal information [area]
+142,202520260AB2133,direct,59,1.0,direct,,5.0,domestic violence [direct]; victim* [anchor]
+143,202520260SB656,none,4130,25.8125,none,,0.0,
+144,202520260AB2053,none,4130,25.8125,none,,0.0,
+145,202520260AB285,direct,59,1.0,direct,courts,7.0,domestic violence [direct]; protective order* [direct]; victim* [anchor]; sentenc* [area]
+146,202520260AB1681,indirect,73,1.0,indirect,courts,3.0,victim* [anchor]; sentenc* [area]
+147,202520260AB2470,direct,59,1.0,direct,benefits;financial;housing,18.0,domestic violence [direct]; domestic abuse [direct]; abuser* [direct]; victim* [anchor]; survivor* [anchor]; abuse* [anchor]; fleeing [anchor]; homeless* [area]; shelter* [area]; calworks [area]; credit report* [area]; financial institution* [area]
+148,202520260SB337,indirect,73,1.0,indirect,courts,3.0,abuse* [anchor]; harassment [anchor]; sentenc* [area]
+149,202520260AB184,indirect,73,1.0,indirect,financial;services,4.0,victim* [anchor]; grant fund* [area]; debt* [area]
+150,202520260SB760,none,4130,25.8125,none,,0.0,
+151,202520260AB451,direct,59,1.0,direct,courts;firearms,7.0,domestic violence [direct]; restraining order* [direct]; firearm* [area]; gun* [area]; gun violence restraining order* [area_strong]
+152,202520260SB1294,none,4130,25.8125,none,,0.0,
+153,202520260SB133,none,4130,25.8125,none,,8.0,immigra* [area]; undocumented [area]; homeless* [area]; bilingual [area]; health care [area]; grant program* [area]; grant fund* [area]; student* [area]; youth [population]; immigrant* [population]
+154,202520260AB83,indirect,73,1.0,indirect,financial,4.0,victim* [anchor]; abuse* [anchor]; financial institution* [area]; elder* [population]
+155,202520260AB2146,none,4130,25.8125,none,,1.0,homeless* [area]
+156,202520260AB2318,indirect,73,1.0,indirect,courts;firearms,3.0,restraining order* [direct]; gun* [area]; gun violence restraining order* [area_strong]
+157,202520260AB1247,indirect,73,1.0,indirect,health,3.0,abuse* [anchor]; harassment [anchor]; health care [area]
+158,202520260SB672,indirect,73,1.0,indirect,courts,3.0,victim* [anchor]; sentenc* [area]; youth [population]
+159,202520260SB289,indirect,73,1.0,indirect,education,6.0,sexual assault [anchor]; harassment [anchor]; title ix [area]; campus [area]; student* [area]
+160,202520260AB848,indirect,73,1.0,indirect,courts;health,6.0,victim* [anchor]; abuse* [anchor]; perpetrator* [anchor]; sentenc* [area]; hospital* [area]
+161,202520260AB601,none,4130,25.8125,none,,8.0,abuse* [anchor]; parenting [area]; probation [area]; health care [area]; mental health [area]; pregnan* [area]; child welfare [area]; foster [area]; youth [population]
+162,202520260AB2339,indirect,73,1.0,indirect,child_welfare;courts;firearms;health,7.0,restraining order* [direct]; firearm* [area]; gun* [area]; ammunition [area]; gun violence restraining order* [area_strong]; mental health [area]; juvenile court [area]
+163,202520260AB696,none,4130,25.8125,none,,1.0,office of emergency services [area]
+164,202520260AB2542,direct,59,1.0,direct,courts;health,5.0,domestic violence [direct]; restraining order* [direct]; health care [area]
+165,202520260SB1293,none,4130,25.8125,none,,0.0,
+166,202520260AB2645,none,4130,25.8125,none,,0.0,
+167,202520260SB1232,none,4130,25.8125,none,,0.0,
+168,202520260SB1334,none,4130,25.8125,none,,0.0,
+169,202520260AB1549,direct,59,1.0,direct,courts,7.0,domestic violence [direct]; batterer* [direct]; probation [area]
+170,202520260SB1077,indirect,73,1.0,indirect,benefits,3.0,victim* [anchor]; calfresh [area]
+171,202520260SB1404,none,4130,25.8125,none,,0.0,
+172,202520260AB1611,none,4130,25.8125,none,,1.0,rental [area]
+173,202520260AB1573,direct,59,1.0,direct,housing,9.0,domestic violence [direct]; victim* [anchor]; sexual assault [anchor]; human trafficking [anchor]; shelter* [area]; disabilit* [population]
+174,202520260AB1877,direct,59,1.0,direct,courts,6.0,domestic violence [direct]; protective order* [direct]; bail [area]; sentenc* [area]
+175,202520260SB257,none,4130,25.8125,none,,2.0,health care [area]; pregnan* [area]; disabilit* [population]
+176,202520260AB633,direct,59,1.0,direct,,8.0,intimate partner violence [direct]; intimate partner [direct]; victim* [anchor]; human trafficking [anchor]
+177,202520260AB1229,none,4130,25.8125,none,,7.0,landlord* [area]; rental [area]; homeless* [area]; probation [area]; health care [area]; grant program* [area]; grant fund* [area]
+178,202520260AB824,direct,59,1.0,direct,courts;custody;employment;firearms,18.0,"domestic violence [direct]; protective order* [direct]; restraining order* [direct]; re:\b(6[23]\d\d|640\d)(\.\d+)?\b[^.;]{0,250}?family code [direct]; abuse* [anchor]; harassment [anchor]; family code [area]; firearm* [area]; gun* [area]; ammunition [area]; relinquish* [area]; gun violence restraining order* [area_strong]; remote appearance* [area]; workplace [area]; dependent adult* [population]; elder* [population]"
+179,202520260AB924,direct,59,1.0,direct,housing,16.0,domestic violence [direct]; victim* [anchor]; abuse* [anchor]; stalking [anchor]; sexual assault [anchor]; human trafficking [anchor]; tenant* [area]; landlord* [area]; lease* [area]; rental [area]; re:section 1946\.7 of the civil code [area_strong]; dependent adult* [population]; elder* [population]
+180,202520260AB1318,indirect,73,1.0,indirect,courts;immigration,5.0,victim* [anchor]; immigra* [area]; noncitizen* [area]; legal services [area]; immigrant* [population]
+181,202520260AB121,indirect,73,1.0,indirect,child_welfare;education;health;housing;language;services,12.0,sexual assault [anchor]; lease* [area]; homeless* [area]; translat* [area]; bilingual [area]; health care [area]; grant program* [area]; grant fund* [area]; foster [area]; juvenile court [area]; student* [area]; disabilit* [population]; lgbt* [population]; youth [population]
+182,202520260AB1962,none,4130,25.8125,none,,0.0,
+183,202520260AB2305,none,4130,25.8125,none,,1.0,legal services [area]
+184,202520260AB2101,none,4130,25.8125,none,,1.0,human trafficking [anchor]
+185,202520260AB2273,indirect,73,1.0,indirect,courts;health,4.0,victim* [anchor]; diversion [area]; mental health [area]; minor* [population]
+186,202520260SB547,none,4130,25.8125,none,,0.0,
+187,202520260AB2052,direct,59,1.0,direct,,6.0,domestic violence [direct]; victim* [anchor]; abuse* [anchor]; dependent adult* [population]; elder* [population]
+188,202520260AB2085,none,4130,25.8125,none,,0.0,
+189,202520260AB2014,indirect,73,1.0,indirect,courts;health,5.0,intimate partner [direct]; sentenc* [area]; testimony [area]; reproductive [area]
+190,202520260AB2565,none,4130,25.8125,none,,2.0,medi-cal [area]; health care [area]
+191,202520260AB397,none,4130,25.8125,none,,0.0,
+192,202520260AB1845,direct,59,1.0,direct,education;services,19.0,domestic violence [direct]; dating violence [direct]; victim* [anchor]; stalking [anchor]; sexual assault [anchor]; human trafficking [anchor]; harassment [anchor]; violent crime* [anchor]; grant program* [area]; title ix [area]; campus [area]; student* [area]
+193,202520260SB103,none,4130,25.8125,none,,0.0,
+194,202520260SB146,direct,59,1.0,direct,benefits;child_welfare;health;housing,8.0,domestic violence [direct]; homeless* [area]; calworks [area]; calfresh [area]; mental health [area]; foster [area]; disabilit* [population]
+195,202520260SB334,indirect,73,1.0,indirect,education,6.0,abuse* [anchor]; sexual assault [anchor]; human trafficking [anchor]; harassment [anchor]; title ix [area]; youth [population]
+196,202520260SB435,none,4130,25.8125,none,,1.0,personal information [area]
+197,202520260AB1135,direct,59,1.0,direct,,4.0,dating violence [direct]; harassment [anchor]; youth [population]
+198,202520260AB2073,none,4130,25.8125,none,,4.0,physical custody [area]; custody of the child* [area]; hospital* [area]; child welfare [area]; minor* [population]
+199,202520260AB1941,none,4130,25.8125,none,,0.0,
+200,202520260AB2753,none,4130,25.8125,none,,0.0,
+201,202520260AB1078,indirect,73,1.0,indirect,courts;firearms;health,5.0,protective order* [direct]; restraining order* [direct]; firearm* [area]; sentenc* [area]; hospital* [area]
+202,202520260AB1141,none,4130,25.8125,none,,0.0,
+203,202520260SB1352,none,4130,25.8125,none,,0.0,
+204,202520260SB857,direct,59,1.0,direct,benefits;child_welfare;courts;custody,7.0,"re:\b(6[23]\d\d|640\d)(\.\d+)?\b[^.;]{0,250}?family code [direct]; family code [area]; unemployment insurance [area]; probation [area]; juvenile court [area]; minor* [population]; youth [population]"
+205,202520260SB196,none,4130,25.8125,none,,0.0,
+206,202520260AB1344,indirect,73,1.0,indirect,courts;firearms,5.0,restraining order* [direct]; firearm* [area]; gun* [area]; ammunition [area]; gun violence restraining order* [area_strong]
+207,202520260AB1657,direct,59,1.0,direct,courts;custody,10.0,"domestic violence [direct]; restraining order* [direct]; re:\b(6[23]\d\d|640\d)(\.\d+)?\b[^.;]{0,250}?family code [direct]; abuse* [anchor]; family code [area]; testimony [area]"
+208,202520260AB1248,none,4130,25.8125,none,,4.0,tenant* [area]; landlord* [area]; rental [area]; debt* [area]
+209,202520260SB1123,none,4130,25.8125,none,,0.0,
+210,202520260AB2247,indirect,73,1.0,indirect,benefits;firearms;health,7.0,victim* [anchor]; survivor* [anchor]; gun* [area]; victim compensation [area_strong]; health care [area]; mental health [area]; minor* [population]; youth [population]
+211,202520260AB1946,indirect,73,1.0,indirect,benefits,5.0,victim* [anchor]; survivor* [anchor]; abuse* [anchor]; victim compensation [area_strong]; minor* [population]
+212,202520260SB805,none,4130,25.8125,none,,2.0,immigra* [area]; bail [area]
+213,202520260SB944,none,4130,25.8125,none,,2.0,medi-cal [area]; health care [area]
+214,202520260AB2119,direct,59,1.0,direct,housing,8.0,domestic violence [direct]; victim* [anchor]; sexual assault [anchor]; shelter* [area]
+215,202520260SB1284,indirect,73,1.0,indirect,benefits;employment;health,7.0,victim* [anchor]; abuse* [anchor]; medi-cal [area]; unemployment insurance [area]; time off [area]; health care [area]
+216,202520260SB937,none,4130,25.8125,none,,1.0,immigra* [area]
+217,202520260AB1889,direct,59,1.0,direct,courts,7.0,domestic violence [direct]; protective order* [direct]; victim* [anchor]; human trafficking [anchor]
+218,202520260AB1753,direct,59,1.0,direct,courts;custody;employment;firearms;immigration,21.0,"domestic violence [direct]; violence against women act [direct]; protective order* [direct]; restraining order* [direct]; re:\b(6[23]\d\d|640\d)(\.\d+)?\b[^.;]{0,250}?family code [direct]; abuse* [anchor]; harassment [anchor]; family code [area]; firearm* [area]; gun* [area]; ammunition [area]; relinquish* [area]; gun violence restraining order* [area_strong]; remote appearance* [area]; workplace [area]; dependent adult* [population]; elder* [population]"
+219,202520260SB738,direct,59,1.0,direct,courts;custody,19.0,"domestic violence [direct]; coercive control [direct]; domestic violence prevention act [direct]; protective order* [direct]; restraining order* [direct]; re:\b(6[23]\d\d|640\d)(\.\d+)?\b[^.;]{0,250}?family code [direct]; victim* [anchor]; survivor* [anchor]; abuse* [anchor]; family code [area]"
+220,202520260SB1052,none,4130,25.8125,none,,0.0,disabilit* [population]
+221,202520260SB421,direct,59,1.0,direct,courts;custody,11.0,"domestic violence [direct]; protective order* [direct]; re:\b(6[23]\d\d|640\d)(\.\d+)?\b[^.;]{0,250}?family code [direct]; victim* [anchor]; human trafficking [anchor]; family code [area]"
+222,202520260AB354,none,4130,25.8125,none,,0.0,
+223,202520260AB880,indirect,73,1.0,indirect,benefits;services,5.0,victim* [anchor]; medi-cal [area]; grant program* [area]; grant fund* [area]
+224,202520260AB1827,none,4130,25.8125,none,,0.0,
+225,202520260SB929,none,4130,25.8125,none,,0.0,
+226,202520260SB660,none,4130,25.8125,none,,1.0,health care [area]
+227,202520260AB2624,indirect,73,1.0,indirect,health;immigration;privacy,6.0,harassment [anchor]; immigra* [area]; address confidentiality [area_strong]; personal information [area]; health care [area]; reproductive [area]
+228,202520260AB2789,direct,59,1.0,direct,courts;custody,7.0,domestic violence [direct]; protective order* [direct]; child custody [area]; visitation [area]; family code [area]
+229,202520260AB2585,direct,59,1.0,direct,child_welfare;health;services,8.0,domestic violence [direct]; victim* [anchor]; pregnan* [area]; grant fund* [area]; foster [area]; rural [population]
+230,202520260AB1709,none,4130,25.8125,none,,0.0,minor* [population]
+231,202520260AB134,direct,59,1.0,direct,courts;health;housing;services,9.0,domestic violence [direct]; homeless* [area]; diversion [area]; health care [area]; hospital* [area]; mental health [area]; grant program* [area]; tribal [population]; youth [population]
+232,202520260AB21,none,4130,25.8125,none,,0.0,
+233,202520260AB1832,none,4130,25.8125,none,,2.0,office of emergency services [area]; cal oes [area]
+234,202520260SB121,indirect,73,1.0,indirect,child_welfare;education;health;housing;language;services,12.0,sexual assault [anchor]; lease* [area]; homeless* [area]; translat* [area]; bilingual [area]; health care [area]; grant program* [area]; grant fund* [area]; foster [area]; juvenile court [area]; student* [area]; disabilit* [population]; lgbt* [population]; youth [population]
+235,202520260SB1246,direct,59,1.0,direct,,4.0,domestic violence [direct]; human trafficking [anchor]
+236,202520260SB53,none,4130,25.8125,none,,1.0,office of emergency services [area]
+237,202520260SB768,direct,59,1.0,direct,courts;housing,7.0,domestic violence [direct]; restraining order* [direct]; harassment [anchor]; unlawful detainer [area]; legal services [area]
+238,202520260SB1018,direct,59,1.0,direct,services,12.0,domestic violence [direct]; family violence [direct]; survivor* [anchor]; sexual assault [anchor]; human trafficking [anchor]; office of emergency services [area]; grant program* [area]
+239,202520260AB528,indirect,73,1.0,indirect,courts,3.0,victim* [anchor]; testimony [area]
+240,202520260SB1032,none,4130,25.8125,none,,0.0,
+241,202520260AB379,indirect,73,1.0,indirect,benefits;courts;services,10.0,victim* [anchor]; survivor* [anchor]; human trafficking [anchor]; victim compensation [area_strong]; sentenc* [area]; probation [area]; office of emergency services [area]; grant program* [area]; hotline* [area]; minor* [population]
+242,202520260AB292,direct,59,1.0,direct,courts,7.0,domestic violence [direct]; re:section 273\.5 of the penal code [direct]; probation [area]
+243,202520260SB824,none,4130,25.8125,none,,1.0,probation [area]; youth [population]
+244,202520260AB2550,none,4130,25.8125,none,,1.0,unemployment insurance [area]
+245,202520260SB396,indirect,73,1.0,indirect,courts,4.0,victim* [anchor]; sentenc* [area]; probation [area]
+246,202520260AB1994,indirect,73,1.0,indirect,immigration;language,4.0,victim* [anchor]; immigra* [area]; translat* [area]; minor* [population]; immigrant* [population]
+247,202520260AB1094,indirect,73,1.0,indirect,courts,3.0,victim* [anchor]; sentenc* [area]; minor* [population]
+248,202520260AB2631,none,4130,25.8125,none,,0.0,
+249,202520260SB1208,indirect,73,1.0,indirect,financial,3.0,victim* [anchor]; financial institution* [area]
+250,202520260SB172,indirect,73,1.0,indirect,benefits;courts;education;housing;services,8.0,victim* [anchor]; lease* [area]; public assistance [area]; legal services [area]; office of emergency services [area]; grant program* [area]; student* [area]; rural [population]; tribal [population]; minor* [population]
+251,202520260AB82,indirect,73,1.0,indirect,courts;health;privacy,7.0,harassment [anchor]; bail [area]; address confidentiality [area_strong]; personal information [area]; health care [area]; mental health [area]; reproductive [area]
+252,202520260AB764,none,4130,25.8125,none,,0.0,
+253,202520260SB1339,indirect,73,1.0,indirect,courts,3.0,victim* [anchor]; diversion [area]
+254,202520260AB1779,none,4130,25.8125,none,,1.0,health care [area]
+255,202520260AB2760,none,4130,25.8125,none,,0.0,
+256,202520260SB1395,direct,59,1.0,direct,courts;custody,11.0,"domestic violence [direct]; protective order* [direct]; re:\b(6[23]\d\d|640\d)(\.\d+)?\b[^.;]{0,250}?family code [direct]; victim* [anchor]; human trafficking [anchor]; family code [area]; minor* [population]"
+257,202520260SB134,direct,59,1.0,direct,courts;health;housing;services,9.0,domestic violence [direct]; homeless* [area]; diversion [area]; health care [area]; hospital* [area]; mental health [area]; grant program* [area]; tribal [population]; youth [population]
+258,202520260SB241,none,4130,25.8125,none,,1.0,student* [area]
+259,202520260SB623,direct,59,1.0,direct,health;immigration,7.0,domestic violence [direct]; human trafficking [anchor]; immigra* [area]; immigration status [area]; health care [area]; disabilit* [population]
+260,202520260AB1351,none,4130,25.8125,none,,1.0,foster [area]; youth [population]
+261,202520260SB662,none,4130,25.8125,none,,0.0,
+262,202520260SB1022,indirect,73,1.0,indirect,services,5.0,victim* [anchor]; survivor* [anchor]; human trafficking [anchor]; office of emergency services [area]
+263,202520260SB1200,none,4130,25.8125,none,,0.0,
+264,202520260SB1446,indirect,73,1.0,indirect,courts;health,4.0,victim* [anchor]; sentenc* [area]; hospital* [area]
+265,202520260AB2589,none,4130,25.8125,none,,0.0,
+266,202520260SB577,indirect,73,1.0,indirect,child_welfare;courts;employment;financial;health;housing,12.0,victim* [anchor]; abuse* [anchor]; sexual assault [anchor]; lease* [area]; probation [area]; workplace [area]; mental health [area]; child welfare [area]; foster [area]; debt* [area]; minor* [population]; youth [population]
+267,202520260SB947,none,4130,25.8125,none,,0.0,
+268,202520260AB1755,none,4130,25.8125,none,,2.0,calworks [area]; grant program* [area]
+269,202520260SB138,none,4130,25.8125,none,,2.0,health care [area]; hospital* [area]
+270,202520260AB1978,direct,59,1.0,direct,custody,8.0,domestic abuse [direct]; abuse* [anchor]; child custody [area]; best interest of the child [area]; parenting [area]; family code [area]; minor* [population]
+271,202520260AB2071,none,4130,25.8125,none,,1.0,mental health [area]
+272,202520260AB1982,none,4130,25.8125,none,,0.0,
+273,202520260AB1361,none,4130,25.8125,none,,1.0,campus [area]
+274,202520260AB2275,direct,59,1.0,direct,courts;firearms;health,13.0,domestic violence [direct]; protective order* [direct]; victim* [anchor]; abuse* [anchor]; firearm* [area]; ammunition [area]; relinquish* [area]; diversion [area]; hospital* [area]; mental health [area]
+275,202520260SB124,indirect,73,1.0,indirect,services,5.0,victim* [anchor]; survivor* [anchor]; grant program* [area]; grant fund* [area]
+276,202520260AB779,direct,59,1.0,direct,child_welfare,7.0,domestic violence [direct]; victim* [anchor]; survivor* [anchor]; child welfare [area]
+277,202520260AB894,none,4130,25.8125,none,,2.0,health care [area]; hospital* [area]
+278,202520260AB1204,none,4130,25.8125,none,,2.0,homeless* [area]; foster [area]; youth [population]
+279,202520260AB1720,none,4130,25.8125,none,,0.0,
+280,202520260AB2445,none,4130,25.8125,none,,0.0,
+281,202520260AB2271,none,4130,25.8125,none,,4.0,immigra* [area]; public benefit* [area]; unemployment insurance [area]; personal information [area]; immigrant* [population]
+282,202520260SB848,indirect,73,1.0,indirect,courts,4.0,abuse* [anchor]; human trafficking [anchor]; violent crime* [anchor]; probation [area]
+283,202520260AB619,none,4130,25.8125,none,,0.0,
+284,202520260AB2701,direct,59,1.0,direct,courts,5.0,domestic violence [direct]; protective order* [direct]; sentenc* [area]
+285,202520260AB464,indirect,73,1.0,indirect,courts,4.0,abuse* [anchor]; sexual assault [anchor]; sentenc* [area]
+286,202520260SB863,none,4130,25.8125,none,,0.0,
+287,202520260AB152,indirect,73,1.0,indirect,benefits;child_welfare;courts;custody;health;immigration;services,21.0,victim* [anchor]; survivor* [anchor]; immigra* [area]; immigration status [area]; undocumented [area]; removal proceeding* [area]; child custody [area]; custody of the child* [area]; calworks [area]; calfresh [area]; medi-cal [area]; legal services [area]; probation [area]; diversion [area]; mental health [area]; grant program* [area]; child welfare [area]; dependency [area]; foster [area]; juvenile court [area]; elder* [population]; tribal [population]; indian tribe* [population]; minor* [population]; youth [population]; immigrant* [population]
+288,202520260SB1192,direct,59,1.0,direct,courts;custody,12.0,"domestic violence [direct]; restraining order* [direct]; re:\b(6[23]\d\d|640\d)(\.\d+)?\b[^.;]{0,250}?family code [direct]; victim* [anchor]; abuse* [anchor]; perpetrator* [anchor]; family code [area]"
+289,202520260AB910,direct,59,1.0,direct,courts,10.0,intimate partner violence [direct]; intimate partner [direct]; victim* [anchor]; human trafficking [anchor]; sentenc* [area]; probation [area]
+290,202520260AB112,none,4130,25.8125,none,,0.0,
+291,202520260AB2785,none,4130,25.8125,none,,0.0,
+292,202520260AB2283,none,4130,25.8125,none,,0.0,disabilit* [population]

@@ -21,6 +21,7 @@ looks shifted, check BILL_VERSION_COLUMNS against the capublic.sql schema
 that ships on the downloads page.
 
 Output: data/bills_{session or "daily"}.csv with columns
+    (AB and SB bills only, unless --include-resolutions)
     bill_id, measure, session, version_id, version_action, action_date,
     subject, title, digest, [full_text], url
 
@@ -97,7 +98,7 @@ def local(tag):
 
 
 def collapse(s):
-    return re.sub(r"\s+", " ", s or "").strip()
+    return re.sub(r"\s+", " ", s if isinstance(s, str) else "").strip()
 
 
 def parse_bill_xml(xml_bytes):
@@ -128,7 +129,7 @@ def measure_from_bill_id(bill_id):
     return session, f"{kind} {int(num)}"
 
 
-def bills_from_zip(path, full_text=False):
+def bills_from_zip(path, full_text=False, include_resolutions=False):
     with zipfile.ZipFile(path) as zf:
         names = members_by_basename(zf)
         member = names.get("bill_version_tbl.dat")
@@ -143,6 +144,8 @@ def bills_from_zip(path, full_text=False):
         # version_num (versions count down from 99 = as introduced).
         versions["date_"] = pd.to_datetime(versions["bill_version_action_date"], errors="coerce")
         versions["num_"] = pd.to_numeric(versions["version_num"], errors="coerce")
+        if not include_resolutions:  # keep bills (AB/SB), which can become law
+            versions = versions[versions["bill_id"].str.match(r"^\d{9}(AB|SB)\d+$", na=False)]
         latest = (versions.sort_values(["bill_id", "date_", "num_"], ascending=[True, False, True])
                   .drop_duplicates("bill_id"))
 
@@ -174,6 +177,8 @@ def main():
     src.add_argument("--daily", nargs="+", choices=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"])
     src.add_argument("--zip", help="a pubinfo zip already on disk")
     p.add_argument("--full-text", action="store_true", help="also keep full bill text (big)")
+    p.add_argument("--include-resolutions", action="store_true",
+                   help="also keep resolutions (ACR, SCR, HR, ...), which are not laws")
     p.add_argument("-o", "--output")
     args = p.parse_args()
 
@@ -185,7 +190,7 @@ def main():
         # Change files are overwritten weekly, so never reuse a cached copy.
         paths, tag = [download(f"pubinfo_{d}.zip", fresh=True) for d in args.daily], "daily"
 
-    frames = [bills_from_zip(p, args.full_text) for p in paths]
+    frames = [bills_from_zip(p, args.full_text, args.include_resolutions) for p in paths]
     bills = pd.concat([f for f in frames if not f.empty] or [pd.DataFrame()], ignore_index=True)
     if not bills.empty:  # same bill changed on several days: keep the latest version
         bills = bills.sort_values("action_date").drop_duplicates("bill_id", keep="last")

@@ -25,7 +25,7 @@ CASES = [
     ("Existing law requires a certifying entity to complete Form I-918 Supplement B within 30 days.", "indirect", "immigration"),
     ("This bill would allow a tenant who is a victim of stalking to terminate a lease early.", "indirect", "housing"),
     ("This bill would expand the Safe at Home program administered by the Secretary of State.", "indirect", "privacy"),
-    ("This bill would require firearm relinquishment by persons subject to a protective order.", "indirect", "firearms"),
+    ("This bill would require firearm relinquishment by persons subject to a protective order or civil restraining order.", "indirect", "firearms"),
     ("This bill would fund county substance abuse treatment and housing programs.", "none", None),
     ("This bill would change survivor benefits for retired firefighters.", "none", None),
     ("This bill would rename a state highway in Kern County.", "none", None),
