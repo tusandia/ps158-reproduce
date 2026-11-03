@@ -1,0 +1,339 @@
+<title>California DV Law Index</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one left-aligned working column. Summary + impact-area bars (which double as filters) on top, then the filter bar, then the bill list. */
+:root {
+  --bg: #f5f5f8;
+  --surface: #ffffff;
+  --ink: #1d1b2a;
+  --muted: #5e5b72;
+  --line: #dddbe7;
+  --accent: #5a2a85;      /* purple: the DV awareness ribbon color */
+  --accent-soft: #ece4f4;
+  --indirect: #17676f;
+  --indirect-soft: #dcefef;
+  --law: #2f6b2f;
+  --font-display: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14131c; --surface: #1c1b27; --ink: #ebe9f3; --muted: #a29fb6; --line: #302e40;
+    --accent: #c09be6; --accent-soft: #2d2340; --indirect: #6cc0c7; --indirect-soft: #173336; --law: #8fcf8a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14131c; --surface: #1c1b27; --ink: #ebe9f3; --muted: #a29fb6; --line: #302e40;
+  --accent: #c09be6; --accent-soft: #2d2340; --indirect: #6cc0c7; --indirect-soft: #173336; --law: #8fcf8a;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font: 15px/1.55 var(--font-body);
+}
+.wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 64px;
+  display: grid; gap: 36px;
+}
+h1, h2 { font-family: var(--font-display); font-weight: 600; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 2.9rem); line-height: 1.08; letter-spacing: -0.01em; }
+h2 { font-size: 1.35rem; }
+p { margin: 0; }
+a { color: var(--accent); }
+.eyebrow { font: 500 0.75rem/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.lede { max-width: 62ch; color: var(--muted); font-size: 1.05rem; }
+
+header { display: grid; gap: 14px; }
+.tally { display: flex; flex-wrap: wrap; gap: 8px 22px; font-variant-numeric: tabular-nums; }
+.tally b { font: 600 1.25rem/1 var(--font-mono); margin-right: 6px; }
+.tally span { color: var(--muted); }
+.notice { border-left: 3px solid var(--accent); padding: 4px 0 4px 12px; max-width: 70ch; color: var(--muted); font-size: 0.92rem; }
+
+/* Impact areas */
+.areas { display: grid; gap: 12px; }
+.areas-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.bars { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 4px 40px; }
+.bar {
+  display: grid; grid-template-columns: 14rem 1fr 2.2rem; align-items: center; gap: 10px;
+  background: none; border: 0; padding: 5px 6px; margin: 0 -6px; border-radius: 6px;
+  font: inherit; color: inherit; text-align: left; cursor: pointer;
+}
+.bar:hover { background: var(--accent-soft); }
+.bar:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.bar[aria-pressed="true"] { background: var(--accent-soft); }
+.bar[aria-pressed="true"] .bar-name { font-weight: 600; }
+.bar-name { font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar-track { height: 10px; display: flex; border-radius: 2px; overflow: hidden; background: var(--line); }
+.bar-track i { display: block; height: 100%; }
+.bar-track .d { background: var(--accent); }
+.bar-track .n { background: var(--indirect); }
+.bar-num { font: 500 0.85rem var(--font-mono); text-align: right; font-variant-numeric: tabular-nums; }
+.legend { display: flex; gap: 16px; font-size: 0.82rem; color: var(--muted); }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+
+/* Filters */
+.filters {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--bg); padding-block: 12px; border-bottom: 1px solid var(--line);
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.filters input[type="search"] {
+  flex: 1 1 240px; min-width: 0; font: inherit; color: var(--ink);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px;
+}
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface); }
+.seg button { font: inherit; font-size: 0.9rem; color: var(--muted); background: none; border: 0; padding: 7px 12px; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+select { font: inherit; font-size: 0.9rem; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; }
+.count { font-size: 0.88rem; color: var(--muted); margin-left: auto; font-variant-numeric: tabular-nums; }
+.clear { font: inherit; font-size: 0.88rem; background: none; border: 0; color: var(--accent); cursor: pointer; text-decoration: underline; padding: 0; }
+
+/* Bill list */
+.list { display: grid; }
+.bill { border-bottom: 1px solid var(--line); padding-block: 16px; display: grid; gap: 8px; min-width: 0; }
+.bill-top { display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+.measure { font: 500 0.95rem var(--font-mono); white-space: nowrap; }
+.measure a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }
+.measure a:hover { border-color: var(--ink); }
+.pill { font: 500 0.7rem/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 7px; border-radius: 4px; }
+.pill.direct { background: var(--accent-soft); color: var(--accent); }
+.pill.indirect { background: var(--indirect-soft); color: var(--indirect); }
+.subject { font-family: var(--font-display); font-size: 1.15rem; font-weight: 500; line-height: 1.3; flex: 1 1 320px; min-width: 0; }
+.bill-meta { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; font-size: 0.85rem; color: var(--muted); }
+.stage { display: inline-flex; align-items: center; gap: 8px; }
+.stage-track { display: inline-flex; gap: 2px; }
+.stage-track i { width: 14px; height: 5px; border-radius: 1px; background: var(--line); }
+.stage-track i.on { background: var(--muted); }
+.stage.law .stage-track i.on { background: var(--law); }
+.stage.law .stage-label { color: var(--law); font-weight: 600; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 0.78rem; border: 1px solid var(--line); border-radius: 999px; padding: 1px 9px; color: var(--muted); background: var(--surface); }
+.tag.pop { border-style: dashed; }
+details summary { cursor: pointer; font-size: 0.85rem; color: var(--accent); width: fit-content; }
+details[open] summary { margin-bottom: 8px; }
+.digest { max-width: 72ch; font-size: 0.92rem; }
+.title-line { font-size: 0.82rem; color: var(--muted); max-width: 72ch; margin-top: 8px; overflow-wrap: anywhere; }
+.why { margin-top: 8px; font-size: 0.82rem; color: var(--muted); }
+.why code { font: 0.78rem var(--font-mono); background: var(--surface); border: 1px solid var(--line); border-radius: 3px; padding: 0 4px; margin: 0 2px; white-space: nowrap; }
+.empty { padding: 40px 0; color: var(--muted); }
+
+/* Method */
+.method { display: grid; gap: 14px; border-top: 1px solid var(--line); padding-top: 28px; }
+.method-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px 32px; }
+.method-grid div { display: grid; gap: 6px; min-width: 0; }
+.method-grid h3 { font: 600 0.95rem var(--font-body); margin: 0; }
+.method-grid p { color: var(--muted); font-size: 0.9rem; }
+footer { color: var(--muted); font-size: 0.82rem; }
+
+@media (max-width: 720px) {
+  .filters { position: static; }
+  .filters select { flex: 1 1 140px; min-width: 0; }
+  .count { margin-left: 0; width: 100%; }
+}
+@media (max-width: 520px) {
+  .bar { grid-template-columns: 10.5rem 1fr 2rem; }
+  .bar-name { font-size: 0.85rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow" id="session-line">California Legislature</p>
+    <h1>California DV Law Index</h1>
+    <p class="lede">Bills that are about domestic violence, and bills that never say so but still change what survivors can get: housing, immigration status, custody, firearms, benefits, courts and privacy.</p>
+    <div class="tally" id="tally"></div>
+    <p class="notice">These labels are predictions from a keyword-and-theme tool, not yet checked against hand coding. Read the bill before relying on a label.</p>
+  </header>
+
+  <section class="areas" aria-labelledby="areas-h">
+    <div class="areas-head">
+      <h2 id="areas-h">Impact areas</h2>
+      <div class="legend"><span><i style="background:var(--accent)"></i>Direct</span><span><i style="background:var(--indirect)"></i>Indirect</span><span>Select an area to filter</span></div>
+    </div>
+    <div class="bars" id="bars"></div>
+  </section>
+
+  <section aria-label="Bills">
+    <div class="filters">
+      <input type="search" id="q" aria-label="Search bills" placeholder="Search bill number, subject or summary" autocomplete="off">
+      <div class="seg" role="group" aria-label="Relevance" id="seg-label">
+        <button type="button" data-v="all" aria-pressed="true">All</button>
+        <button type="button" data-v="direct" aria-pressed="false">Direct</button>
+        <button type="button" data-v="indirect" aria-pressed="false">Indirect</button>
+      </div>
+      <select id="status" aria-label="Status">
+        <option value="all">Any status</option>
+        <option value="law">Became law</option>
+        <option value="not">Did not become law</option>
+      </select>
+      <select id="pop" aria-label="Group reached">
+        <option value="all">Any group</option>
+      </select>
+      <select id="sort" aria-label="Sort">
+        <option value="score">Sort: strongest match</option>
+        <option value="date">Sort: latest action</option>
+        <option value="measure">Sort: bill number</option>
+      </select>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="list" id="list"></div>
+  </section>
+
+  <section class="method" aria-labelledby="method-h">
+    <h2 id="method-h">How bills are flagged</h2>
+    <div class="method-grid">
+      <div><h3>Source</h3><p>The Legislature's official bulk data (downloads.leginfo.legislature.ca.gov). For each AB and SB bill, the tool reads the latest version's title, subject and Legislative Counsel's Digest.</p></div>
+      <div><h3>Direct</h3><p>The bill names domestic, intimate partner, dating or family violence, or cites a section of the Domestic Violence Prevention Act (Family Code §§6200–6409).</p></div>
+      <div><h3>Indirect</h3><p>The bill touches an impact area (housing, immigration, custody, firearms and so on) and uses victim or safety language. Some citations count on their own, such as Civil Code §1946.7, which lets victims end a lease.</p></div>
+      <div><h3>Next</h3><p>A stratified sample of 292 bills, including bills the tool did not flag, is being hand-coded to measure precision and recall.</p></div>
+    </div>
+    <footer id="footer"></footer>
+  </section>
+</div>
+
+<script>
+const DATA = /*__DATA__*/null;
+const AREA_NAMES = {
+  courts: "Courts & protective orders", health: "Health", services: "Victim services & funding",
+  benefits: "Public benefits", housing: "Housing", child_welfare: "Child welfare", immigration: "Immigration",
+  education: "Education", firearms: "Firearms", employment: "Employment", financial: "Financial abuse & credit",
+  custody: "Custody & family law", privacy: "Privacy & address confidentiality", language: "Language access"
+};
+const POP_NAMES = {
+  youth: "Youth", elder_dependent_adult: "Elders & dependent adults", disability: "People with disabilities",
+  tribal: "Tribal communities", immigrant: "Immigrants", lgbtq: "LGBTQ+", rural: "Rural"
+};
+const STAGES = ["Introduced", "Amended", "Enrolled", "Chaptered"];
+const stageOf = v => v === "Chaptered" ? 4 : v === "Enrolled" ? 3 : v.startsWith("Amended") ? 2 : 1;
+
+const state = { q: "", label: "all", status: "all", pop: "all", area: null, sort: "score" };
+const bills = DATA.bills;
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const fmtDate = d => d ? new Date(d + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "";
+
+function header() {
+  const m = DATA.meta;
+  const direct = bills.filter(b => b.l === "direct").length;
+  const law = bills.filter(b => b.v === "Chaptered").length;
+  $("session-line").textContent = `California Legislature · ${m.session} session`;
+  $("tally").innerHTML = [
+    [m.total.toLocaleString(), "bills read"], [bills.length, "flagged"],
+    [direct, "direct"], [bills.length - direct, "indirect"], [law, "became law"]
+  ].map(([n, t]) => `<div><b>${n}</b><span>${t}</span></div>`).join("");
+  $("footer").textContent = `Built ${fmtDate(m.built)} from the Legislature's bulk data. POLISCI 158 final project.`;
+  const pops = {};
+  bills.forEach(b => b.p.forEach(p => pops[p] = (pops[p] || 0) + 1));
+  Object.entries(pops).sort((a, b) => b[1] - a[1]).forEach(([p, n]) => {
+    const o = document.createElement("option"); o.value = p; o.textContent = `${POP_NAMES[p] || p} (${n})`; $("pop").append(o);
+  });
+}
+
+function bars() {
+  const counts = {};
+  bills.forEach(b => b.a.forEach(a => {
+    counts[a] = counts[a] || { d: 0, n: 0 };
+    counts[a][b.l === "direct" ? "d" : "n"]++;
+  }));
+  const rows = Object.entries(counts).sort((a, b) => (b[1].d + b[1].n) - (a[1].d + a[1].n));
+  const max = Math.max(...rows.map(([, c]) => c.d + c.n));
+  $("bars").innerHTML = rows.map(([a, c]) => {
+    const t = c.d + c.n;
+    return `<button type="button" class="bar" data-area="${a}" aria-pressed="${state.area === a}" title="${c.d} direct, ${c.n} indirect">
+      <span class="bar-name">${esc(AREA_NAMES[a] || a)}</span>
+      <span class="bar-track" style="width:${(t / max * 100).toFixed(1)}%"><i class="d" style="width:${c.d / t * 100}%"></i><i class="n" style="width:${c.n / t * 100}%"></i></span>
+      <span class="bar-num">${t}</span></button>`;
+  }).join("");
+}
+
+function matches(b) {
+  if (state.label !== "all" && b.l !== state.label) return false;
+  if (state.status === "law" && b.v !== "Chaptered") return false;
+  if (state.status === "not" && b.v === "Chaptered") return false;
+  if (state.pop !== "all" && !b.p.includes(state.pop)) return false;
+  if (state.area && !b.a.includes(state.area)) return false;
+  if (state.q) {
+    const q = state.q.toLowerCase().replace(/\s+/g, " ");
+    const hay = `${b.m} ${b.m.replace(" ", "")} ${b.s} ${b.t} ${b.x}`.toLowerCase();
+    if (!q.split(" ").every(w => hay.includes(w))) return false;
+  }
+  return true;
+}
+
+function billHTML(b) {
+  const st = stageOf(b.v);
+  const law = b.v === "Chaptered";
+  return `<article class="bill">
+    <div class="bill-top">
+      <span class="measure"><a href="${esc(b.u)}" target="_blank" rel="noopener">${esc(b.m)}</a></span>
+      <span class="pill ${b.l}">${b.l}</span>
+      <span class="subject">${esc(b.s || b.t)}</span>
+    </div>
+    <div class="bill-meta">
+      <span class="stage ${law ? "law" : ""}" title="${STAGES.slice(0, st).join(" → ")}">
+        <span class="stage-track">${STAGES.map((_, i) => `<i class="${i < st ? "on" : ""}"></i>`).join("")}</span>
+        <span class="stage-label">${law ? "Became law" : "Last version: " + esc(b.v)}</span>
+      </span>
+      <span>${fmtDate(b.d)}</span>
+    </div>
+    <div class="tags">${b.a.map(a => `<span class="tag">${esc(AREA_NAMES[a] || a)}</span>`).join("")}${b.p.map(p => `<span class="tag pop">${esc(POP_NAMES[p] || p)}</span>`).join("")}</div>
+    <details><summary>Summary and why it was flagged</summary>
+      <p class="digest">${esc(b.x)}</p>
+      <p class="title-line">${esc(b.t)}</p>
+      <p class="why">Matched: ${b.k.map(k => `<code>${esc(k)}</code>`).join(" ")}</p>
+    </details>
+  </article>`;
+}
+
+function render() {
+  let rows = bills.filter(matches);
+  const num = m => { const [k, n] = m.split(" "); return [k, +n]; };
+  rows.sort(state.sort === "date" ? (a, b) => b.d.localeCompare(a.d)
+    : state.sort === "measure" ? (a, b) => { const [ka, na] = num(a.m), [kb, nb] = num(b.m); return ka.localeCompare(kb) || na - nb; }
+    : (a, b) => (a.l === b.l ? 0 : a.l === "direct" ? -1 : 1) || b.sc - a.sc);
+  const filtered = state.q || state.label !== "all" || state.status !== "all" || state.pop !== "all" || state.area;
+  $("count").innerHTML = `${rows.length} of ${bills.length} bills` +
+    (filtered ? ` · <button type="button" class="clear" id="clear">Clear filters</button>` : "");
+  $("list").innerHTML = rows.length ? rows.map(billHTML).join("")
+    : `<p class="empty">No flagged bills match these filters. Try a broader search or clear the filters.</p>`;
+  document.querySelectorAll(".bar").forEach(el => el.setAttribute("aria-pressed", String(el.dataset.area === state.area)));
+}
+
+header(); bars(); render();
+
+$("q").addEventListener("input", e => { state.q = e.target.value.trim(); render(); });
+$("status").addEventListener("change", e => { state.status = e.target.value; render(); });
+$("pop").addEventListener("change", e => { state.pop = e.target.value; render(); });
+$("sort").addEventListener("change", e => { state.sort = e.target.value; render(); });
+$("seg-label").addEventListener("click", e => {
+  const btn = e.target.closest("button"); if (!btn) return;
+  state.label = btn.dataset.v;
+  $("seg-label").querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b === btn)));
+  render();
+});
+$("bars").addEventListener("click", e => {
+  const btn = e.target.closest(".bar"); if (!btn) return;
+  state.area = state.area === btn.dataset.area ? null : btn.dataset.area;
+  render();
+});
+$("count").addEventListener("click", e => {
+  if (e.target.id !== "clear") return;
+  Object.assign(state, { q: "", label: "all", status: "all", pop: "all", area: null });
+  $("q").value = ""; $("status").value = "all"; $("pop").value = "all";
+  $("seg-label").querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.v === "all")));
+  render();
+});
+</script>

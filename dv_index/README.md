@@ -118,3 +118,17 @@ python tests/test_pipeline.py
   recall isn't tuned to the same bills.
 - **Statutes.** The flagger works on any CSV with an id column and text
   columns (`--text-cols`), so code sections can be run through the same lexicon.
+
+## Website
+
+`site/index.html` is a self-contained, searchable page of every flagged bill.
+You can filter it by direct or indirect, impact area, status and group
+reached, and each bill links to its leginfo page. Rebuild it after
+re-flagging:
+
+```bash
+python build_site.py data/flags_2025.csv
+```
+
+It's a single HTML file with the data built in, so any static host can serve it
+(for example GitHub Pages, or just open it in a browser).
