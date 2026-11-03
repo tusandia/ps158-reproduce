@@ -1,0 +1,4 @@
+data/raw/
+data/bills_*.csv
+data/tracked.csv
+__pycache__/
