@@ -44,10 +44,21 @@ to `lexicon.csv` afterwards.
 
 ## 3. `populations` (any that apply)
 
-Groups the law specifically reaches: `immigrant`, `rural`, `disability`,
-`tribal`, `lgbtq`, `youth`, `elder_dependent_adult`, `language_minority`.
-This is how the coding tracks the main risk named in the proposal: indirect
-laws that matter mostly to a specific group.
+Survivors the law specifically reaches. Tag a realm only when the law itself
+reaches that group; don't infer from who tends to use a program.
+
+| Code | Covers |
+|---|---|
+| `immigrant_vawa` | Immigration status, VAWA self-petitions, U/T visas, asylum, refugees, noncitizens, public charge. |
+| `women_gender` | Women, gender, gender-based violence, pregnancy, reproductive health, forced or coerced marriage. |
+| `faith` | Religion, places of worship, clergy, faith-based organizations, but only where faith changes something for survivors. A passing mention in a list of protected traits doesn't count. |
+| `language_access` | Interpreters, translation, limited English proficiency. In `notes`, name any language the law lists. |
+| `youth`, `elder_dependent_adult`, `disability`, `tribal`, `lgbtq`, `rural` | As named. |
+
+No 2025–26 bill names a religion, ethnicity or South Asian language. Muslim and
+South Asian survivors are therefore not separate codes. Their concerns are
+tracked through the realms above. This is how the coding handles the main risk
+named in the proposal: indirect laws that matter mostly to a specific group.
 
 ## 4. `notes`
 

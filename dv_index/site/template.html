@@ -129,6 +129,34 @@ details[open] summary { margin-bottom: 8px; }
 .why code { font: 0.78rem var(--font-mono); background: var(--surface); border: 1px solid var(--line); border-radius: 3px; padding: 0 4px; margin: 0 2px; white-space: nowrap; }
 .empty { padding: 40px 0; color: var(--muted); }
 
+
+/* Realms */
+.realms { display: grid; gap: 14px; }
+.realms > p { max-width: 70ch; color: var(--muted); }
+.realm-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 12px; }
+.realm {
+  display: grid; gap: 6px; align-content: start; text-align: left; font: inherit; color: inherit;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; cursor: pointer;
+}
+.realm:hover { border-color: var(--muted); }
+.realm[aria-pressed="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.realm:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.realm-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.realm-name { font-weight: 600; }
+.realm-n { font: 600 1.3rem/1 var(--font-mono); font-variant-numeric: tabular-nums; }
+.realm-def { font-size: 0.85rem; color: var(--muted); }
+.realm-note { font-size: 0.82rem; color: var(--ink); border-top: 1px dashed var(--line); padding-top: 6px; }
+.related { display: grid; gap: 8px; border: 1px dashed var(--line); border-radius: 10px; padding: 12px 16px; }
+.related h3 { font: 600 0.9rem var(--font-body); margin: 0; }
+.related p { font-size: 0.88rem; color: var(--muted); max-width: 75ch; }
+.related .measure a { font-size: 0.88rem; }
+.others { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 0.85rem; color: var(--muted); }
+.others button { font: inherit; font-size: 0.8rem; color: var(--ink); background: var(--surface); border: 1px dashed var(--line); border-radius: 999px; padding: 2px 10px; cursor: pointer; }
+.others button[aria-pressed="true"] { border-style: solid; border-color: var(--accent); color: var(--accent); }
+.where { margin-top: 8px; font-size: 0.85rem; display: grid; gap: 4px; max-width: 75ch; }
+.where b { font-weight: 600; }
+.where span { color: var(--muted); }
+
 /* Method */
 .method { display: grid; gap: 14px; border-top: 1px solid var(--line); padding-top: 28px; }
 .method-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px 32px; }
@@ -158,6 +186,15 @@ footer { color: var(--muted); font-size: 0.82rem; }
     <p class="notice">These labels are predictions from a keyword-and-theme tool, not yet checked against hand coding. Read the bill before relying on a label.</p>
   </header>
 
+  <section class="realms" aria-labelledby="realms-h">
+    <h2 id="realms-h">Who a law reaches</h2>
+    <p>Every bill here affects DV survivors. These realms narrow the list to particular survivors. A bill joins a realm only when its own text uses that realm's language, so some realms are small.</p>
+    <p>No 2025–26 bill names a religion, an ethnicity or a South Asian language, so bills can't be sorted by community. For Muslim and South Asian survivors, the realms below that advocates most often raise are immigration and VAWA, language access, faith, and forced marriage (under Women &amp; gender). None of these issues is unique to those communities.</p>
+    <div class="realm-grid" id="realm-grid"></div>
+    <div id="related"></div>
+    <div class="others" id="others"><span>Other groups:</span></div>
+  </section>
+
   <section class="areas" aria-labelledby="areas-h">
     <div class="areas-head">
       <h2 id="areas-h">Impact areas</h2>
@@ -179,8 +216,8 @@ footer { color: var(--muted); font-size: 0.82rem; }
         <option value="law">Became law</option>
         <option value="not">Did not become law</option>
       </select>
-      <select id="pop" aria-label="Group reached">
-        <option value="all">Any group</option>
+      <select id="pop" aria-label="Who it reaches">
+        <option value="all">Anyone</option>
       </select>
       <select id="sort" aria-label="Sort">
         <option value="score">Sort: strongest match</option>
@@ -212,9 +249,23 @@ const AREA_NAMES = {
   education: "Education", firearms: "Firearms", employment: "Employment", financial: "Financial abuse & credit",
   custody: "Custody & family law", privacy: "Privacy & address confidentiality", language: "Language access"
 };
+const REALMS = [
+  { id: "immigrant_vawa", name: "Immigrant & VAWA survivors",
+    def: "Immigration status, VAWA, U and T visas, asylum, refugees, noncitizens, public charge." },
+  { id: "women_gender", name: "Women & gender",
+    def: "Women, gender, gender-based violence, pregnancy, reproductive health, forced or coerced marriage." },
+  { id: "faith", name: "Faith & religion",
+    def: "Religion, places of worship, clergy, faith-based groups.",
+    note: "No bill in the index is about faith. The bills here mention religion only in a list of protected traits." },
+  { id: "language_access", name: "Language access",
+    def: "Interpreters, translation, limited English proficiency.",
+    note: "No bill names Punjabi, Hindi, Urdu, Bengali, Gujarati, Tamil, Telugu, Nepali, Arabic, Farsi, Dari or Pashto." }
+];
 const POP_NAMES = {
+  immigrant_vawa: "Immigrant & VAWA survivors", women_gender: "Women & gender", faith: "Faith & religion",
+  language_access: "Language access",
   youth: "Youth", elder_dependent_adult: "Elders & dependent adults", disability: "People with disabilities",
-  tribal: "Tribal communities", immigrant: "Immigrants", lgbtq: "LGBTQ+", rural: "Rural"
+  tribal: "Tribal communities", lgbtq: "LGBTQ+", rural: "Rural"
 };
 const STAGES = ["Introduced", "Amended", "Enrolled", "Chaptered"];
 const stageOf = v => v === "Chaptered" ? 4 : v === "Enrolled" ? 3 : v.startsWith("Amended") ? 2 : 1;
@@ -240,6 +291,28 @@ function header() {
   Object.entries(pops).sort((a, b) => b[1] - a[1]).forEach(([p, n]) => {
     const o = document.createElement("option"); o.value = p; o.textContent = `${POP_NAMES[p] || p} (${n})`; $("pop").append(o);
   });
+}
+
+function realms() {
+  const n = id => bills.filter(b => b.p.includes(id)).length;
+  $("realm-grid").innerHTML = REALMS.map(r => `<button type="button" class="realm" data-pop="${r.id}" aria-pressed="false">
+      <span class="realm-top"><span class="realm-name">${esc(r.name)}</span><span class="realm-n">${n(r.id)}</span></span>
+      <span class="realm-def">${esc(r.def)}</span>
+      ${r.note ? `<span class="realm-note">${esc(r.note)}</span>` : ""}
+    </button>`).join("");
+  const realmIds = new Set(REALMS.map(r => r.id));
+  const others = {};
+  bills.forEach(b => b.p.forEach(p => { if (!realmIds.has(p)) others[p] = (others[p] || 0) + 1; }));
+  $("others").innerHTML = "<span>Other groups:</span>" + Object.entries(others).sort((a, b) => b[1] - a[1])
+    .map(([p, c]) => `<button type="button" data-pop="${p}" aria-pressed="false">${esc(POP_NAMES[p] || p)} ${c}</button>`).join("");
+}
+
+function related() {
+  const items = (DATA.related || {})[state.pop];
+  $("related").innerHTML = items && items.length ? `<div class="related">
+      <h3>Worth a look, not in the index</h3>
+      ${items.map(i => `<p><span class="measure">${i.u ? `<a href="${esc(i.u)}" target="_blank" rel="noopener">${esc(i.m)}</a>` : esc(i.m)}</span> ${esc(i.note)}</p>`).join("")}
+    </div>` : "";
 }
 
 function bars() {
@@ -294,6 +367,7 @@ function billHTML(b) {
       <p class="digest">${esc(b.x)}</p>
       <p class="title-line">${esc(b.t)}</p>
       <p class="why">Matched: ${b.k.map(k => `<code>${esc(k)}</code>`).join(" ")}</p>
+      ${Object.keys(b.rs || {}).length ? `<div class="where">${Object.entries(b.rs).map(([r, t]) => `<p><b>${esc(POP_NAMES[r] || r)}:</b> <span>${esc(t)}</span></p>`).join("")}</div>` : ""}
     </details>
   </article>`;
 }
@@ -310,9 +384,17 @@ function render() {
   $("list").innerHTML = rows.length ? rows.map(billHTML).join("")
     : `<p class="empty">No flagged bills match these filters. Try a broader search or clear the filters.</p>`;
   document.querySelectorAll(".bar").forEach(el => el.setAttribute("aria-pressed", String(el.dataset.area === state.area)));
+  document.querySelectorAll("[data-pop]").forEach(el => el.setAttribute("aria-pressed", String(el.dataset.pop === state.pop)));
+  $("pop").value = state.pop;
+  related();
 }
 
-header(); bars(); render();
+header(); realms(); bars(); render();
+document.querySelector(".realms").addEventListener("click", e => {
+  const btn = e.target.closest("[data-pop]"); if (!btn) return;
+  state.pop = state.pop === btn.dataset.pop ? "all" : btn.dataset.pop;
+  render();
+});
 
 $("q").addEventListener("input", e => { state.q = e.target.value.trim(); render(); });
 $("status").addEventListener("change", e => { state.status = e.target.value; render(); });
