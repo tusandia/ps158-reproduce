@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campaign Trail: Q-learning</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0 auto; padding: 16px; max-width: 980px;
+         color: #1d232b; background: #f6f5f1; line-height: 1.4; }
+  h1 { margin: 0 0 4px; font-size: 1.6rem; }
+  h2 { font-size: 1.1rem; margin: 0 0 8px; }
+  p.lead { margin: 0 0 16px; color: #4a525c; }
+  .layout { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 16px; }
+  @media (max-width: 720px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+  section { background: #fff; border: 1px solid #ddd9cf; border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+
+  /* Board */
+  #board { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; max-width: 320px; }
+  .cell { aspect-ratio: 1; border-radius: 4px; background: #e9e6dd; position: relative;
+          display: flex; align-items: center; justify-content: center; font-size: 1.15rem; }
+  .cell.scandal { background: #f3c9c4; }
+  .cell.rally   { background: #cfe5c9; }
+  .cell.rally.used { background: #e9e6dd; opacity: .55; }
+  .cell.capitol { background: #c8d7ef; }
+  .cell.hq      { background: #efe2bf; }
+  .cell.me { outline: 3px solid #1d232b; outline-offset: -3px; }
+  .cell .who { position: absolute; font-size: 1.3rem; }
+  .legend { font-size: .85rem; color: #4a525c; margin-top: 8px; }
+
+  .status { display: flex; gap: 14px; flex-wrap: wrap; margin: 10px 0; font-variant-numeric: tabular-nums; }
+  .status b { font-size: 1.15rem; }
+  #message { min-height: 1.4em; font-weight: 600; }
+  .pad { display: grid; grid-template-columns: repeat(3, 44px); gap: 4px; margin-top: 6px; }
+  .pad button { height: 40px; }
+
+  button { font: inherit; padding: 6px 10px; border: 1px solid #a9a397; border-radius: 6px;
+           background: #fff; cursor: pointer; }
+  button:hover:not(:disabled) { background: #f0ede5; }
+  button:disabled { opacity: .45; cursor: default; }
+  .row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+
+  /* Reward controls */
+  table.rewards { border-collapse: collapse; width: 100%; }
+  table.rewards td { padding: 4px 6px; border-bottom: 1px solid #eee; }
+  table.rewards input { width: 70px; font: inherit; }
+  .note { font-size: .85rem; color: #4a525c; }
+
+  canvas { width: 100%; height: 280px; display: block; }
+  .key { display: inline-block; width: 14px; height: 3px; vertical-align: middle; margin-right: 4px; }
+  code { background: #f0ede5; padding: 0 3px; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<h1>Campaign Trail</h1>
+<p class="lead">Get the candidate from headquarters to the Capitol in 40 moves. Rallies earn points
+(once each, under the original rule). Stepping into a scandal ends the campaign. Then let a Q-learning agent try.</p>
+
+<div class="layout">
+  <div>
+    <section>
+      <h2 id="boardTitle">Your campaign</h2>
+      <div id="board"></div>
+      <div class="legend">🏢 HQ · 🏛️ Capitol · 📣 Rally · 💥 Scandal · 🧑 Candidate</div>
+      <div class="status">
+        <span>Score <b id="score">0</b></span>
+        <span>Moves left <b id="moves">40</b></span>
+        <span>Last move <b id="last">–</b></span>
+      </div>
+      <div id="message"></div>
+      <div class="row" style="margin-top:8px">
+        <div class="pad">
+          <span></span><button data-a="0" aria-label="Up">↑</button><span></span>
+          <button data-a="2" aria-label="Left">←</button>
+          <button data-a="1" aria-label="Down">↓</button>
+          <button data-a="3" aria-label="Right">→</button>
+        </div>
+        <button id="newGame" style="margin-left:12px">New game</button>
+      </div>
+      <p class="note">Arrow keys work too. Walking into the edge uses up a move.</p>
+    </section>
+
+    <section>
+      <h2>Reward for each move</h2>
+      <table class="rewards">
+        <tr><td>Every move</td><td><input type="number" step="1" id="r-move"></td></tr>
+        <tr><td>Rally points</td><td><input type="number" step="1" id="r-rally"></td></tr>
+        <tr><td colspan="2">Rally rule
+          <select id="r-rule">
+            <option value="first">First visit only (original)</option>
+            <option value="every">Every visit pays (reward hack)</option>
+          </select></td></tr>
+        <tr><td>Reach the Capitol</td><td><input type="number" step="1" id="r-capitol"></td></tr>
+        <tr><td>Hit a scandal</td><td><input type="number" step="1" id="r-scandal"></td></tr>
+      </table>
+      <div class="row" style="margin-top:8px"><button id="defaults">Restore defaults</button></div>
+      <p class="note">Changes apply right away, to your score and to all future training.
+        The agent keeps what it has already learned until you press <i>Reset agent</i>.</p>
+    </section>
+  </div>
+
+  <div>
+    <section>
+      <h2>Q-learning agent</h2>
+      <div class="row">
+        <button id="train100">Train 100 games</button>
+        <button id="train1000">Train 1,000 games</button>
+        <button id="watch">Watch it play</button>
+        <button id="reset">Reset agent</button>
+        <label class="note">Seed <input type="number" id="seed" value="1" style="width:70px"></label>
+      </div>
+      <p class="note" id="agentInfo"></p>
+      <p class="note">Settings: epsilon = 0.2 (explores at random 20% of the time while training),
+        learning rate = 0.2, discount = 0.95, Q-values start at 0, ties broken at random.
+        <i>Watch it play</i> never explores. The same seed and the same clicks always give the same results.</p>
+    </section>
+
+    <section>
+      <h2>Learning curve</h2>
+      <div class="note">
+        <span class="key" style="background:#2f6db5"></span>Average reward per game (left axis), in blocks of 50 training games
+        &nbsp; <span class="key" style="background:#d0792b"></span>Share of games that reached the Capitol (right axis)
+      </div>
+      <canvas id="chart"></canvas>
+    </section>
+  </div>
+</div>
+
+<script>
+// =====================================================================
+// REWARD FUNCTION: the points the candidate gets for each move.
+// Change the numbers here or with the controls on the page.
+// =====================================================================
+const DEFAULT_REWARDS = { move: -1, rally: 10, capitol: 50, scandal: -50, rallyEveryVisit: false };
+const R = { ...DEFAULT_REWARDS };
+
+// `event` says what happened on this move: {rally, newRally, capitol, scandal}
+function reward(event) {
+  let points = 0;
+  points += R.move;                      // every move costs a little, so shorter routes score higher
+  // Rally points. Original rule: only the FIRST visit to each rally pays.
+  // Option "every visit" (the reward hack): each visit pays, even the same rally again and again.
+  const rallyPays = R.rallyEveryVisit ? event.rally : event.newRally;
+  if (rallyPays)      points += R.rally;
+  if (event.capitol)  points += R.capitol;   // reached the Capitol: the real goal, the game ends
+  if (event.scandal)  points += R.scandal;   // walked into a scandal: the game ends
+  return points;
+}
+
+// =====================================================================
+// THE MAP
+// H = headquarters, C = Capitol, R = rally, S = scandal, . = open road
+// =====================================================================
+const MAP = [
+  ".C..S.R",
+  "..S....",
+  "S.S.SS.",
+  "R....S.",
+  "SS.S...",
+  ".R.S.S.",
+  "......H",
+];
+const SIZE = 7;
+const MAX_MOVES = 40;
+const ACTIONS = [[-1, 0], [1, 0], [0, -1], [0, 1]];  // up, down, left, right
+
+// Find HQ and give each rally a number (0, 1, 2) so we can track which were visited.
+let HQ = null;
+const rallyId = {};  // "row,col" -> rally number
+MAP.forEach((line, r) => [...line].forEach((ch, c) => {
+  if (ch === "H") HQ = { r, c };
+  if (ch === "R") rallyId[r + "," + c] = Object.keys(rallyId).length;
+}));
+const N_RALLIES = Object.keys(rallyId).length;
+
+// A STATE is (square, which rallies have been visited).
+// 49 squares x 2^3 rally combinations = 392 states. The move counter is NOT part of the state.
+const N_STATES = SIZE * SIZE * (1 << N_RALLIES);
+
+// =====================================================================
+// THE GAME (used by both the human player and the agent)
+// =====================================================================
+function newGame() {
+  return { r: HQ.r, c: HQ.c, visited: 0, movesLeft: MAX_MOVES, score: 0, done: false, outcome: null };
+}
+
+function stateOf(g) {
+  return (g.r * SIZE + g.c) * (1 << N_RALLIES) + g.visited;
+}
+
+// Make one move. Returns the reward and whether the game truly ended (Capitol or scandal).
+function step(g, action) {
+  let r = g.r + ACTIONS[action][0];
+  let c = g.c + ACTIONS[action][1];
+  if (r < 0 || r >= SIZE || c < 0 || c >= SIZE) { r = g.r; c = g.c; }  // bumped the edge: stay put
+
+  const cell = MAP[r][c];
+  const event = { rally: cell === "R", newRally: false, capitol: cell === "C", scandal: cell === "S" };
+  if (cell === "R") {
+    const bit = 1 << rallyId[r + "," + c];
+    if (!(g.visited & bit)) { event.newRally = true; g.visited |= bit; }
+  }
+
+  g.r = r; g.c = c;
+  g.movesLeft--;
+  const points = reward(event);
+  g.score += points;
+
+  const terminal = event.capitol || event.scandal;
+  if (event.capitol) g.outcome = "capitol";
+  else if (event.scandal) g.outcome = "scandal";
+  else if (g.movesLeft === 0) g.outcome = "time";
+  g.done = g.outcome !== null;
+  return { points, terminal };
+}
+
+// =====================================================================
+// SEEDED RANDOM NUMBERS (mulberry32): same seed -> same results
+// =====================================================================
+function makeRng(seed) {
+  let a = seed >>> 0;
+  return function () {
+    a = (a + 0x6D2B79F5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+// =====================================================================
+// Q-LEARNING AGENT
+// =====================================================================
+const EPSILON = 0.2, ALPHA = 0.2, GAMMA = 0.95;
+let Q, rng, history;  // Q-table, training random numbers, results of each training game
+
+function resetAgent() {
+  Q = new Float64Array(N_STATES * 4);  // all Q-values start at 0
+  rng = makeRng(seedValue());
+  history = [];
+}
+
+function seedValue() { return Number(document.getElementById("seed").value) || 0; }
+
+// Best action in state s; ties broken at random using `random`.
+function greedyAction(s, random) {
+  let best = -Infinity, ties = [];
+  for (let a = 0; a < 4; a++) {
+    const q = Q[s * 4 + a];
+    if (q > best) { best = q; ties = [a]; }
+    else if (q === best) ties.push(a);
+  }
+  return ties[Math.floor(random() * ties.length)];
+}
+
+function maxQ(s) {
+  return Math.max(Q[s * 4], Q[s * 4 + 1], Q[s * 4 + 2], Q[s * 4 + 3]);
+}
+
+// Play one training game, updating Q after every move.
+function trainOneGame() {
+  const g = newGame();
+  while (!g.done) {
+    const s = stateOf(g);
+    // Epsilon-greedy: explore with probability epsilon, otherwise take the best-known action.
+    const a = rng() < EPSILON ? Math.floor(rng() * 4) : greedyAction(s, rng);
+    const { points, terminal } = step(g, a);
+    // Capitol or scandal: nothing comes after. Running out of moves is different: the agent
+    // cannot see the clock, so we still count the value of where it ended up.
+    const target = terminal ? points : points + GAMMA * maxQ(stateOf(g));
+    Q[s * 4 + a] += ALPHA * (target - Q[s * 4 + a]);
+  }
+  history.push({ score: g.score, reachedCapitol: g.outcome === "capitol" });
+}
+
+function train(n) {
+  stopWatching();
+  for (let i = 0; i < n; i++) trainOneGame();
+  updateAgentInfo();
+  drawChart();
+}
+
+// =====================================================================
+// PAGE: board, human play, controls
+// =====================================================================
+const boardEl = document.getElementById("board");
+let game = newGame();
+let watchTimer = null;
+
+function drawBoard() {
+  boardEl.innerHTML = "";
+  for (let r = 0; r < SIZE; r++) for (let c = 0; c < SIZE; c++) {
+    const ch = MAP[r][c];
+    const div = document.createElement("div");
+    div.className = "cell";
+    if (ch === "S") { div.classList.add("scandal"); div.textContent = "💥"; }
+    if (ch === "C") { div.classList.add("capitol"); div.textContent = "🏛️"; }
+    if (ch === "H") { div.classList.add("hq"); div.textContent = "🏢"; }
+    if (ch === "R") {
+      div.classList.add("rally"); div.textContent = "📣";
+      // Grey out a visited rally, unless every visit pays (then it is never "used up")
+      if (!R.rallyEveryVisit && game.visited & (1 << rallyId[r + "," + c])) div.classList.add("used");
+    }
+    if (r === game.r && c === game.c) {
+      div.classList.add("me");
+      div.innerHTML += '<span class="who">🧑</span>';
+    }
+    boardEl.appendChild(div);
+  }
+  document.getElementById("score").textContent = game.score;
+  document.getElementById("moves").textContent = game.movesLeft;
+  const msg = { capitol: "🏛️ Reached the Capitol!", scandal: "💥 Scandal! Campaign over.",
+                time: "⏱️ Out of moves." }[game.outcome] || "";
+  document.getElementById("message").textContent = msg ? msg + " Final score: " + game.score : "";
+}
+
+function humanMove(a) {
+  if (watchTimer || game.done) return;
+  const { points } = step(game, a);
+  document.getElementById("last").textContent = (points > 0 ? "+" : "") + points;
+  drawBoard();
+}
+
+function startNewGame() {
+  stopWatching();
+  game = newGame();
+  document.getElementById("boardTitle").textContent = "Your campaign";
+  document.getElementById("last").textContent = "–";
+  drawBoard();
+}
+
+// Watch it play: one greedy game (no exploring), one move every 250 ms.
+// It uses its own random numbers (for ties), so watching does not change later training.
+function watch() {
+  stopWatching();
+  game = newGame();
+  const watchRng = makeRng(seedValue() + 1000);
+  document.getElementById("boardTitle").textContent = "Agent playing (no exploring)";
+  document.getElementById("last").textContent = "–";
+  drawBoard();
+  setButtons(true);
+  watchTimer = setInterval(() => {
+    const { points } = step(game, greedyAction(stateOf(game), watchRng));
+    document.getElementById("last").textContent = (points > 0 ? "+" : "") + points;
+    drawBoard();
+    if (game.done) stopWatching();
+  }, 250);
+}
+
+function stopWatching() {
+  if (watchTimer) { clearInterval(watchTimer); watchTimer = null; }
+  setButtons(false);
+}
+
+function setButtons(watching) {
+  document.querySelectorAll(".pad button").forEach(b => b.disabled = watching);
+}
+
+function updateAgentInfo() {
+  const n = history.length;
+  let text = `Trained on ${n.toLocaleString()} games. Table size: ${N_STATES} states × 4 moves.`;
+  if (n >= 50) {
+    const last = history.slice(-50);
+    const avg = last.reduce((s, h) => s + h.score, 0) / 50;
+    const won = last.filter(h => h.reachedCapitol).length / 50;
+    text += ` Last 50 games: average reward ${avg.toFixed(1)}, reached the Capitol ${Math.round(won * 100)}%.`;
+  }
+  document.getElementById("agentInfo").textContent = text;
+}
+
+// --- Reward controls ---
+const KEYS = ["move", "rally", "capitol", "scandal"];
+function showRewards() {
+  KEYS.forEach(k => document.getElementById("r-" + k).value = R[k]);
+  document.getElementById("r-rule").value = R.rallyEveryVisit ? "every" : "first";
+  drawBoard();
+}
+document.getElementById("r-rule").addEventListener("change", e => {
+  R.rallyEveryVisit = e.target.value === "every";
+  drawBoard();
+});
+KEYS.forEach(k => document.getElementById("r-" + k).addEventListener("input", e => {
+  const v = Number(e.target.value);
+  if (e.target.value !== "" && Number.isFinite(v)) R[k] = v;
+}));
+document.getElementById("defaults").onclick = () => { Object.assign(R, DEFAULT_REWARDS); showRewards(); };
+
+// --- Buttons and keys ---
+document.querySelectorAll(".pad button").forEach(b => b.onclick = () => humanMove(Number(b.dataset.a)));
+document.getElementById("newGame").onclick = startNewGame;
+document.getElementById("train100").onclick = () => train(100);
+document.getElementById("train1000").onclick = () => train(1000);
+document.getElementById("watch").onclick = watch;
+document.getElementById("reset").onclick = () => { resetAgent(); startNewGame(); updateAgentInfo(); drawChart(); };
+document.addEventListener("keydown", e => {
+  const a = { ArrowUp: 0, ArrowDown: 1, ArrowLeft: 2, ArrowRight: 3 }[e.key];
+  if (a === undefined || e.target.tagName === "INPUT") return;
+  e.preventDefault();
+  humanMove(a);
+});
+
+// =====================================================================
+// LEARNING CURVE (drawn on a canvas, no libraries)
+// =====================================================================
+const BLOCK = 50;
+function drawChart() {
+  const canvas = document.getElementById("chart");
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.clientWidth, H = canvas.clientHeight;
+  canvas.width = W * dpr; canvas.height = H * dpr;
+  const ctx = canvas.getContext("2d");
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, W, H);
+  ctx.font = "12px system-ui, sans-serif";
+
+  // Average reward and Capitol share for each full block of 50 games.
+  const blocks = [];
+  for (let i = 0; i + BLOCK <= history.length; i += BLOCK) {
+    const b = history.slice(i, i + BLOCK);
+    blocks.push({ end: i + BLOCK,
+                  avg: b.reduce((s, h) => s + h.score, 0) / BLOCK,
+                  share: b.filter(h => h.reachedCapitol).length / BLOCK });
+  }
+
+  const L = 48, Rm = 44, T = 10, B = 30;  // margins
+  const pw = W - L - Rm, ph = H - T - B;
+  if (!blocks.length) {
+    ctx.fillStyle = "#6b737d";
+    ctx.fillText("Train the agent to see its learning curve.", L, T + ph / 2);
+    return;
+  }
+
+  // Left axis range: covers all averages, rounded out to tens, always includes 0.
+  let lo = Math.min(0, ...blocks.map(b => b.avg)), hi = Math.max(0, ...blocks.map(b => b.avg));
+  lo = Math.floor(lo / 10) * 10; hi = Math.ceil(hi / 10) * 10;
+  if (hi === lo) hi = lo + 10;
+  const xMax = blocks[blocks.length - 1].end;
+  const x = g => L + (g / xMax) * pw;
+  const yL = v => T + ph - ((v - lo) / (hi - lo)) * ph;
+  const yR = s => T + ph - s * ph;
+
+  // Grid lines and left-axis labels
+  ctx.strokeStyle = "#e4e1d8"; ctx.fillStyle = "#6b737d"; ctx.lineWidth = 1;
+  ctx.textAlign = "right"; ctx.textBaseline = "middle";
+  for (let i = 0; i <= 4; i++) {
+    const v = lo + (hi - lo) * i / 4, yy = yL(v);
+    ctx.beginPath(); ctx.moveTo(L, yy); ctx.lineTo(L + pw, yy); ctx.stroke();
+    ctx.fillText(Math.round(v), L - 6, yy);
+  }
+  // Right-axis labels (0%–100%)
+  ctx.textAlign = "left";
+  for (let i = 0; i <= 4; i++) ctx.fillText(i * 25 + "%", L + pw + 6, yR(i / 4));
+  // X-axis labels
+  ctx.textAlign = "center"; ctx.textBaseline = "top";
+  for (let i = 0; i <= 4; i++) {
+    const g = Math.round(xMax * i / 4);
+    ctx.fillText(g.toLocaleString(), x(g), T + ph + 6);
+  }
+  ctx.fillText("training games", L + pw / 2, T + ph + 18);
+
+  // The two lines
+  function line(color, yOf) {
+    ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = 2;
+    ctx.beginPath();
+    blocks.forEach((b, i) => i ? ctx.lineTo(x(b.end), yOf(b)) : ctx.moveTo(x(b.end), yOf(b)));
+    ctx.stroke();
+    if (blocks.length < 40) blocks.forEach(b => {
+      ctx.beginPath(); ctx.arc(x(b.end), yOf(b), 2.5, 0, 7); ctx.fill();
+    });
+  }
+  line("#2f6db5", b => yL(b.avg));
+  line("#d0792b", b => yR(b.share));
+}
+window.addEventListener("resize", drawChart);
+
+// Start
+showRewards();
+resetAgent();
+drawBoard();
+updateAgentInfo();
+drawChart();
+</script>
+</body>
+</html>
