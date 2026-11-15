@@ -77,6 +77,7 @@ reaches that group; don't infer from who tends to use a program.
 | `women_gender` | Women, gender, gender-based violence, pregnancy, reproductive health, forced or coerced marriage. |
 | `faith` | Religion, places of worship, clergy, faith-based organizations, but only where faith changes something for survivors. Examples: shelters or services that meet religious and spiritual needs, religious discrimination in victim services, immigration enforcement at places of worship, and the role of faith leaders, who can help a survivor or side with the abuser (Bhandari 2025). A passing mention in a list of protected traits doesn't count. |
 | `language_access` | Interpreters, translation, limited English proficiency. In `notes`, name any language the law lists. |
+| `military` | Service members, veterans and their partners; military protective orders. |
 | `youth`, `elder_dependent_adult`, `disability`, `tribal`, `lgbtq`, `rural` | As named. |
 
 No 2025–26 bill names a religion, ethnicity or South Asian language. Muslim and
@@ -103,10 +104,43 @@ call went to `none`. These notes are what you'll use to revise the lexicon.
    and run `evaluate.py --recode` for intra-coder agreement (Cohen's kappa).
 3. Keep a log of rule changes; if a rule changes, re-check rows already coded.
 
+## The federal layer
+
+Federal law sets a floor that California builds on, and many state bills only
+make sense next to it. `reference/federal_statutes_womenslaw.csv` lists the 71
+federal statutes and regulations on WomensLaw's Selected Federal Statutes page.
+Each is marked `dv_specific`:
+- `yes` (12): about DV, e.g. VAWA housing (34 U.S.C. §12491), VAWA
+  confidentiality (8 U.S.C. §1367), UCMJ Art. 128b.
+- `partly` (24): a general law with a DV provision, e.g. the gun bans in 18 U.S.C.
+  §922(g)(8)–(9), U visas, VAWA self-petitions.
+- `no` (35): listed for context only, e.g. asylum filing, T visas, penalties.
+
+Federal statutes are not coded in the index. Code a **California** bill against
+them like this:
+- A bill that adopts, extends or fills a gap in a federal protection is
+  `indirect` at least. Examples: VAWA-style housing rights for state-funded or
+  private housing, which VAWA itself doesn't cover; U-visa certification rules
+  (Pen. Code §679.10); recognition of military or tribal protection orders.
+  Note the federal law in `notes`.
+- A bill on `military` survivors: tag the population `military`. Military
+  protective orders, the Family Advocacy Program and restricted reporting are
+  federal, so state bills mostly concern recognizing and enforcing MPOs (e.g.
+  SB 99).
+- A bill that changes state custody jurisdiction (Fam. Code §3400 et seq., the
+  UCCJEA): `custody`, with `child_related` in `abuse_forms`.
+
+Federal terms are in `lexicon.csv` (Section 8 vouchers, lease bifurcation,
+emergency transfers, self-petitions, U/T nonimmigrant, military protective
+orders, full faith and credit). In 2025–26 only two bills use any of them
+(AB 1753 on foreign protection orders, SB 99 on military protective orders).
+Both were already flagged.
+
 ## What the index can't capture
 
-- Federal law and policy (e.g. expedited removal, enforcement priorities).
-  These change what Californians can use but never show up as California bills.
+- Federal law and policy (e.g. expedited removal, enforcement priorities,
+  federal immigration relief). These change what Californians can use but never
+  show up as California bills; see the federal layer above for context.
 - County and city ordinances, court rules (Judicial Council), and agency regulations.
 - Laws whose effect on survivors depends on implementation or funding, not text.
 - Bills where DV relevance is only clear from committee analyses or advocates'
@@ -127,6 +161,10 @@ call went to `none`. These notes are what you'll use to revise the lexicon.
 - Bhandari, S. (2025). Experiences of transnational abandonment in the lives of
   abused South Asian women in the United States. *Journal of Family Violence*,
   40, 1079–1089. https://doi.org/10.1007/s10896-024-00683-2
+- WomensLaw.org (National Network to End Domestic Violence), Legal Information:
+  Federal. *Selected Federal Statutes* (updated Dec. 17, 2025), *VAWA Housing
+  Protections*, *Federal Gun Laws*, *Domestic Violence in the Military*.
+  Accessed Nov. 15, 2026.
 - Tabibi, J., Ahmad, S., Baker, L., & Lalonde, D. (2018). *Intimate partner
   violence against immigrant and refugee women*. Learning Network Issue 26.
   Centre for Research & Education on Violence Against Women & Children, Western

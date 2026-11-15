@@ -57,6 +57,8 @@ header { display: grid; gap: 14px; }
 .tally { display: flex; flex-wrap: wrap; gap: 8px 22px; font-variant-numeric: tabular-nums; }
 .tally b { font: 600 1.25rem/1 var(--font-mono); margin-right: 6px; }
 .tally span { color: var(--muted); }
+.define { max-width: 70ch; font-size: 0.95rem; }
+.define b { font-weight: 600; }
 .notice { border-left: 3px solid var(--accent); padding: 4px 0 4px 12px; max-width: 70ch; color: var(--muted); font-size: 0.92rem; }
 
 /* Impact areas */
@@ -167,6 +169,24 @@ details[open] summary { margin-bottom: 8px; }
 .gap-src { font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
 @media (max-width: 520px) { .gap { grid-template-columns: 2.4rem 1fr; } .gap-src { grid-column: 2; } }
 
+/* Federal */
+.federal { display: grid; gap: 12px; }
+.federal > p { max-width: 70ch; color: var(--muted); }
+.fed-groups { display: grid; gap: 8px; }
+.fed-groups details { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: 10px 14px; }
+.fed-groups summary { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; color: var(--ink); width: auto; }
+.fed-groups summary b { font-weight: 600; }
+.fed-counts { font-size: 0.82rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.fed-row { display: grid; grid-template-columns: 5.5rem minmax(0, 13rem) 1fr; gap: 4px 14px; padding-block: 7px; border-top: 1px solid var(--line); font-size: 0.88rem; }
+.fed-row:first-of-type { border-top: 0; }
+.fed-cit { font-family: var(--font-mono); font-size: 0.82rem; }
+.fed-note { color: var(--muted); }
+.dv { font: 500 0.68rem/1 var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; padding: 4px 6px; border-radius: 4px; height: fit-content; width: fit-content; }
+.dv.yes { background: var(--accent-soft); color: var(--accent); }
+.dv.partly { background: var(--indirect-soft); color: var(--indirect); }
+.dv.no { border: 1px solid var(--line); color: var(--muted); }
+@media (max-width: 620px) { .fed-row { grid-template-columns: 5.5rem 1fr; } .fed-note { grid-column: 1 / -1; } }
+
 /* Method */
 .method { display: grid; gap: 14px; border-top: 1px solid var(--line); padding-top: 28px; }
 .method-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px 32px; }
@@ -193,6 +213,7 @@ footer { color: var(--muted); font-size: 0.82rem; }
     <h1>California DV Law Index</h1>
     <p class="lede">Bills that are about domestic violence, and bills that never say so but still change what survivors can get: housing, immigration status, custody, firearms, benefits, courts and privacy.</p>
     <div class="tally" id="tally"></div>
+    <p class="define"><b>Flagged</b> means the tool picked a bill out as likely to matter to DV survivors. <b>Direct</b> bills name domestic, dating or family violence, or change a DV law. <b>Indirect</b> bills don't say "domestic violence" but change something survivors rely on, such as housing, immigration status, custody, guns or benefits, and use victim or safety language.</p>
     <p class="notice">These labels are predictions from a keyword-and-theme tool, not yet checked against hand coding. Read the bill before relying on a label.</p>
   </header>
 
@@ -245,13 +266,19 @@ footer { color: var(--muted); font-size: 0.82rem; }
     <div class="list" id="list"></div>
   </section>
 
+  <section class="federal" aria-labelledby="fed-h">
+    <h2 id="fed-h">The federal layer</h2>
+    <p>Federal law sets a floor that California builds on. These are the federal statutes and regulations WomensLaw selects for survivors. They aren't in the index of California bills, but many state bills only make sense next to them. Not all are about DV: each is marked <span class="dv yes">yes</span> if it is about DV, <span class="dv partly">partly</span> if it is a general law with a DV provision, or <span class="dv no">no</span> if it is listed for context.</p>
+    <div class="fed-groups" id="fed-groups"></div>
+  </section>
+
   <section class="method" aria-labelledby="method-h">
     <h2 id="method-h">How bills are flagged</h2>
     <div class="method-grid">
       <div><h3>Source</h3><p>The Legislature's official bulk data (downloads.leginfo.legislature.ca.gov). For each AB and SB bill, the tool reads the latest version's title, subject and Legislative Counsel's Digest.</p></div>
       <div><h3>Direct</h3><p>The bill names domestic, intimate partner, dating or family violence, or cites a section of the Domestic Violence Prevention Act (Family Code §§6200–6409).</p></div>
       <div><h3>Indirect</h3><p>The bill touches an impact area (housing, immigration, custody, firearms and so on) and uses victim or safety language. Some citations count on their own, such as Civil Code §1946.7, which lets victims end a lease.</p></div>
-      <div><h3>Sources for the coding scheme</h3><p>Bhandari, S. (2025), "Experiences of transnational abandonment in the lives of abused South Asian women in the United States," <i>Journal of Family Violence</i> 40. Tabibi, J., Ahmad, S., Baker, L. &amp; Lalonde, D. (2018), <i>Intimate partner violence against immigrant and refugee women</i>, Learning Network Issue 26, Western University.</p></div>
+      <div><h3>Sources for the coding scheme</h3><p>Bhandari, S. (2025), "Experiences of transnational abandonment in the lives of abused South Asian women in the United States," <i>Journal of Family Violence</i> 40. Tabibi, J., Ahmad, S., Baker, L. &amp; Lalonde, D. (2018), <i>Intimate partner violence against immigrant and refugee women</i>, Learning Network Issue 26, Western University. WomensLaw.org (NNEDV), <i>Selected Federal Statutes</i> and its federal pages on VAWA housing, gun laws and the military.</p></div>
       <div><h3>Next</h3><p>A stratified sample of 292 bills, including bills the tool did not flag, is being hand-coded to measure precision and recall.</p></div>
     </div>
     <footer id="footer"></footer>
@@ -299,7 +326,7 @@ function header() {
   const law = bills.filter(b => b.v === "Chaptered").length;
   $("session-line").textContent = `California Legislature · ${m.session} session`;
   $("tally").innerHTML = [
-    [m.total.toLocaleString(), "bills read"], [bills.length, "flagged"],
+    [m.total.toLocaleString(), "bills read"], [bills.length, "flagged as relevant"],
     [direct, "direct"], [bills.length - direct, "indirect"], [law, "became law"]
   ].map(([n, t]) => `<div><b>${n}</b><span>${t}</span></div>`).join("");
   $("footer").textContent = `Built ${fmtDate(m.built)} from the Legislature's bulk data. POLISCI 158 final project.`;
@@ -413,7 +440,23 @@ function gaps() {
       <span class="gap-src">${esc(g.src)}</span></div>`).join("");
 }
 
-header(); realms(); gaps(); bars(); render();
+function federal() {
+  const fed = DATA.federal || [];
+  const order = [...new Set(fed.map(r => r.womenslaw_topic))];
+  order.sort((a, b) => fed.filter(r => r.womenslaw_topic === b && r.dv_specific === "yes").length
+                     - fed.filter(r => r.womenslaw_topic === a && r.dv_specific === "yes").length);
+  $("fed-groups").innerHTML = order.map(t => {
+    const rows = fed.filter(r => r.womenslaw_topic === t);
+    const c = k => rows.filter(r => r.dv_specific === k).length;
+    return `<details><summary><b>${esc(t)}</b><span class="fed-counts">${rows.length} · ${c("yes")} DV · ${c("partly")} partly · ${c("no")} context</span></summary>
+      ${rows.map(r => `<div class="fed-row"><span class="dv ${r.dv_specific}">${r.dv_specific}</span>
+        <span><span class="fed-cit">${esc(r.citation)}</span><br>${esc(r.title)}</span>
+        <span class="fed-note">${esc(r.note)}</span></div>`).join("")}
+    </details>`;
+  }).join("");
+}
+
+header(); realms(); gaps(); bars(); render(); federal();
 document.querySelector(".realms").addEventListener("click", e => {
   const btn = e.target.closest("[data-pop]"); if (!btn) return;
   state.pop = state.pop === btn.dataset.pop ? "all" : btn.dataset.pop;

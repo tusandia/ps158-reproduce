@@ -22,6 +22,8 @@ re:section 273\.5 of the penal code,direct,courts,3,corporal injury on spouse/co
 re:section 243 of the penal code,direct,courts,1,243(e)(1) is DV battery but 243 is broad
 re:section 1037(\.\d+)? of the evidence code,direct,courts,3,DV counselor-victim privilege
 emergency protective order,direct,courts,3,mostly DV (Fam. Code 6240)
+military protective order*,direct,courts,3,MPOs (WomensLaw: DV in the Military)
+family advocacy program,direct,services,3,DoD Family Advocacy Program
 protective order*,direct,courts,1,also used for elder abuse / civil harassment
 restraining order*,direct,courts,1,also used for civil harassment / workplace violence
 strangulation,direct,courts,2,
@@ -61,6 +63,13 @@ california values act,area,immigration,1,
 u visa*,area_strong,immigration,1,
 t visa*,area_strong,immigration,1,
 u-visa*,area_strong,immigration,1,
+re:\b[ut] nonimmigrant,area_strong,immigration,1,U and T visas as named in federal law
+self-petition*,area_strong,immigration,1,VAWA self-petitions
+battered spouse waiver*,area_strong,immigration,1,
+cancellation of removal,area,immigration,1,VAWA cancellation
+employment authorization,area,immigration,1,work permits (8 CFR 274a.12)
+work authorization,area,immigration,1,
+re:section 1367 of title 8,area_strong,immigration,1,VAWA confidentiality
 t-visa*,area_strong,immigration,1,
 re:form i-91[48],area_strong,immigration,1,I-918 Supp. B (U) / I-914 Supp. B (T) certifications
 re:section 679\.1[01] of the penal code,area_strong,immigration,1,U/T visa certification statutes
@@ -82,6 +91,15 @@ homeless*,area,housing,1,
 shelter*,area,housing,1,
 transitional housing,area,housing,1,
 housing voucher*,area,housing,1,
+re:section 8 (housing|voucher)|housing choice voucher,area,housing,1,VAWA housing (WomensLaw federal pages)
+public housing,area,housing,1,
+housing authorit*,area,housing,1,
+bifurcat*,area_strong,housing,1,lease bifurcation removes the abuser (24 CFR 5.2009)
+emergency transfer*,area,housing,1,VAWA emergency housing transfers
+nuisance ordinance*,area,housing,1,survivors penalized as a "nuisance" for calling police (Gov. Code 53165)
+crime-free,area,housing,1,crime-free housing programs
+re:calls? for (police|law enforcement|emergency) (service|assistance),area,housing,1,
+self-certification,area,housing,1,HUD-5382 VAWA self-certification
 motel*,area,housing,1,
 re:section 1946\.7 of the civil code,area_strong,housing,1,lease termination for victims
 re:section 1161\.3 of the code of civil procedure,area_strong,housing,1,eviction protection for victims
@@ -97,6 +115,11 @@ best interest of the child,area,custody,1,
 parenting,area,custody,1,
 family code,area,custody,1,
 re:section 3044 of the family code,area_strong,custody,1,custody presumption against abusers
+temporary emergency jurisdiction,area_strong,custody,1,UCCJEA 204
+full faith and credit,area,courts,1,18 USC 2265 (protection orders) and 28 USC 1738A (custody)
+out-of-state protective order*,area_strong,courts,1,
+foreign protection order*,area_strong,courts,1,
+tribal protection order*,area_strong,courts,1,
 child abduction,area,custody,1,abuser takes or keeps the children
 parental abduction,area,custody,1,
 hague convention,area_strong,custody,1,international custody
@@ -111,6 +134,8 @@ relinquish*,area,firearms,1,
 armed and prohibited,area,firearms,1,
 armed prohibited person*,area,firearms,1,
 gun violence restraining order*,area_strong,firearms,1,
+misdemeanor crime of domestic violence,direct,firearms,3,18 USC 921(a)(33)
+re:922\(g\),area,firearms,1,federal gun bans
 calworks,area,benefits,1,
 calfresh,area,benefits,1,
 medi-cal,area,benefits,1,
@@ -145,6 +170,8 @@ location data,area,privacy,1,
 electronic tracking,area,privacy,1,
 tracking device*,area,privacy,1,
 stalkerware,area_strong,privacy,1,
+cyberstalking,area,privacy,1,18 USC 2261A
+robocall*,area,privacy,1,
 intimate image*,area,privacy,1,electronic violence (Issue 26)
 electronic surveillance,area,privacy,1,
 spyware,area,privacy,1,
@@ -244,6 +271,11 @@ re:\b(punjabi|hindi|urdu|bengali|gujarati|tamil|telugu|nepali)\b,population,sout
 re:\b(arabic|farsi|dari|pashto)\b,population,arabic_persian_languages,1,
 culturally specific,population,language_access,1,
 re:\b(deaf|sign language)\b,population,disability,1,
+service member*,population,military,1,
+servicemember*,population,military,1,
+armed forces,population,military,1,
+military,population,military,1,
+veteran*,population,military,1,
 # --- exclude: phrases deleted from the text before matching, to avoid known false hits. ---,,,,
 substance abuse,exclude,,0,
 drug abuse,exclude,,0,

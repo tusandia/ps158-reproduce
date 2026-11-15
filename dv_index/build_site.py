@@ -109,11 +109,14 @@ def main():
     text = (f["title"] + " " + f["subject"] + " " + f["digest"])
     gaps = [{"issue": name, "n": int(text.str.contains(rx, case=False, regex=True).sum()), "src": src}
             for name, rx, src in GAPS]
+    fed_path = HERE / "reference" / "federal_statutes_womenslaw.csv"
+    federal = (pd.read_csv(fed_path, dtype=str).fillna("").to_dict("records")
+               if fed_path.exists() else [])
     meta = {
         "total": len(f), "session": (f["session"].iloc[0] if len(f) else ""),
         "built": dt.date.today().isoformat(),
     }
-    data = json.dumps({"meta": meta, "bills": bills, "related": related, "gaps": gaps}, ensure_ascii=False).replace("</", "<\\/")
+    data = json.dumps({"meta": meta, "bills": bills, "related": related, "gaps": gaps, "federal": federal}, ensure_ascii=False).replace("</", "<\\/")
     html = TEMPLATE.read_text(encoding="utf-8").replace("/*__DATA__*/null", data)
     Path(args.output).write_text(html, encoding="utf-8")
     print(f"{len(bills)} bills -> {args.output}")
