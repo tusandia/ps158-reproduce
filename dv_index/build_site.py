@@ -8,11 +8,13 @@ site/template.html. Re-run after re-flagging to refresh it.
 """
 
 import argparse
+import csv
 import datetime as dt
 import json
 import re
 from pathlib import Path
 
+import markdown
 import pandas as pd
 
 from flag import load_lexicon
@@ -112,12 +114,22 @@ def main():
     fed_path = HERE / "reference" / "federal_statutes_womenslaw.csv"
     federal = (pd.read_csv(fed_path, dtype=str).fillna("").to_dict("records")
                if fed_path.exists() else [])
+    with open(HERE / "lexicon.csv", newline="", encoding="utf-8") as fh:
+        lex_rows = [{k: (v or "").strip() for k, v in r.items() if k} for r in csv.DictReader(fh)]
+    lex_rows = [r for r in lex_rows if r["term"] and not r["term"].startswith("#") and r["kind"] != "exclude"]
+    lexicon_out = [{"term": r["term"], "kind": r["kind"], "area": r["area"], "note": r["note"]} for r in lex_rows]
+    codebook_md = (HERE / "CODEBOOK.md").read_text(encoding="utf-8")
+    # Python-Markdown needs a blank line before a list that follows a paragraph line.
+    codebook_md = re.sub(r"(?m)^((?![ \t]*(?:[-*]|\d+\.)\s)[^\n|#][^\n]*)\n(?=[ \t]*(?:[-*]|\d+\.)\s)", r"\1\n\n", codebook_md)
+    codebook_html = markdown.markdown(codebook_md, extensions=["tables"])
     meta = {
         "total": len(f), "session": (f["session"].iloc[0] if len(f) else ""),
         "built": dt.date.today().isoformat(),
     }
-    data = json.dumps({"meta": meta, "bills": bills, "related": related, "gaps": gaps, "federal": federal}, ensure_ascii=False).replace("</", "<\\/")
-    html = TEMPLATE.read_text(encoding="utf-8").replace("/*__DATA__*/null", data)
+    data = json.dumps({"meta": meta, "bills": bills, "related": related, "gaps": gaps, "federal": federal, "lexicon": lexicon_out}, ensure_ascii=False).replace("</", "<\\/")
+    html = (TEMPLATE.read_text(encoding="utf-8")
+            .replace("/*__CODEBOOK__*/", codebook_html)
+            .replace("/*__DATA__*/null", data))
     Path(args.output).write_text(html, encoding="utf-8")
     print(f"{len(bills)} bills -> {args.output}")
 

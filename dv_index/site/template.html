@@ -187,6 +187,60 @@ details[open] summary { margin-bottom: 8px; }
 .dv.no { border: 1px solid var(--line); color: var(--muted); }
 @media (max-width: 620px) { .fed-row { grid-template-columns: 5.5rem 1fr; } .fed-note { grid-column: 1 / -1; } }
 
+
+/* Tabs */
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); overflow-x: auto; }
+.tabs a {
+  font: 500 0.95rem var(--font-body); color: var(--muted); text-decoration: none; white-space: nowrap;
+  padding: 10px 14px; border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+.tabs a:hover { color: var(--ink); }
+.tabs a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); font-weight: 600; }
+.tabs a:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.panel { display: grid; gap: 36px; }
+.panel[hidden] { display: none; }
+
+/* Identity icons */
+.ids { display: grid; gap: 14px; }
+.ids > p { max-width: 70ch; color: var(--muted); }
+.id-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 10px; }
+.id-btn {
+  display: grid; justify-items: center; gap: 6px; padding: 14px 8px 12px; cursor: pointer;
+  font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+}
+.id-btn svg { width: 34px; height: 34px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; color: var(--accent); }
+.id-btn:hover { border-color: var(--muted); }
+.id-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.id-btn[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.id-btn[aria-pressed="true"] svg { color: var(--bg); }
+.id-btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+.id-name { font-weight: 600; font-size: 0.9rem; }
+.id-n { font: 500 0.8rem var(--font-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.id-btn[aria-pressed="true"] .id-n { color: var(--bg); }
+.id-summary { display: grid; gap: 8px; border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; }
+.id-summary h3 { margin: 0; font: 600 1rem var(--font-body); }
+.id-summary p { font-size: 0.9rem; color: var(--muted); max-width: 72ch; }
+.id-summary .note { color: var(--ink); }
+
+/* Codebook */
+.prose { max-width: 78ch; display: grid; gap: 14px; }
+.prose h1 { font-size: 1.9rem; }
+.prose h2 { font-size: 1.35rem; margin-top: 18px; }
+.prose h3 { font: 600 1rem var(--font-body); margin: 8px 0 0; }
+.prose p, .prose li { font-size: 0.95rem; }
+.prose ul, .prose ol { margin: 0; padding-left: 1.3rem; display: grid; gap: 6px; }
+.prose code { font: 0.85em var(--font-mono); background: var(--surface); border: 1px solid var(--line); border-radius: 3px; padding: 0 4px; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+.prose table, .terms table { border-collapse: collapse; width: 100%; font-size: 0.88rem; }
+.prose th, .prose td, .terms th, .terms td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+.prose th, .terms th { font-weight: 600; background: var(--bg); }
+.prose tr:last-child td, .terms tr:last-child td { border-bottom: 0; }
+.terms { display: grid; gap: 12px; max-width: 78ch; }
+.terms-head { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.terms-head input { flex: 1 1 220px; min-width: 0; font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; }
+.terms td:first-child { font-family: var(--font-mono); font-size: 0.82rem; white-space: nowrap; }
+.kind { font: 500 0.68rem/1 var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+
 /* Method */
 .method { display: grid; gap: 14px; border-top: 1px solid var(--line); padding-top: 28px; }
 .method-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px 32px; }
@@ -211,115 +265,153 @@ footer { color: var(--muted); font-size: 0.82rem; }
   <header>
     <p class="eyebrow" id="session-line">California Legislature</p>
     <h1>California DV Law Index</h1>
-    <p class="lede">Bills that are about domestic violence, and bills that never say so but still change what survivors can get: housing, immigration status, custody, firearms, benefits, courts and privacy.</p>
-    <div class="tally" id="tally"></div>
-    <p class="define"><b>Flagged</b> means the tool picked a bill out as likely to matter to DV survivors. <b>Direct</b> bills name domestic, dating or family violence, or change a DV law. <b>Indirect</b> bills don't say "domestic violence" but change something survivors rely on, such as housing, immigration status, custody, guns or benefits, and use victim or safety language.</p>
-    <p class="notice">These labels are predictions from a keyword-and-theme tool, not yet checked against hand coding. Read the bill before relying on a label.</p>
+    <p class="lede">Laws that are about domestic violence, and laws that never say so but still change what survivors can get: housing, immigration status, custody, firearms, benefits, courts and privacy.</p>
   </header>
 
-  <section class="realms" aria-labelledby="realms-h">
-    <h2 id="realms-h">Who a law reaches</h2>
-    <p>Every bill here affects DV survivors. These realms narrow the list to particular survivors. A bill joins a realm only when its own text uses that realm's language, so some realms are small.</p>
-    <p>No 2025–26 bill names a religion, an ethnicity or a South Asian language, so bills can't be sorted by community. For Muslim and South Asian survivors, the realms below that advocates most often raise are immigration and VAWA, language access, faith, and forced marriage (under Women &amp; gender). None of these issues is unique to those communities.</p>
-    <div class="realm-grid" id="realm-grid"></div>
-    <div id="related"></div>
-    <div class="others" id="others"><span>Other groups:</span></div>
-  </section>
+  <nav class="tabs" aria-label="Sections">
+    <a href="#california" data-tab="california">California bills</a>
+    <a href="#federal" data-tab="federal">Federal law</a>
+    <a href="#codebook" data-tab="codebook">Codebook</a>
+  </nav>
 
-  <section class="gaps" aria-labelledby="gaps-h">
-    <h2 id="gaps-h">What the session didn't address</h2>
-    <p>Research on immigrant and South Asian survivors documents these problems. The number is how many of the session's bills mention each one, flagged or not.</p>
-    <div class="gap-list" id="gap-list"></div>
-  </section>
+  <div class="panel" id="tab-california">
+    <section style="display:grid;gap:14px">
+      <div class="tally" id="tally"></div>
+      <p class="define"><b>Flagged</b> means the tool picked a bill out as likely to matter to DV survivors. <b>Direct</b> bills name domestic, dating or family violence, or change a DV law. <b>Indirect</b> bills don't say "domestic violence" but change something survivors rely on, such as housing, immigration status, custody, guns or benefits, and use victim or safety language.</p>
+      <p class="notice">These labels are predictions from a keyword-and-theme tool, not yet checked against hand coding. Read the bill before relying on a label.</p>
+    </section>
 
-  <section class="areas" aria-labelledby="areas-h">
-    <div class="areas-head">
-      <h2 id="areas-h">Impact areas</h2>
-      <div class="legend"><span><i style="background:var(--accent)"></i>Direct</span><span><i style="background:var(--indirect)"></i>Indirect</span><span>Select an area to filter</span></div>
-    </div>
-    <div class="bars" id="bars"></div>
-  </section>
+    <section class="ids" aria-labelledby="ids-h">
+      <h2 id="ids-h">Who a law reaches</h2>
+      <p>Pick one identity, or several to see laws that reach all of them at once. A bill counts only when its own text uses that group's language, so some groups are small. The number on each button is how many bills you would see if you added it.</p>
+      <p>No 2025–26 bill names a religion, an ethnicity or a South Asian language, so bills can't be sorted by community. For Muslim and South Asian survivors, advocates most often raise immigration and VAWA, language access, faith, and forced marriage (under Woman). None of these is unique to those communities.</p>
+      <div class="id-grid" id="id-grid"></div>
+      <div id="id-summary"></div>
+    </section>
 
-  <section aria-label="Bills">
-    <div class="filters">
-      <input type="search" id="q" aria-label="Search bills" placeholder="Search bill number, subject or summary" autocomplete="off">
-      <div class="seg" role="group" aria-label="Relevance" id="seg-label">
-        <button type="button" data-v="all" aria-pressed="true">All</button>
-        <button type="button" data-v="direct" aria-pressed="false">Direct</button>
-        <button type="button" data-v="indirect" aria-pressed="false">Indirect</button>
+    <section class="gaps" aria-labelledby="gaps-h">
+      <h2 id="gaps-h">What the session didn't address</h2>
+      <p>Research on immigrant and South Asian survivors documents these problems. The number is how many of the session's bills mention each one, flagged or not.</p>
+      <div class="gap-list" id="gap-list"></div>
+    </section>
+
+    <section class="areas" aria-labelledby="areas-h">
+      <div class="areas-head">
+        <h2 id="areas-h">Impact areas</h2>
+        <div class="legend"><span><i style="background:var(--accent)"></i>Direct</span><span><i style="background:var(--indirect)"></i>Indirect</span><span>Select an area to filter</span></div>
       </div>
-      <select id="status" aria-label="Status">
-        <option value="all">Any status</option>
-        <option value="law">Became law</option>
-        <option value="not">Did not become law</option>
-      </select>
-      <select id="pop" aria-label="Who it reaches">
-        <option value="all">Anyone</option>
-      </select>
-      <select id="sort" aria-label="Sort">
-        <option value="score">Sort: strongest match</option>
-        <option value="date">Sort: latest action</option>
-        <option value="measure">Sort: bill number</option>
-      </select>
-      <span class="count" id="count"></span>
-    </div>
-    <div class="list" id="list"></div>
-  </section>
+      <div class="bars" id="bars"></div>
+    </section>
 
-  <section class="federal" aria-labelledby="fed-h">
-    <h2 id="fed-h">The federal layer</h2>
-    <p>Federal law sets a floor that California builds on. These are the federal statutes and regulations WomensLaw selects for survivors. They aren't in the index of California bills, but many state bills only make sense next to them. Not all are about DV: each is marked <span class="dv yes">yes</span> if it is about DV, <span class="dv partly">partly</span> if it is a general law with a DV provision, or <span class="dv no">no</span> if it is listed for context.</p>
-    <div class="fed-groups" id="fed-groups"></div>
-  </section>
+    <section aria-label="Bills" id="bills">
+      <div class="filters">
+        <input type="search" id="q" aria-label="Search bills" placeholder="Search bill number, subject or summary" autocomplete="off">
+        <div class="seg" role="group" aria-label="Relevance" id="seg-label">
+          <button type="button" data-v="all" aria-pressed="true">All</button>
+          <button type="button" data-v="direct" aria-pressed="false">Direct</button>
+          <button type="button" data-v="indirect" aria-pressed="false">Indirect</button>
+        </div>
+        <select id="status" aria-label="Status">
+          <option value="all">Any status</option>
+          <option value="law">Became law</option>
+          <option value="not">Did not become law</option>
+        </select>
+        <select id="sort" aria-label="Sort">
+          <option value="score">Sort: strongest match</option>
+          <option value="date">Sort: latest action</option>
+          <option value="measure">Sort: bill number</option>
+        </select>
+        <span class="count" id="count"></span>
+      </div>
+      <div class="list" id="list"></div>
+    </section>
 
-  <section class="method" aria-labelledby="method-h">
-    <h2 id="method-h">How bills are flagged</h2>
-    <div class="method-grid">
-      <div><h3>Source</h3><p>The Legislature's official bulk data (downloads.leginfo.legislature.ca.gov). For each AB and SB bill, the tool reads the latest version's title, subject and Legislative Counsel's Digest.</p></div>
-      <div><h3>Direct</h3><p>The bill names domestic, intimate partner, dating or family violence, or cites a section of the Domestic Violence Prevention Act (Family Code §§6200–6409).</p></div>
-      <div><h3>Indirect</h3><p>The bill touches an impact area (housing, immigration, custody, firearms and so on) and uses victim or safety language. Some citations count on their own, such as Civil Code §1946.7, which lets victims end a lease.</p></div>
-      <div><h3>Sources for the coding scheme</h3><p>Bhandari, S. (2025), "Experiences of transnational abandonment in the lives of abused South Asian women in the United States," <i>Journal of Family Violence</i> 40. Tabibi, J., Ahmad, S., Baker, L. &amp; Lalonde, D. (2018), <i>Intimate partner violence against immigrant and refugee women</i>, Learning Network Issue 26, Western University. WomensLaw.org (NNEDV), <i>Selected Federal Statutes</i> and its federal pages on VAWA housing, gun laws and the military.</p></div>
-      <div><h3>Next</h3><p>A stratified sample of 292 bills, including bills the tool did not flag, is being hand-coded to measure precision and recall.</p></div>
-    </div>
-    <footer id="footer"></footer>
-  </section>
+    <section class="method" aria-labelledby="method-h">
+      <h2 id="method-h">How bills are flagged</h2>
+      <div class="method-grid">
+        <div><h3>Source</h3><p>The Legislature's official bulk data (downloads.leginfo.legislature.ca.gov). For each AB and SB bill, the tool reads the latest version's title, subject and Legislative Counsel's Digest.</p></div>
+        <div><h3>Direct</h3><p>The bill names domestic, intimate partner, dating or family violence, or cites a section of the Domestic Violence Prevention Act (Family Code §§6200–6409).</p></div>
+        <div><h3>Indirect</h3><p>The bill touches an impact area (housing, immigration, custody, firearms and so on) and uses victim or safety language. Some citations count on their own, such as Civil Code §1946.7, which lets victims end a lease.</p></div>
+        <div><h3>Next</h3><p>A stratified sample of 292 bills, including bills the tool did not flag, is being hand-coded to measure precision and recall.</p></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="panel" id="tab-federal" hidden>
+    <section class="federal" aria-labelledby="fed-h">
+      <h2 id="fed-h">The federal layer</h2>
+      <p>Federal law sets a floor that California builds on. These are the federal statutes and regulations WomensLaw selects for survivors. They aren't in the index of California bills, but many state bills only make sense next to them. Not all are about DV: each is marked <span class="dv yes">yes</span> if it is about DV, <span class="dv partly">partly</span> if it is a general law with a DV provision, or <span class="dv no">no</span> if it is listed for context.</p>
+      <div class="fed-groups" id="fed-groups"></div>
+      <p>Source: WomensLaw.org (National Network to End Domestic Violence), <i>Selected Federal Statutes</i>, updated December 17, 2025, and its federal pages on VAWA housing protections, federal gun laws and domestic violence in the military.</p>
+    </section>
+  </div>
+
+  <div class="panel" id="tab-codebook" hidden>
+    <article class="prose" id="codebook">/*__CODEBOOK__*/</article>
+    <section class="terms" aria-labelledby="terms-h">
+      <h2 id="terms-h">Term list</h2>
+      <p style="color:var(--muted)">The words and code citations the tool matches. A term ending in * matches any ending. "Code section citation" rows are patterns that match citations such as Family Code §6211.</p>
+      <div class="terms-head">
+        <input type="search" id="term-q" aria-label="Search terms" placeholder="Search terms, kinds or areas" autocomplete="off">
+        <span class="count" id="term-count"></span>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>Term</th><th>Kind</th><th>Area or group</th><th>Note</th></tr></thead><tbody id="term-rows"></tbody></table></div>
+    </section>
+  </div>
+
+  <footer id="footer"></footer>
 </div>
 
 <script>
 const DATA = /*__DATA__*/null;
+const ICONS = {"immigrant_vawa": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M3 12h18M12 3c2.5 2.7 3.7 5.7 3.7 9s-1.2 6.3-3.7 9c-2.5-2.7-3.7-5.7-3.7-9S9.5 5.7 12 3z\"/>", "women_gender": "<circle cx=\"12\" cy=\"9\" r=\"5.5\"/><path d=\"M12 14.5V22M8.5 18.5h7\"/>", "faith": "<path d=\"M12 3c1.8 2.2 2.6 3.7 2.6 5a2.6 2.6 0 0 1-5.2 0c0-1.3.8-2.8 2.6-5z\"/><path d=\"M12 10.6V12M8.5 12h7v9h-7z\"/>", "language_access": "<path d=\"M4 5h10v7H8l-4 3z\"/><path d=\"M14 9h6v7l-3-2h-5v-2\"/>", "disability": "<circle cx=\"11\" cy=\"4.5\" r=\"1.6\"/><path d=\"M11 7.5v6h5l2 5M7.5 11a5.5 5.5 0 1 0 7.8 6.8\"/>", "lgbtq": "<path d=\"M3 18a9 9 0 0 1 18 0M6 18a6 6 0 0 1 12 0M9 18a3 3 0 0 1 6 0\"/>", "youth": "<circle cx=\"12\" cy=\"7\" r=\"2.6\"/><path d=\"M8 21v-6l-2-3 3-2h6l3 2-2 3v6\"/>", "elder_dependent_adult": "<circle cx=\"10\" cy=\"4.8\" r=\"2.2\"/><path d=\"M10 7.5c-2 1-2.5 3-2.5 5v8.5M10 7.5c1.5 1 2.2 2.5 2.3 4.5l2.2 1.5M16.5 11v10\"/>", "tribal": "<circle cx=\"12\" cy=\"5\" r=\"2\"/><circle cx=\"5.5\" cy=\"15\" r=\"2\"/><circle cx=\"18.5\" cy=\"15\" r=\"2\"/><path d=\"M8 7.5 6.5 12.5M16 7.5l1.5 5M8 16.5h8\"/>", "rural": "<path d=\"M12 21v-5M6.5 16h11L12 4z\"/><path d=\"M3 21h18\"/>", "military": "<path d=\"M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6z\"/><path d=\"m12 8 1.2 2.5 2.8.4-2 2 .5 2.8L12 14.4l-2.5 1.3.5-2.8-2-2 2.8-.4z\"/>"};
 const AREA_NAMES = {
   courts: "Courts & protective orders", health: "Health", services: "Victim services & funding",
   benefits: "Public benefits", housing: "Housing", child_welfare: "Child welfare", immigration: "Immigration",
   education: "Education", firearms: "Firearms", employment: "Employment", financial: "Financial abuse & credit",
   custody: "Custody & family law", privacy: "Privacy & address confidentiality", language: "Language access"
 };
-const REALMS = [
-  { id: "immigrant_vawa", name: "Immigrant & VAWA survivors",
-    def: "Immigration status, VAWA, U and T visas, asylum, refugees, noncitizens, public charge." },
-  { id: "women_gender", name: "Women & gender",
-    def: "Women, gender, gender-based violence, pregnancy, reproductive health, forced or coerced marriage." },
-  { id: "faith", name: "Faith & religion",
-    def: "Religion, places of worship, clergy, faith-based groups.",
+const IDS = [
+  { id: "immigrant_vawa", name: "Immigrant", long: "Immigrant & VAWA survivors",
+    def: "Immigration status, VAWA, U and T visas, asylum, refugees, noncitizens, public charge, passports." },
+  { id: "women_gender", name: "Woman", long: "Women & gender",
+    def: "Women, gender, gender-based violence, pregnancy, reproductive health, forced or coerced marriage, dowry." },
+  { id: "faith", name: "Faith", long: "Faith & religion",
+    def: "Religion, places of worship, clergy, faith leaders, faith-based groups, religious or spiritual needs.",
     note: "No bill in the index is about faith. The bills here mention religion only in a list of protected traits." },
-  { id: "language_access", name: "Language access",
-    def: "Interpreters, translation, limited English proficiency.",
-    note: "No bill names Punjabi, Hindi, Urdu, Bengali, Gujarati, Tamil, Telugu, Nepali, Arabic, Farsi, Dari or Pashto." }
+  { id: "language_access", name: "Language", long: "Language access",
+    def: "Interpreters, translation, limited English proficiency, culturally specific services.",
+    note: "No bill names Punjabi, Hindi, Urdu, Bengali, Gujarati, Tamil, Telugu, Nepali, Arabic, Farsi, Dari or Pashto." },
+  { id: "disability", name: "Disability", long: "People with disabilities", def: "Disability, Deaf survivors, sign language." },
+  { id: "lgbtq", name: "LGBTQ+", long: "LGBTQ+ survivors", def: "LGBTQ, gender identity." },
+  { id: "youth", name: "Youth", long: "Youth", def: "Minors and young people." },
+  { id: "elder_dependent_adult", name: "Elder", long: "Elders & dependent adults", def: "Elders and dependent adults." },
+  { id: "tribal", name: "Tribal", long: "Tribal communities", def: "Tribes, tribal nations, Native Americans." },
+  { id: "rural", name: "Rural", long: "Rural survivors", def: "Rural areas." },
+  { id: "military", name: "Military", long: "Military & veterans", def: "Service members, veterans, armed forces, military protective orders." }
 ];
-const POP_NAMES = {
-  immigrant_vawa: "Immigrant & VAWA survivors", women_gender: "Women & gender", faith: "Faith & religion",
-  language_access: "Language access",
-  youth: "Youth", elder_dependent_adult: "Elders & dependent adults", disability: "People with disabilities",
-  tribal: "Tribal communities", lgbtq: "LGBTQ+", rural: "Rural"
-};
+const ID_NAME = Object.fromEntries(IDS.map(i => [i.id, i.long]));
 const STAGES = ["Introduced", "Amended", "Enrolled", "Chaptered"];
 const stageOf = v => v === "Chaptered" ? 4 : v === "Enrolled" ? 3 : v.startsWith("Amended") ? 2 : 1;
 
-const state = { q: "", label: "all", status: "all", pop: "all", area: null, sort: "score" };
+const state = { q: "", label: "all", status: "all", ids: new Set(), area: null, sort: "score" };
 const bills = DATA.bills;
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const fmtDate = d => d ? new Date(d + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "";
+const hasIds = (b, ids) => [...ids].every(i => b.p.includes(i));
 
+/* ---------- tabs ---------- */
+const TABS = ["california", "federal", "codebook"];
+function showTab() {
+  const t = TABS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "california";
+  TABS.forEach(x => { $("tab-" + x).hidden = x !== t; });
+  document.querySelectorAll(".tabs a").forEach(a => a.toggleAttribute("aria-current", a.dataset.tab === t));
+  document.querySelectorAll(".tabs a").forEach(a => { if (a.dataset.tab === t) a.setAttribute("aria-current", "page"); });
+}
+window.addEventListener("hashchange", showTab);
+
+/* ---------- California ---------- */
 function header() {
   const m = DATA.meta;
   const direct = bills.filter(b => b.l === "direct").length;
@@ -330,33 +422,28 @@ function header() {
     [direct, "direct"], [bills.length - direct, "indirect"], [law, "became law"]
   ].map(([n, t]) => `<div><b>${n}</b><span>${t}</span></div>`).join("");
   $("footer").textContent = `Built ${fmtDate(m.built)} from the Legislature's bulk data. POLISCI 158 final project.`;
-  const pops = {};
-  bills.forEach(b => b.p.forEach(p => pops[p] = (pops[p] || 0) + 1));
-  Object.entries(pops).sort((a, b) => b[1] - a[1]).forEach(([p, n]) => {
-    const o = document.createElement("option"); o.value = p; o.textContent = `${POP_NAMES[p] || p} (${n})`; $("pop").append(o);
-  });
 }
 
-function realms() {
-  const n = id => bills.filter(b => b.p.includes(id)).length;
-  $("realm-grid").innerHTML = REALMS.map(r => `<button type="button" class="realm" data-pop="${r.id}" aria-pressed="false">
-      <span class="realm-top"><span class="realm-name">${esc(r.name)}</span><span class="realm-n">${n(r.id)}</span></span>
-      <span class="realm-def">${esc(r.def)}</span>
-      ${r.note ? `<span class="realm-note">${esc(r.note)}</span>` : ""}
-    </button>`).join("");
-  const realmIds = new Set(REALMS.map(r => r.id));
-  const others = {};
-  bills.forEach(b => b.p.forEach(p => { if (!realmIds.has(p)) others[p] = (others[p] || 0) + 1; }));
-  $("others").innerHTML = "<span>Other groups:</span>" + Object.entries(others).sort((a, b) => b[1] - a[1])
-    .map(([p, c]) => `<button type="button" data-pop="${p}" aria-pressed="false">${esc(POP_NAMES[p] || p)} ${c}</button>`).join("");
-}
-
-function related() {
-  const items = (DATA.related || {})[state.pop];
-  $("related").innerHTML = items && items.length ? `<div class="related">
-      <h3>Worth a look, not in the index</h3>
-      ${items.map(i => `<p><span class="measure">${i.u ? `<a href="${esc(i.u)}" target="_blank" rel="noopener">${esc(i.m)}</a>` : esc(i.m)}</span> ${esc(i.note)}</p>`).join("")}
-    </div>` : "";
+function ids() {
+  $("id-grid").innerHTML = IDS.map(i => {
+    const on = state.ids.has(i.id);
+    const next = new Set(state.ids); next.add(i.id);
+    const n = bills.filter(b => hasIds(b, next)).length;
+    return `<button type="button" class="id-btn" data-id="${i.id}" aria-pressed="${on}" ${!on && n === 0 ? "disabled" : ""}
+      aria-label="${esc(i.long)}: ${n} bills">
+      <svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[i.id] || ""}</svg>
+      <span class="id-name">${esc(i.name)}</span><span class="id-n">${n}</span></button>`;
+  }).join("");
+  const sel = IDS.filter(i => state.ids.has(i.id));
+  if (!sel.length) { $("id-summary").innerHTML = ""; return; }
+  const n = bills.filter(b => hasIds(b, state.ids)).length;
+  const rel = sel.length === 1 ? ((DATA.related || {})[sel[0].id] || []) : [];
+  $("id-summary").innerHTML = `<div class="id-summary">
+      <h3>${sel.map(i => esc(i.long)).join(" + ")}: ${n} bill${n === 1 ? "" : "s"}</h3>
+      ${sel.map(i => `<p><b>${esc(i.name)}</b> covers ${esc(i.def.charAt(0).toLowerCase() + i.def.slice(1))}${i.note ? ` <span class="note">${esc(i.note)}</span>` : ""}</p>`).join("")}
+      ${rel.length ? `<p><b>Worth a look, not in the index:</b></p>${rel.map(r => `<p><span class="measure">${r.u ? `<a href="${esc(r.u)}" target="_blank" rel="noopener">${esc(r.m)}</a>` : esc(r.m)}</span> ${esc(r.note)}</p>`).join("")}` : ""}
+      <p><a href="#bills">See the bills ↓</a></p>
+    </div>`;
 }
 
 function bars() {
@@ -369,7 +456,7 @@ function bars() {
   const max = Math.max(...rows.map(([, c]) => c.d + c.n));
   $("bars").innerHTML = rows.map(([a, c]) => {
     const t = c.d + c.n;
-    return `<button type="button" class="bar" data-area="${a}" aria-pressed="${state.area === a}" title="${c.d} direct, ${c.n} indirect">
+    return `<button type="button" class="bar" data-area="${a}" aria-pressed="false" title="${c.d} direct, ${c.n} indirect">
       <span class="bar-name">${esc(AREA_NAMES[a] || a)}</span>
       <span class="bar-track" style="width:${(t / max * 100).toFixed(1)}%"><i class="d" style="width:${c.d / t * 100}%"></i><i class="n" style="width:${c.n / t * 100}%"></i></span>
       <span class="bar-num">${t}</span></button>`;
@@ -380,7 +467,7 @@ function matches(b) {
   if (state.label !== "all" && b.l !== state.label) return false;
   if (state.status === "law" && b.v !== "Chaptered") return false;
   if (state.status === "not" && b.v === "Chaptered") return false;
-  if (state.pop !== "all" && !b.p.includes(state.pop)) return false;
+  if (!hasIds(b, state.ids)) return false;
   if (state.area && !b.a.includes(state.area)) return false;
   if (state.q) {
     const q = state.q.toLowerCase().replace(/\s+/g, " ");
@@ -406,12 +493,12 @@ function billHTML(b) {
       </span>
       <span>${fmtDate(b.d)}</span>
     </div>
-    <div class="tags">${b.a.map(a => `<span class="tag">${esc(AREA_NAMES[a] || a)}</span>`).join("")}${b.p.map(p => `<span class="tag pop">${esc(POP_NAMES[p] || p)}</span>`).join("")}</div>
+    <div class="tags">${b.a.map(a => `<span class="tag">${esc(AREA_NAMES[a] || a)}</span>`).join("")}${b.p.map(p => `<span class="tag pop">${esc(ID_NAME[p] || p)}</span>`).join("")}</div>
     <details><summary>Summary and why it was flagged</summary>
       <p class="digest">${esc(b.x)}</p>
       <p class="title-line">${esc(b.t)}</p>
       <p class="why">Matched: ${b.k.map(k => `<code>${esc(k)}</code>`).join(" ")}</p>
-      ${Object.keys(b.rs || {}).length ? `<div class="where">${Object.entries(b.rs).map(([r, t]) => `<p><b>${esc(POP_NAMES[r] || r)}:</b> <span>${esc(t)}</span></p>`).join("")}</div>` : ""}
+      ${Object.keys(b.rs || {}).length ? `<div class="where">${Object.entries(b.rs).map(([r, t]) => `<p><b>${esc(ID_NAME[r] || r)}:</b> <span>${esc(t)}</span></p>`).join("")}</div>` : ""}
     </details>
   </article>`;
 }
@@ -422,15 +509,14 @@ function render() {
   rows.sort(state.sort === "date" ? (a, b) => b.d.localeCompare(a.d)
     : state.sort === "measure" ? (a, b) => { const [ka, na] = num(a.m), [kb, nb] = num(b.m); return ka.localeCompare(kb) || na - nb; }
     : (a, b) => (a.l === b.l ? 0 : a.l === "direct" ? -1 : 1) || b.sc - a.sc);
-  const filtered = state.q || state.label !== "all" || state.status !== "all" || state.pop !== "all" || state.area;
-  $("count").innerHTML = `${rows.length} of ${bills.length} bills` +
+  const filtered = state.q || state.label !== "all" || state.status !== "all" || state.ids.size || state.area;
+  const who = state.ids.size ? ` reaching ${[...state.ids].map(i => esc(ID_NAME[i])).join(" + ")}` : "";
+  $("count").innerHTML = `${rows.length} of ${bills.length} bills${who}` +
     (filtered ? ` · <button type="button" class="clear" id="clear">Clear filters</button>` : "");
   $("list").innerHTML = rows.length ? rows.map(billHTML).join("")
-    : `<p class="empty">No flagged bills match these filters. Try a broader search or clear the filters.</p>`;
+    : `<p class="empty">No flagged bills match these filters. Try fewer identities or clear the filters.</p>`;
   document.querySelectorAll(".bar").forEach(el => el.setAttribute("aria-pressed", String(el.dataset.area === state.area)));
-  document.querySelectorAll("[data-pop]").forEach(el => el.setAttribute("aria-pressed", String(el.dataset.pop === state.pop)));
-  $("pop").value = state.pop;
-  related();
+  ids();
 }
 
 function gaps() {
@@ -440,6 +526,7 @@ function gaps() {
       <span class="gap-src">${esc(g.src)}</span></div>`).join("");
 }
 
+/* ---------- Federal ---------- */
 function federal() {
   const fed = DATA.federal || [];
   const order = [...new Set(fed.map(r => r.womenslaw_topic))];
@@ -456,17 +543,30 @@ function federal() {
   }).join("");
 }
 
-header(); realms(); gaps(); bars(); render(); federal();
-document.querySelector(".realms").addEventListener("click", e => {
-  const btn = e.target.closest("[data-pop]"); if (!btn) return;
-  state.pop = state.pop === btn.dataset.pop ? "all" : btn.dataset.pop;
+/* ---------- Codebook ---------- */
+const KIND_NAMES = { direct: "Direct", anchor: "Victim or safety", area: "Impact area", area_strong: "Impact area (strong)", population: "Who it reaches", exclude: "Excluded phrase" };
+function terms() {
+  const q = ($("term-q").value || "").toLowerCase();
+  const rows = (DATA.lexicon || []).filter(t => !q || `${t.term} ${t.kind} ${KIND_NAMES[t.kind]} ${t.area} ${ID_NAME[t.area] || ""} ${AREA_NAMES[t.area] || ""} ${t.note}`.toLowerCase().includes(q));
+  $("term-count").textContent = `${rows.length} of ${(DATA.lexicon || []).length} terms`;
+  $("term-rows").innerHTML = rows.map(t => `<tr><td>${esc(t.term.startsWith("re:") ? "code section citation" : t.term)}</td>
+    <td><span class="kind">${esc(KIND_NAMES[t.kind] || t.kind)}</span></td>
+    <td>${esc(ID_NAME[t.area] || AREA_NAMES[t.area] || t.area)}</td><td>${esc(t.note)}</td></tr>`).join("");
+}
+document.querySelectorAll("#codebook table").forEach(t => { const w = document.createElement("div"); w.className = "table-wrap"; t.replaceWith(w); w.append(t); });
+
+header(); gaps(); bars(); render(); federal(); terms(); showTab();
+
+$("id-grid").addEventListener("click", e => {
+  const btn = e.target.closest(".id-btn"); if (!btn || btn.disabled) return;
+  const id = btn.dataset.id;
+  state.ids.has(id) ? state.ids.delete(id) : state.ids.add(id);
   render();
 });
-
 $("q").addEventListener("input", e => { state.q = e.target.value.trim(); render(); });
 $("status").addEventListener("change", e => { state.status = e.target.value; render(); });
-$("pop").addEventListener("change", e => { state.pop = e.target.value; render(); });
 $("sort").addEventListener("change", e => { state.sort = e.target.value; render(); });
+$("term-q").addEventListener("input", terms);
 $("seg-label").addEventListener("click", e => {
   const btn = e.target.closest("button"); if (!btn) return;
   state.label = btn.dataset.v;
@@ -480,8 +580,8 @@ $("bars").addEventListener("click", e => {
 });
 $("count").addEventListener("click", e => {
   if (e.target.id !== "clear") return;
-  Object.assign(state, { q: "", label: "all", status: "all", pop: "all", area: null });
-  $("q").value = ""; $("status").value = "all"; $("pop").value = "all";
+  Object.assign(state, { q: "", label: "all", status: "all", area: null }); state.ids.clear();
+  $("q").value = ""; $("status").value = "all";
   $("seg-label").querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.v === "all")));
   render();
 });
