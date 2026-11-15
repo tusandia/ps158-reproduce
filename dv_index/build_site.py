@@ -31,6 +31,18 @@ RELATED = {
     ],
 }
 
+# Problems the codebook's sources document for immigrant and South Asian
+# survivors. The page reports how many bills in the session mention each one.
+GAPS = [
+    ("Dowry abuse", r"\bdowry", "Bhandari 2025"),
+    ("Transnational or marriage abandonment", r"transnational abandonment|marriage abandonment|abandon\w* (a |the )?(spouse|wife)", "Bhandari 2025"),
+    ("Immigration-related abuse, such as withholding a partner's passport or visa", r"immigration-related abuse|(withh[oe]ld\w*|destroy\w*|confiscat\w*) [^.]{0,40}(passport|visa|immigration document)", "Tabibi et al. 2018"),
+    ("International custody and child abduction", r"hague convention|child abduction|parental abduction|international custody", "Bhandari 2025"),
+    ("Culturally specific services for survivors", r"culturally specific", "Bhandari 2025"),
+    ("Shelters that meet religious or spiritual needs", r"religious need|spiritual need|religious accommodation", "Tabibi et al. 2018"),
+    ("Faith leaders' role in abuse or help-seeking", r"faith leader|religious leader|\bimam\b", "Bhandari 2025"),
+]
+
 HERE = Path(__file__).parent
 TEMPLATE = HERE / "site" / "template.html"
 OUT = HERE / "site" / "index.html"
@@ -94,11 +106,14 @@ def main():
     related = {realm: [{"m": m, "note": note, "u": (f.loc[f["measure"] == m, "url"].iloc[0]
                                                     if (f["measure"] == m).any() else "")}
                        for m, note in items] for realm, items in RELATED.items()}
+    text = (f["title"] + " " + f["subject"] + " " + f["digest"])
+    gaps = [{"issue": name, "n": int(text.str.contains(rx, case=False, regex=True).sum()), "src": src}
+            for name, rx, src in GAPS]
     meta = {
         "total": len(f), "session": (f["session"].iloc[0] if len(f) else ""),
         "built": dt.date.today().isoformat(),
     }
-    data = json.dumps({"meta": meta, "bills": bills, "related": related}, ensure_ascii=False).replace("</", "<\\/")
+    data = json.dumps({"meta": meta, "bills": bills, "related": related, "gaps": gaps}, ensure_ascii=False).replace("</", "<\\/")
     html = TEMPLATE.read_text(encoding="utf-8").replace("/*__DATA__*/null", data)
     Path(args.output).write_text(html, encoding="utf-8")
     print(f"{len(bills)} bills -> {args.output}")

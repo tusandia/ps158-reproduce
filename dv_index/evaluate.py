@@ -14,6 +14,7 @@ re-code of a subset two weeks later) and reports Cohen's kappa.
 Usage:
     python evaluate.py coding/coding_sheet.csv coding/sample_key.csv
     python evaluate.py coding/coding_sheet.csv coding/sample_key.csv --recode coding/recode.csv
+    python evaluate.py coding/coding_sheet.csv coding/sample_key.csv --flags data/flags_2025.csv
 """
 
 import argparse
@@ -30,7 +31,7 @@ def split_tags(s):
     return {t.strip().lower() for t in str(s or "").replace(",", ";").split(";") if t.strip()}
 
 
-def load(sheet_path, key_path):
+def load(sheet_path, key_path, flags_path=None):
     sheet = pd.read_csv(sheet_path, dtype=str).fillna("")
     key = pd.read_csv(key_path, dtype=str).fillna("")
     sheet["relevance"] = sheet["relevance"].str.strip().str.lower()
@@ -38,6 +39,11 @@ def load(sheet_path, key_path):
     bad = coded[~coded["relevance"].isin(LABELS)]
     if len(bad):
         raise SystemExit(f"relevance must be one of {LABELS}; bad rows: {bad['row'].tolist()}")
+    if flags_path:  # score today's predictions; strata and weights stay as drawn
+        cur = pd.read_csv(flags_path, dtype=str).fillna("")
+        cur = cur[["bill_id", "pred_label", "pred_areas", "matched_terms"]]
+        key = key.drop(columns=["pred_label", "pred_areas", "matched_terms"]).merge(
+            cur, on="bill_id", how="left", validate="one_to_one").fillna("")
     df = coded.merge(key, on=["row", "bill_id"], how="inner", validate="one_to_one")
     df["weight"] = df["weight"].astype(float)
     return df, len(sheet)
@@ -138,11 +144,13 @@ def main():
     p.add_argument("sheet")
     p.add_argument("key")
     p.add_argument("--recode", help="a second coding of some of the same rows")
+    p.add_argument("--flags", help="score predictions from this flags file (after editing the lexicon) "
+                                   "instead of those saved when the sample was drawn")
     p.add_argument("--reps", type=int, default=2000, help="bootstrap replications")
     p.add_argument("-o", "--output", default=HERE / "results" / "evaluation.md")
     args = p.parse_args()
 
-    df, n_sheet = load(args.sheet, args.key)
+    df, n_sheet = load(args.sheet, args.key, args.flags)
     conf = pd.crosstab(df["relevance"], df["pred_label"]).reindex(index=LABELS, columns=LABELS, fill_value=0)
 
     parts = [

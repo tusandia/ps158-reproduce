@@ -30,6 +30,12 @@ coerced debt,direct,financial,2,
 economic abuse,direct,financial,2,
 forced marriage,direct,,3,part of the DVPA since 2024
 coerced marriage,direct,,2,
+dowry,direct,,2,dowry abuse (Bhandari 2025)
+transnational abandonment,direct,immigration,3,Bhandari 2025
+marriage abandonment,direct,immigration,2,Bhandari 2025
+immigration-related abuse,direct,immigration,3,Learning Network Issue 26
+technology-enabled abuse,direct,privacy,2,
+technological abuse,direct,privacy,2,
 re:division 10 (of|of the) (the )?family code,direct,courts,3,the Domestic Violence Prevention Act
 "re:\b(6[23]\d\d|640\d)(\.\d+)?\b[^.;]{0,250}?family code",direct,courts,3,cites a DVPA section (Fam. Code 6200-6409)
 # --- anchor: victim/safety language. An area term plus anchor weight >= 2 => predicted INDIRECT. Direct terms also count as anchors. ---,,,,
@@ -58,6 +64,14 @@ u-visa*,area_strong,immigration,1,
 t-visa*,area_strong,immigration,1,
 re:form i-91[48],area_strong,immigration,1,I-918 Supp. B (U) / I-914 Supp. B (T) certifications
 re:section 679\.1[01] of the penal code,area_strong,immigration,1,U/T visa certification statutes
+immigration document*,area,immigration,1,abusers withhold or cancel them (Bhandari 2025)
+passport*,area,immigration,1,
+travel document*,area,immigration,1,
+identity document*,area,immigration,1,
+regardless of immigration status,area,immigration,1,services without proof of status (Issue 26)
+proof of immigration status,area,immigration,1,
+migrant worker*,area,immigration,1,
+international student*,area,immigration,1,
 tenant*,area,housing,1,
 landlord*,area,housing,1,
 lease*,area,housing,1,
@@ -68,6 +82,7 @@ homeless*,area,housing,1,
 shelter*,area,housing,1,
 transitional housing,area,housing,1,
 housing voucher*,area,housing,1,
+motel*,area,housing,1,
 re:section 1946\.7 of the civil code,area_strong,housing,1,lease termination for victims
 re:section 1161\.3 of the code of civil procedure,area_strong,housing,1,eviction protection for victims
 child custody,area,custody,1,
@@ -82,6 +97,13 @@ best interest of the child,area,custody,1,
 parenting,area,custody,1,
 family code,area,custody,1,
 re:section 3044 of the family code,area_strong,custody,1,custody presumption against abusers
+child abduction,area,custody,1,abuser takes or keeps the children
+parental abduction,area,custody,1,
+hague convention,area_strong,custody,1,international custody
+uniform child custody jurisdiction,area_strong,custody,1,UCCJEA (Fam. Code 3400 et seq.)
+service of process,area,courts,1,divorce served fraudulently (Bhandari 2025)
+ex parte,area,courts,1,
+default judgment*,area,courts,1,
 firearm*,area,firearms,1,
 gun*,area,firearms,1,
 ammunition,area,firearms,1,
@@ -103,6 +125,7 @@ limited english,area,language,1,
 translat*,area,language,1,
 bilingual,area,language,1,
 non-english,area,language,1,
+sign language,area,language,1,Deaf survivors (Issue 26)
 legal aid,area,courts,1,
 legal services,area,courts,1,
 self-help,area,courts,1,
@@ -122,6 +145,8 @@ location data,area,privacy,1,
 electronic tracking,area,privacy,1,
 tracking device*,area,privacy,1,
 stalkerware,area_strong,privacy,1,
+intimate image*,area,privacy,1,electronic violence (Issue 26)
+electronic surveillance,area,privacy,1,
 spyware,area,privacy,1,
 data broker*,area,privacy,1,
 doxing,area,privacy,1,
@@ -146,6 +171,10 @@ cal oes,area,services,1,
 hotline*,area,services,1,
 crisis center*,area,services,1,
 victim service provider*,area_strong,services,1,
+culturally specific,area,services,1,culturally specific organizations (SAWOs; Bhandari 2025)
+culturally responsive,area,services,1,
+culturally appropriate,area,services,1,
+linguistically appropriate,area,services,1,
 child welfare,area,child_welfare,1,
 dependency,area,child_welfare,1,
 foster,area,child_welfare,1,
@@ -182,6 +211,10 @@ re:\bvawa\b,population,immigrant_vawa,1,
 u visa*,population,immigrant_vawa,1,
 t visa*,population,immigrant_vawa,1,
 re:form i-91[48],population,immigrant_vawa,1,
+migrant worker*,population,immigrant_vawa,1,
+international student*,population,immigrant_vawa,1,
+passport*,population,immigrant_vawa,1,
+immigration document*,population,immigrant_vawa,1,
 # realm: women and gender,,,,
 re:\bwom[ae]n\b,population,women_gender,1,
 gender-based violence,population,women_gender,1,
@@ -190,12 +223,18 @@ pregnan*,population,women_gender,1,
 reproductive,population,women_gender,1,
 forced marriage,population,women_gender,1,
 coerced marriage,population,women_gender,1,
+dowry,population,women_gender,1,
 # realm: faith and religion. Only where the text itself mentions religion.,,,,
 religio*,population,faith,1,
 faith-based,population,faith,1,
 place* of worship,population,faith,1,
 house* of worship,population,faith,1,
 clergy,population,faith,1,
+faith leader*,population,faith,1,imams and other leaders can help or harm (Bhandari 2025)
+religious leader*,population,faith,1,
+spiritual,population,faith,1,shelters that meet spiritual and religious needs (Issue 26)
+religious need*,population,faith,1,
+religious accommodation*,population,faith,1,
 # realm: language access (named languages are listed so South Asian and other language communities can be found),,,,
 limited english,population,language_access,1,
 language access,population,language_access,1,
@@ -203,6 +242,8 @@ interpreter*,population,language_access,1,
 translat*,population,language_access,1,
 re:\b(punjabi|hindi|urdu|bengali|gujarati|tamil|telugu|nepali)\b,population,south_asian_languages,1,
 re:\b(arabic|farsi|dari|pashto)\b,population,arabic_persian_languages,1,
+culturally specific,population,language_access,1,
+re:\b(deaf|sign language)\b,population,disability,1,
 # --- exclude: phrases deleted from the text before matching, to avoid known false hits. ---,,,,
 substance abuse,exclude,,0,
 drug abuse,exclude,,0,

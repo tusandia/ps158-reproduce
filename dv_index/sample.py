@@ -8,7 +8,7 @@ uses to estimate population-level precision and recall.
 Two files are written:
     coding/coding_sheet.csv   what you code: shuffled, with NO predictions, so
                               coding is blind to the tool. Fill in `relevance`,
-                              `areas`, `populations`, `notes`.
+                              `areas`, `abuse_forms`, `populations`, `notes`.
     coding/sample_key.csv     predictions, strata and weights (don't look at
                               this while coding).
 
@@ -23,7 +23,7 @@ import pandas as pd
 
 HERE = Path(__file__).parent
 SHEET_COLS = ["row", "bill_id", "measure", "title", "subject", "digest", "url"]
-CODE_COLS = ["relevance", "areas", "populations", "notes"]
+CODE_COLS = ["relevance", "areas", "abuse_forms", "populations", "notes"]
 
 
 def stratified_sample(flags, sizes, seed=158):

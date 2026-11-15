@@ -96,6 +96,9 @@ def test_sample_evaluate_monitor(tmp):
     report = (tmp / "eval.md").read_text()
     assert "| Relevant (direct or indirect) | 1.00 | 0.83 |" in report, report  # 5 of 6 found
     assert "AB 5" in report  # the miss is listed
+    run("evaluate.py", tmp / "coding" / "coding_sheet.csv", tmp / "coding" / "sample_key.csv",
+        "--reps", 50, "-o", tmp / "eval2.md", "--flags", fpath)
+    assert "| Relevant (direct or indirect) | 1.00 | 0.83 |" in (tmp / "eval2.md").read_text()
 
     changes, tracked = compare(flags, None)
     assert len(changes) == 5

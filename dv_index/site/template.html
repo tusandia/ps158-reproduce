@@ -157,6 +157,16 @@ details[open] summary { margin-bottom: 8px; }
 .where b { font-weight: 600; }
 .where span { color: var(--muted); }
 
+/* Gaps */
+.gaps { display: grid; gap: 12px; }
+.gaps > p { max-width: 70ch; color: var(--muted); }
+.gap-list { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.gap { display: grid; grid-template-columns: 3rem 1fr auto; gap: 12px; align-items: baseline; padding-block: 9px; border-bottom: 1px solid var(--line); }
+.gap-n { font: 600 1.05rem var(--font-mono); font-variant-numeric: tabular-nums; }
+.gap-n.zero { color: var(--accent); }
+.gap-src { font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
+@media (max-width: 520px) { .gap { grid-template-columns: 2.4rem 1fr; } .gap-src { grid-column: 2; } }
+
 /* Method */
 .method { display: grid; gap: 14px; border-top: 1px solid var(--line); padding-top: 28px; }
 .method-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px 32px; }
@@ -193,6 +203,12 @@ footer { color: var(--muted); font-size: 0.82rem; }
     <div class="realm-grid" id="realm-grid"></div>
     <div id="related"></div>
     <div class="others" id="others"><span>Other groups:</span></div>
+  </section>
+
+  <section class="gaps" aria-labelledby="gaps-h">
+    <h2 id="gaps-h">What the session didn't address</h2>
+    <p>Research on immigrant and South Asian survivors documents these problems. The number is how many of the session's bills mention each one, flagged or not.</p>
+    <div class="gap-list" id="gap-list"></div>
   </section>
 
   <section class="areas" aria-labelledby="areas-h">
@@ -235,6 +251,7 @@ footer { color: var(--muted); font-size: 0.82rem; }
       <div><h3>Source</h3><p>The Legislature's official bulk data (downloads.leginfo.legislature.ca.gov). For each AB and SB bill, the tool reads the latest version's title, subject and Legislative Counsel's Digest.</p></div>
       <div><h3>Direct</h3><p>The bill names domestic, intimate partner, dating or family violence, or cites a section of the Domestic Violence Prevention Act (Family Code §§6200–6409).</p></div>
       <div><h3>Indirect</h3><p>The bill touches an impact area (housing, immigration, custody, firearms and so on) and uses victim or safety language. Some citations count on their own, such as Civil Code §1946.7, which lets victims end a lease.</p></div>
+      <div><h3>Sources for the coding scheme</h3><p>Bhandari, S. (2025), "Experiences of transnational abandonment in the lives of abused South Asian women in the United States," <i>Journal of Family Violence</i> 40. Tabibi, J., Ahmad, S., Baker, L. &amp; Lalonde, D. (2018), <i>Intimate partner violence against immigrant and refugee women</i>, Learning Network Issue 26, Western University.</p></div>
       <div><h3>Next</h3><p>A stratified sample of 292 bills, including bills the tool did not flag, is being hand-coded to measure precision and recall.</p></div>
     </div>
     <footer id="footer"></footer>
@@ -389,7 +406,14 @@ function render() {
   related();
 }
 
-header(); realms(); bars(); render();
+function gaps() {
+  $("gap-list").innerHTML = (DATA.gaps || []).map(g => `<div class="gap">
+      <span class="gap-n ${g.n === 0 ? "zero" : ""}">${g.n}</span>
+      <span>${esc(g.issue)}</span>
+      <span class="gap-src">${esc(g.src)}</span></div>`).join("");
+}
+
+header(); realms(); gaps(); bars(); render();
 document.querySelector(".realms").addEventListener("click", e => {
   const btn = e.target.closest("[data-pop]"); if (!btn) return;
   state.pop = state.pop === btn.dataset.pop ? "all" : btn.dataset.pop;
