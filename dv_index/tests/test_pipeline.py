@@ -108,6 +108,56 @@ def test_sample_evaluate_monitor(tmp):
     assert changes2["change"].tolist() == ["UPDATED"]
 
 
+def test_update_incremental(tmp):
+    """Full build from one change file, then a later file amends the bill."""
+    import json, os, zipfile as zf
+    env = dict(os.environ, DV_WEB_DATA=str(tmp / "web"))
+    z1 = tmp / "pubinfo_a.zip"
+    make_zip(z1)
+    run = lambda *a: subprocess.run([sys.executable, *map(str, a)], cwd=HERE, check=True,  # noqa: E731
+                                    capture_output=True, text=True, env=env)
+    run("update.py", "--full", "--zip", z1, "--session", 2025, "--today", "2026-01-01")
+    bills = json.loads((tmp / "web" / "bills.json").read_text())
+    assert [b["m"] for b in bills] == ["AB 9999"] and bills[0]["v"] == "Amended Assembly"
+    assert json.loads((tmp / "web" / "updates.json").read_text()) == []   # first build logs nothing
+    # same file again: nothing changes
+    run("update.py", "--zip", z1, "--today", "2026-01-02")
+    assert json.loads((tmp / "web" / "updates.json").read_text()) == []
+    # a newer version arrives
+    z2 = tmp / "pubinfo_b.zip"
+    with zf.ZipFile(z1) as a, zf.ZipFile(z2, "w") as b:
+        dat = a.read("BILL_VERSION_TBL.dat").decode().splitlines()[-1]
+        dat = dat.replace("20250AB999998AMD", "20250AB999997AMD").replace("`98`", "`97`").replace(
+            "2025-04-01", "2025-06-01").replace("Amended Assembly", "Amended Senate").replace("TBL_2.lob", "TBL_3.lob")
+        b.writestr("BILL_VERSION_TBL.dat", dat)
+        b.writestr("BILL_VERSION_TBL_3.lob", a.read("BILL_VERSION_TBL_2.lob"))
+    run("update.py", "--zip", z2, "--today", "2026-01-03")
+    log = json.loads((tmp / "web" / "updates.json").read_text())
+    assert [(u["change"], u["m"], u["v"]) for u in log] == [("UPDATED", "AB 9999", "Amended Senate")], log
+    meta = json.loads((tmp / "web" / "meta.json").read_text())
+    assert meta["flagged"] == 1 and meta["updated"] == "2026-01-03"
+
+
+def test_news_filter(tmp):
+    import json, os
+    feed = tmp / "feed.xml"
+    feed.write_text("""<?xml version="1.0"?><rss version="2.0"><channel><title>t</title>
+      <item><title>Assembly passes AB 1753 on domestic violence restraining orders</title>
+        <link>https://example.invalid/a</link><pubDate>Mon, 16 Nov 2026 08:00:00 GMT</pubDate>
+        <source url="https://example.invalid">Example News</source></item>
+      <item><title>New freeway interchange opens</title><link>https://example.invalid/b</link>
+        <pubDate>Mon, 16 Nov 2026 09:00:00 GMT</pubDate></item>
+    </channel></rss>""")
+    sources = tmp / "sources.json"
+    sources.write_text(json.dumps([{"name": "Test feed", "url": feed.as_uri()}]))
+    env = dict(os.environ, DV_WEB_DATA=str(tmp / "web"))
+    subprocess.run([sys.executable, "news.py", "--sources", str(sources)], cwd=HERE, check=True,
+                   capture_output=True, text=True, env=env)
+    items = json.loads((tmp / "web" / "news.json").read_text())
+    assert [i["title"][:18] for i in items] == ["Assembly passes AB"], items
+    assert items[0]["bills"] == ["AB 1753"] and items[0]["source"] == "Example News"
+
+
 if __name__ == "__main__":
     with tempfile.TemporaryDirectory() as d:
         tmp = Path(d)
@@ -115,4 +165,6 @@ if __name__ == "__main__":
         test_measure_parse()
         test_fetch_and_flag(tmp)
         test_sample_evaluate_monitor(tmp)
+        test_update_incremental(tmp)
+        test_news_filter(tmp)
     print("all tests passed")

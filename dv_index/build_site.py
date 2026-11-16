@@ -37,8 +37,8 @@ RELATED = {
 # survivors. The page reports how many bills in the session mention each one.
 GAPS = [
     ("Dowry abuse", r"\bdowry", "Bhandari 2025"),
-    ("Transnational or marriage abandonment", r"transnational abandonment|marriage abandonment|abandon\w* (a |the )?(spouse|wife)", "Bhandari 2025"),
-    ("Immigration-related abuse, such as withholding a partner's passport or visa", r"immigration-related abuse|(withh[oe]ld\w*|destroy\w*|confiscat\w*) [^.]{0,40}(passport|visa|immigration document)", "Tabibi et al. 2018"),
+    ("Transnational or marriage abandonment", r"transnational abandonment|marriage abandonment|abandon\w* (?:a |the )?(?:spouse|wife)", "Bhandari 2025"),
+    ("Immigration-related abuse, such as withholding a partner's passport or visa", r"immigration-related abuse|(?:withh[oe]ld\w*|destroy\w*|confiscat\w*) [^.]{0,40}(?:passport|visa|immigration document)", "Tabibi et al. 2018"),
     ("International custody and child abduction", r"hague convention|child abduction|parental abduction|international custody", "Bhandari 2025"),
     ("Culturally specific services for survivors", r"culturally specific", "Bhandari 2025"),
     ("Shelters that meet religious or spiritual needs", r"religious need|spiritual need|religious accommodation", "Tabibi et al. 2018"),
@@ -87,6 +87,38 @@ def realm_snippets(text, lexicon, width=170):
     return out
 
 
+def federal_rows():
+    path = HERE / "reference" / "federal_statutes_womenslaw.csv"
+    return pd.read_csv(path, dtype=str).fillna("").to_dict("records") if path.exists() else []
+
+
+def lexicon_rows():
+    with open(HERE / "lexicon.csv", newline="", encoding="utf-8") as fh:
+        rows = [{k: (v or "").strip() for k, v in r.items() if k} for r in csv.DictReader(fh)]
+    return [{"term": r["term"], "kind": r["kind"], "area": r["area"], "note": r["note"]}
+            for r in rows if r["term"] and not r["term"].startswith("#") and r["kind"] != "exclude"]
+
+
+def codebook_html():
+    md = (HERE / "CODEBOOK.md").read_text(encoding="utf-8")
+    # Python-Markdown needs a blank line before a list that follows a paragraph line.
+    md = re.sub(r"(?m)^((?![ \t]*(?:[-*]|\d+\.)\s)[^\n|#][^\n]*)\n(?=[ \t]*(?:[-*]|\d+\.)\s)", r"\1\n\n", md)
+    return markdown.markdown(md, extensions=["tables"])
+
+
+def bill_record(r, lexicon):
+    """One flagged bill in the compact form both websites use. `r` has the flag.py columns."""
+    return {
+        "id": r["bill_id"], "m": r["measure"], "session": r.get("session", ""),
+        "l": r["pred_label"], "s": r["subject"], "t": r["title"],
+        "a": [x for x in r["pred_areas"].split(";") if x],
+        "p": [x for x in r["populations"].split(";") if x],
+        "v": r["version_action"], "vid": r["version_id"], "d": r["action_date"], "u": r["url"],
+        "x": excerpt(r["digest"]), "k": terms(r["matched_terms"]), "sc": float(r["score"] or 0),
+        "rs": realm_snippets(f"{r['title']} {r['digest']}", lexicon),
+    }
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -111,24 +143,15 @@ def main():
     text = (f["title"] + " " + f["subject"] + " " + f["digest"])
     gaps = [{"issue": name, "n": int(text.str.contains(rx, case=False, regex=True).sum()), "src": src}
             for name, rx, src in GAPS]
-    fed_path = HERE / "reference" / "federal_statutes_womenslaw.csv"
-    federal = (pd.read_csv(fed_path, dtype=str).fillna("").to_dict("records")
-               if fed_path.exists() else [])
-    with open(HERE / "lexicon.csv", newline="", encoding="utf-8") as fh:
-        lex_rows = [{k: (v or "").strip() for k, v in r.items() if k} for r in csv.DictReader(fh)]
-    lex_rows = [r for r in lex_rows if r["term"] and not r["term"].startswith("#") and r["kind"] != "exclude"]
-    lexicon_out = [{"term": r["term"], "kind": r["kind"], "area": r["area"], "note": r["note"]} for r in lex_rows]
-    codebook_md = (HERE / "CODEBOOK.md").read_text(encoding="utf-8")
-    # Python-Markdown needs a blank line before a list that follows a paragraph line.
-    codebook_md = re.sub(r"(?m)^((?![ \t]*(?:[-*]|\d+\.)\s)[^\n|#][^\n]*)\n(?=[ \t]*(?:[-*]|\d+\.)\s)", r"\1\n\n", codebook_md)
-    codebook_html = markdown.markdown(codebook_md, extensions=["tables"])
+    federal = federal_rows()
+    lexicon_out = lexicon_rows()
     meta = {
         "total": len(f), "session": (f["session"].iloc[0] if len(f) else ""),
         "built": dt.date.today().isoformat(),
     }
     data = json.dumps({"meta": meta, "bills": bills, "related": related, "gaps": gaps, "federal": federal, "lexicon": lexicon_out}, ensure_ascii=False).replace("</", "<\\/")
     html = (TEMPLATE.read_text(encoding="utf-8")
-            .replace("/*__CODEBOOK__*/", codebook_html)
+            .replace("/*__CODEBOOK__*/", codebook_html())
             .replace("/*__DATA__*/null", data))
     Path(args.output).write_text(html, encoding="utf-8")
     print(f"{len(bills)} bills -> {args.output}")

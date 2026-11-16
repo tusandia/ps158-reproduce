@@ -1,0 +1,712 @@
+[
+ {
+  "citation": "8 CFR § 204.2",
+  "title": "Petitions for relatives, widows and widowers, and abused spouses and children",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "partly",
+  "abuse_forms": "immigration_related",
+  "note": "VAWA self-petitions by abused spouses and children"
+ },
+ {
+  "citation": "8 CFR § 208.4",
+  "title": "Filing the application",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "asylum filing"
+ },
+ {
+  "citation": "8 CFR § 208.6",
+  "title": "Disclosure to third parties",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "privacy",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "asylum confidentiality"
+ },
+ {
+  "citation": "8 CFR § 208.21",
+  "title": "Admission of the asylee's spouse and children",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "asylee family members"
+ },
+ {
+  "citation": "8 CFR § 209.1",
+  "title": "Adjustment of status of refugees",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "refugee adjustment"
+ },
+ {
+  "citation": "8 CFR § 209.2",
+  "title": "Adjustment of status of alien granted asylum",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "asylee adjustment"
+ },
+ {
+  "citation": "8 CFR § 212.16",
+  "title": "Applications for exercise of discretion relating to T nonimmigrant status",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "T visa waivers (trafficking)"
+ },
+ {
+  "citation": "8 CFR § 212.17",
+  "title": "Applications for the exercise of discretion relating to U nonimmigrant status",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "partly",
+  "abuse_forms": "general",
+  "note": "U visa waivers; DV is a qualifying crime"
+ },
+ {
+  "citation": "8 CFR § 214.14",
+  "title": "Alien victims of certain qualifying criminal activity",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "partly",
+  "abuse_forms": "general",
+  "note": "U visa; DV is a qualifying crime. CA certifications: Pen. Code 679.10"
+ },
+ {
+  "citation": "8 CFR § 214.204",
+  "title": "Application",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "T visa (trafficking)"
+ },
+ {
+  "citation": "8 CFR § 214.205",
+  "title": "Bona fide determination",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "T visa (trafficking)"
+ },
+ {
+  "citation": "8 CFR § 214.206",
+  "title": "Victim of a severe form of trafficking in persons",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "T visa (trafficking)"
+ },
+ {
+  "citation": "8 CFR § 214.207",
+  "title": "Physical presence",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "T visa (trafficking)"
+ },
+ {
+  "citation": "8 CFR § 214.208",
+  "title": "Compliance with any reasonable request for assistance in the detection, investigation, or prosecution of an act of trafficking",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "T visa (trafficking)"
+ },
+ {
+  "citation": "8 CFR § 214.209",
+  "title": "Extreme hardship involving unusual and severe harm",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "T visa (trafficking)"
+ },
+ {
+  "citation": "8 CFR § 214.202",
+  "title": "Eligibility for T–1 nonimmigrant status",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "T visa (trafficking)"
+ },
+ {
+  "citation": "8 CFR § 214.210",
+  "title": "Annual numerical limit",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "T visa (trafficking)"
+ },
+ {
+  "citation": "8 CFR § 214.211",
+  "title": "Application for eligible family members",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "T visa (trafficking)"
+ },
+ {
+  "citation": "8 CFR § 214.212",
+  "title": "Extension of T nonimmigrant stat",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "T visa (trafficking)"
+ },
+ {
+  "citation": "8 CFR § 216.5",
+  "title": "Waiver of requirement to file joint petition to remove conditions by alien spouse",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "partly",
+  "abuse_forms": "immigration_related",
+  "note": "battered spouse waiver of joint petition"
+ },
+ {
+  "citation": "8 CFR § 245.23",
+  "title": "Adjustment of aliens in T nonimmigrant classification",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "T visa adjustment"
+ },
+ {
+  "citation": "8 CFR § 245.24",
+  "title": "Adjustment of aliens in U nonimmigrant status",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "partly",
+  "abuse_forms": "general",
+  "note": "U visa adjustment"
+ },
+ {
+  "citation": "8 CFR § 274a.12",
+  "title": "Classes of aliens authorized to accept employment",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "employment",
+  "dv_specific": "partly",
+  "abuse_forms": "economic",
+  "note": "work authorization, incl. VAWA and abused H-4 spouses"
+ },
+ {
+  "citation": "8 CFR § 1208.6",
+  "title": "Disclosure to third parties",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "privacy",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "asylum confidentiality (immigration courts)"
+ },
+ {
+  "citation": "8 CFR § 1240.11",
+  "title": "Ancillary matters, applications",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "relief applications in removal proceedings"
+ },
+ {
+  "citation": "24 CFR § 5.2003",
+  "title": "Definitions",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "VAWA Housing",
+  "area": "housing",
+  "dv_specific": "yes",
+  "abuse_forms": "general",
+  "note": "HUD VAWA definitions, incl. \"actual and imminent threat\""
+ },
+ {
+  "citation": "24 CFR § 5.2005",
+  "title": "VAWA protections",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "VAWA Housing",
+  "area": "housing",
+  "dv_specific": "yes",
+  "abuse_forms": "general",
+  "note": "HUD VAWA protections, lease bifurcation, emergency transfers"
+ },
+ {
+  "citation": "24 CFR § 982.315",
+  "title": "Family break-up",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "VAWA Housing",
+  "area": "housing",
+  "dv_specific": "partly",
+  "abuse_forms": "general",
+  "note": "Section 8 family break-up; survivor keeps voucher"
+ },
+ {
+  "citation": "24 CFR § 982.354",
+  "title": "Move with continued tenant-based assistance.",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "VAWA Housing",
+  "area": "housing",
+  "dv_specific": "partly",
+  "abuse_forms": "general",
+  "note": "Section 8 moves; exception for survivors"
+ },
+ {
+  "citation": "27 CFR § 478.11",
+  "title": "Meaning of terms.",
+  "source_group": "Code of Federal Regulations",
+  "womenslaw_topic": "Federal Gun Laws",
+  "area": "firearms",
+  "dv_specific": "partly",
+  "abuse_forms": "physical",
+  "note": "defines misdemeanor crime of domestic violence"
+ },
+ {
+  "citation": "INA § 101 (8 USC § 1101)",
+  "title": "Definitions",
+  "source_group": "Immigration and Nationality Act",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "partly",
+  "abuse_forms": "general",
+  "note": "definitions incl. U and T visas, VAWA self-petitioner"
+ },
+ {
+  "citation": "INA § 201 (8 USC § 1151)",
+  "title": "Worldwide level of immigration",
+  "source_group": "Immigration and Nationality Act",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "visa numbers"
+ },
+ {
+  "citation": "INA § 203 (8 USC § 1153)",
+  "title": "Allocation of immigrant visas",
+  "source_group": "Immigration and Nationality Act",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "visa allocation"
+ },
+ {
+  "citation": "INA § 204 (8 USC § 1154)",
+  "title": "Procedure for granting immigrant status",
+  "source_group": "Immigration and Nationality Act",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "partly",
+  "abuse_forms": "immigration_related",
+  "note": "VAWA self-petitions"
+ },
+ {
+  "citation": "INA § 207 (8 USC § 1157)",
+  "title": "Annual admission of refugees and admission of emergency situation refugees",
+  "source_group": "Immigration and Nationality Act",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "refugees"
+ },
+ {
+  "citation": "INA § 208 (8 USC § 1158)",
+  "title": "Asylum",
+  "source_group": "Immigration and Nationality Act",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "asylum; some gender-based claims"
+ },
+ {
+  "citation": "INA § 209 (8 USC § 1159)",
+  "title": "Refugees",
+  "source_group": "Immigration and Nationality Act",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "refugee adjustment"
+ },
+ {
+  "citation": "INA § 212 (8 USC § 1182)",
+  "title": "Inadmissible aliens",
+  "source_group": "Immigration and Nationality Act",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "partly",
+  "abuse_forms": "general",
+  "note": "inadmissibility; waivers for VAWA, U and T applicants"
+ },
+ {
+  "citation": "INA § 214 (8 USC § 1184)",
+  "title": "Admission of nonimmigrants",
+  "source_group": "Immigration and Nationality Act",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "partly",
+  "abuse_forms": "general",
+  "note": "U visa admission and cap"
+ },
+ {
+  "citation": "INA § 216 (8 USC § 1186a)",
+  "title": "Conditional permanent resident status for certain alien spouses and sons and daughters",
+  "source_group": "Immigration and Nationality Act",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "partly",
+  "abuse_forms": "immigration_related",
+  "note": "conditional residence; battered spouse waiver"
+ },
+ {
+  "citation": "INA § 237 (8 USC § 1227)",
+  "title": "Deportable aliens",
+  "source_group": "Immigration and Nationality Act",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "partly",
+  "abuse_forms": "general",
+  "note": "deportability; DV conviction ground and victim exception"
+ },
+ {
+  "citation": "INA § 240A (8 USC § 1229b)",
+  "title": "Cancellation of removal; adjustment of status",
+  "source_group": "Immigration and Nationality Act",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "partly",
+  "abuse_forms": "immigration_related",
+  "note": "VAWA cancellation of removal"
+ },
+ {
+  "citation": "INA § 245 (8 USC § 1255)",
+  "title": "Adjustment of status of nonimmigrant to that of person admitted for permanent residence",
+  "source_group": "Immigration and Nationality Act",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "partly",
+  "abuse_forms": "general",
+  "note": "adjustment for VAWA, U and T"
+ },
+ {
+  "citation": "INA § 316 (8 USC § 1427)",
+  "title": "Requirements of naturalization",
+  "source_group": "Immigration and Nationality Act",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "partly",
+  "abuse_forms": "general",
+  "note": "naturalization; VAWA rules"
+ },
+ {
+  "citation": "UCCJEA § 102",
+  "title": "Definitions",
+  "source_group": "Uniform Child Custody Jurisdiction and Enforcement Act (1997)",
+  "womenslaw_topic": "Custody",
+  "area": "custody",
+  "dv_specific": "no",
+  "abuse_forms": "child_related",
+  "note": "interstate custody definitions (CA: Fam. Code 3400 et seq.)"
+ },
+ {
+  "citation": "UCCJEA § 202",
+  "title": "Exclusive, continuing jurisdiction",
+  "source_group": "Uniform Child Custody Jurisdiction and Enforcement Act (1997)",
+  "womenslaw_topic": "Custody",
+  "area": "custody",
+  "dv_specific": "no",
+  "abuse_forms": "child_related",
+  "note": "exclusive continuing jurisdiction"
+ },
+ {
+  "citation": "UCCJEA § 203",
+  "title": "Jurisdiction to Modify Determination",
+  "source_group": "Uniform Child Custody Jurisdiction and Enforcement Act (1997)",
+  "womenslaw_topic": "Custody",
+  "area": "custody",
+  "dv_specific": "no",
+  "abuse_forms": "child_related",
+  "note": "jurisdiction to modify"
+ },
+ {
+  "citation": "UCCJEA § 204",
+  "title": "Temporary Emergency Jurisdiction",
+  "source_group": "Uniform Child Custody Jurisdiction and Enforcement Act (1997)",
+  "womenslaw_topic": "Custody",
+  "area": "custody",
+  "dv_specific": "partly",
+  "abuse_forms": "child_related",
+  "note": "temporary emergency jurisdiction when a parent or child is abused"
+ },
+ {
+  "citation": "UCCJEA § 207",
+  "title": "Inconvenient Forum",
+  "source_group": "Uniform Child Custody Jurisdiction and Enforcement Act (1997)",
+  "womenslaw_topic": "Custody",
+  "area": "custody",
+  "dv_specific": "partly",
+  "abuse_forms": "child_related",
+  "note": "inconvenient forum; DV is a factor"
+ },
+ {
+  "citation": "18 U.S.C. § 921",
+  "title": "Definitions",
+  "source_group": "United States Code, Title 18",
+  "womenslaw_topic": "Federal Gun Laws",
+  "area": "firearms",
+  "dv_specific": "partly",
+  "abuse_forms": "physical",
+  "note": "defines misdemeanor crime of domestic violence and intimate partner"
+ },
+ {
+  "citation": "18 U.S.C. § 922",
+  "title": "Unlawful acts",
+  "source_group": "United States Code, Title 18",
+  "womenslaw_topic": "Federal Gun Laws",
+  "area": "firearms",
+  "dv_specific": "partly",
+  "abuse_forms": "physical",
+  "note": "gun bans for protection orders, 922(g)(8), and DV misdemeanors, 922(g)(9)"
+ },
+ {
+  "citation": "18 U.S.C. § 924",
+  "title": "Penalties",
+  "source_group": "United States Code, Title 18",
+  "womenslaw_topic": "Federal Gun Laws",
+  "area": "firearms",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "penalties"
+ },
+ {
+  "citation": "18 U.S.C. § 925",
+  "title": "Exceptions: Relief from disabilities",
+  "source_group": "United States Code, Title 18",
+  "womenslaw_topic": "Federal Gun Laws",
+  "area": "firearms",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "official-use exception (police, military)"
+ },
+ {
+  "citation": "18 U.S.C. § 2261",
+  "title": "Interstate domestic violence",
+  "source_group": "United States Code, Title 18",
+  "womenslaw_topic": "Stalking / interstate",
+  "area": "courts",
+  "dv_specific": "yes",
+  "abuse_forms": "physical",
+  "note": "interstate domestic violence"
+ },
+ {
+  "citation": "18 U.S.C. § 2261A",
+  "title": "Stalking",
+  "source_group": "United States Code, Title 18",
+  "womenslaw_topic": "Stalking / interstate",
+  "area": "courts",
+  "dv_specific": "partly",
+  "abuse_forms": "technology",
+  "note": "stalking and cyberstalking"
+ },
+ {
+  "citation": "18 U.S.C. § 2265",
+  "title": "Full Faith and Credit Given to Protection Orders",
+  "source_group": "United States Code, Title 18",
+  "womenslaw_topic": "Stalking / interstate",
+  "area": "courts",
+  "dv_specific": "yes",
+  "abuse_forms": "general",
+  "note": "full faith and credit for protection orders (CA: Fam. Code 6400 et seq.)"
+ },
+ {
+  "citation": "18 U.S.C. § 2266",
+  "title": "Definitions",
+  "source_group": "United States Code, Title 18",
+  "womenslaw_topic": "Stalking / interstate",
+  "area": "courts",
+  "dv_specific": "yes",
+  "abuse_forms": "general",
+  "note": "definitions"
+ },
+ {
+  "citation": "18 U.S.C. § 3559",
+  "title": "Sentencing Classification of Offenses",
+  "source_group": "United States Code, Title 18",
+  "womenslaw_topic": "Federal Gun Laws",
+  "area": "courts",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "felony classes"
+ },
+ {
+  "citation": "8 U.S.C. § 1367",
+  "title": "Penalties for disclosure of information",
+  "source_group": "United States Code, various sections",
+  "womenslaw_topic": "Immigration",
+  "area": "privacy",
+  "dv_specific": "yes",
+  "abuse_forms": "immigration_related",
+  "note": "VAWA confidentiality; bars using abuser-supplied information"
+ },
+ {
+  "citation": "8 U.S.C. § 1430",
+  "title": "Married persons and employees of certain nonprofit organizations",
+  "source_group": "United States Code, various sections",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "partly",
+  "abuse_forms": "immigration_related",
+  "note": "naturalization for battered spouses"
+ },
+ {
+  "citation": "10 U.S.C. § 915",
+  "title": "Art. 115. Communicating threats",
+  "source_group": "United States Code, various sections",
+  "womenslaw_topic": "Military",
+  "area": "courts",
+  "dv_specific": "no",
+  "abuse_forms": "psychological",
+  "note": "UCMJ threats"
+ },
+ {
+  "citation": "10 U.S.C. § 928b",
+  "title": "Art. 128b. Domestic violence",
+  "source_group": "United States Code, various sections",
+  "womenslaw_topic": "Military",
+  "area": "courts",
+  "dv_specific": "yes",
+  "abuse_forms": "general",
+  "note": "UCMJ Art. 128b domestic violence offense"
+ },
+ {
+  "citation": "22 U.S.C. § 7102",
+  "title": "Definitions",
+  "source_group": "United States Code, various sections",
+  "womenslaw_topic": "Immigration",
+  "area": "immigration",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "trafficking definitions"
+ },
+ {
+  "citation": "22 U.S.C. § 7105",
+  "title": "Protection and assistance for victims of trafficking",
+  "source_group": "United States Code, various sections",
+  "womenslaw_topic": "Immigration",
+  "area": "services",
+  "dv_specific": "no",
+  "abuse_forms": "",
+  "note": "trafficking victim assistance"
+ },
+ {
+  "citation": "25 U.S.C. § 1304",
+  "title": "Tribal jurisdiction over covered crimes",
+  "source_group": "United States Code, various sections",
+  "womenslaw_topic": "Tribal communities",
+  "area": "courts",
+  "dv_specific": "yes",
+  "abuse_forms": "general",
+  "note": "tribal jurisdiction over non-Native DV offenders"
+ },
+ {
+  "citation": "28 U.S.C. § 1738A",
+  "title": "Full faith and credit given to child custody determinations",
+  "source_group": "United States Code, various sections",
+  "womenslaw_topic": "Custody",
+  "area": "custody",
+  "dv_specific": "no",
+  "abuse_forms": "child_related",
+  "note": "full faith and credit for custody orders (PKPA)"
+ },
+ {
+  "citation": "34 U.S.C. § 10450",
+  "title": "Costs for criminal charges and protection orders",
+  "source_group": "United States Code, various sections",
+  "womenslaw_topic": "Courts",
+  "area": "courts",
+  "dv_specific": "yes",
+  "abuse_forms": "general",
+  "note": "no fees for protection orders or DV charges (VAWA grant condition)"
+ },
+ {
+  "citation": "34 U.S.C. § 10461",
+  "title": "Grants",
+  "source_group": "United States Code, various sections",
+  "womenslaw_topic": "Courts",
+  "area": "services",
+  "dv_specific": "yes",
+  "abuse_forms": "general",
+  "note": "grants to encourage arrest policies and enforce protection orders"
+ },
+ {
+  "citation": "34 U.S.C. § 12491",
+  "title": "Housing protections for victims of domestic violence, dating violence, sexual assault, and stalking",
+  "source_group": "United States Code, various sections",
+  "womenslaw_topic": "VAWA Housing",
+  "area": "housing",
+  "dv_specific": "yes",
+  "abuse_forms": "general",
+  "note": "VAWA housing protections"
+ },
+ {
+  "citation": "47 U.S.C. § 227",
+  "title": "Restrictions on use of telephone equipment",
+  "source_group": "United States Code, various sections",
+  "womenslaw_topic": "Abuse using technology",
+  "area": "privacy",
+  "dv_specific": "no",
+  "abuse_forms": "technology",
+  "note": "robocall and fax restrictions (telephone harassment)"
+ },
+ {
+  "citation": "9 § 1662",
+  "title": "Duration of protection orders",
+  "source_group": "Navajo Nation Code",
+  "womenslaw_topic": "Tribal communities",
+  "area": "courts",
+  "dv_specific": "yes",
+  "abuse_forms": "general",
+  "note": "Navajo Nation protection order duration"
+ }
+]

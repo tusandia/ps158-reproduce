@@ -1,0 +1,145 @@
+# Every morning at 8:00 a.m. California time:
+#   1. read the Legislature's change files and news feeds  (dv_index/update.py, dv_index/news.py)
+#   2. commit any changed data in web/data/ back to this branch
+#   3. build the Next.js site (web/) and deploy it to GitHub Pages
+#
+# Also runs:
+#   - by hand: Actions tab > "Daily update and deploy" > Run workflow (tick "full" to rebuild everything)
+#   - on any push that changes the site, the pipeline or the codebook (deploy only, no data fetch)
+#   - full rebuild from the whole session file every Sunday
+#
+# Scheduled runs only fire on the repository's DEFAULT branch.
+
+name: Daily update and deploy
+
+on:
+  schedule:
+    # GitHub cron is UTC. 8:00 a.m. in Los Angeles is 15:00 UTC in summer (PDT)
+    # and 16:00 UTC in winter (PST). Both fire; the "when" step keeps the one
+    # that matches today's clock. GitHub can start scheduled runs late at busy times.
+    - cron: "0 15 * * *"
+    - cron: "0 16 * * *"
+  workflow_dispatch:
+    inputs:
+      full:
+        description: "Rebuild from the whole session file (about 1.2 GB) instead of this week's change files"
+        type: boolean
+        default: false
+  push:
+    paths:
+      - "web/**"
+      - "dv_index/**"
+      - ".github/workflows/daily-update.yml"
+
+permissions:
+  contents: write   # commit the updated data
+  pages: write      # deploy to GitHub Pages
+  id-token: write   # required by deploy-pages
+
+concurrency:
+  group: daily-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    outputs:
+      skipped: ${{ steps.when.outputs.skip }}
+    steps:
+      - name: Decide whether this run is the 8 a.m. one
+        id: when
+        env:
+          SCHEDULE: ${{ github.event.schedule }}
+        run: |
+          skip=false
+          if [ -n "$SCHEDULE" ]; then
+            zone=$(TZ=America/Los_Angeles date +%Z)     # PDT or PST
+            if [ "$zone" = "PDT" ] && [ "$SCHEDULE" != "0 15 * * *" ]; then skip=true; fi
+            if [ "$zone" = "PST" ] && [ "$SCHEDULE" != "0 16 * * *" ]; then skip=true; fi
+          fi
+          echo "skip=$skip" >> "$GITHUB_OUTPUT"
+          echo "Los Angeles time: $(TZ=America/Los_Angeles date), skip=$skip"
+
+      - uses: actions/checkout@v7
+        if: steps.when.outputs.skip != 'true'
+
+      - uses: actions/setup-python@v7
+        if: steps.when.outputs.skip != 'true'
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install Python packages
+        if: steps.when.outputs.skip != 'true'
+        run: pip install -r requirements.txt
+
+      - name: Update bills from the Legislature
+        if: steps.when.outputs.skip != 'true'
+        working-directory: dv_index
+        run: |
+          if [ "${{ inputs.full }}" = "true" ] || [ "$(TZ=America/Los_Angeles date +%u)" = "7" ]; then
+            python update.py --full
+          else
+            python update.py
+          fi
+
+      - name: Update news headlines
+        if: steps.when.outputs.skip != 'true'
+        working-directory: dv_index
+        run: python news.py
+
+      - name: Commit changed data
+        if: steps.when.outputs.skip != 'true'
+        run: |
+          git config user.name "dv-index-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add web/data
+          if git diff --cached --quiet; then
+            echo "No data changes today."
+          else
+            git commit -m "Daily data update $(TZ=America/Los_Angeles date +%F)"
+            git push
+          fi
+
+  deploy:
+    needs: update
+    # Deploy after a successful update, and on pushes (where update is skipped).
+    if: always() && needs.update.outputs.skipped != 'true' && (needs.update.result == 'success' || needs.update.result == 'skipped')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.ref_name }}   # pick up the commit the update job just pushed
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Configure GitHub Pages
+        id: pages
+        uses: actions/configure-pages@v6
+
+      - name: Build the site
+        working-directory: web
+        env:
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          NEXT_TELEMETRY_DISABLED: "1"
+        run: |
+          npm ci
+          npm run build
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: web/out
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v5

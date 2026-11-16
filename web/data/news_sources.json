@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Google News: California domestic violence legislation",
+    "url": "https://news.google.com/rss/search?q=California+%22domestic+violence%22+(bill+OR+law+OR+legislature+OR+Newsom)+when:30d&hl=en-US&gl=US&ceid=US:en"
+  },
+  {
+    "name": "Google News: California survivors, immigration and housing",
+    "url": "https://news.google.com/rss/search?q=California+survivors+(%22domestic+violence%22+OR+VAWA+OR+%22U+visa%22)+(immigration+OR+housing+OR+custody)+when:30d&hl=en-US&gl=US&ceid=US:en"
+  },
+  {
+    "name": "Google News: California restraining orders and firearms",
+    "url": "https://news.google.com/rss/search?q=California+(%22restraining+order%22+OR+%22protective+order%22)+(firearm+OR+gun+OR+%22coercive+control%22)+when:30d&hl=en-US&gl=US&ceid=US:en"
+  },
+  {
+    "name": "CalMatters",
+    "url": "https://calmatters.org/feed/"
+  }
+]

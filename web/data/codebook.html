@@ -1,0 +1,329 @@
+<h1>Coding scheme: California laws and DV survivors</h1>
+<p>Unit of analysis: one bill (latest version), or one code section. Code every
+item from its title, Legislative Counsel's Digest and, if still unclear, the
+bill text. Code <strong>what the law does</strong>, not what its author says it is for.</p>
+<h2>1. <code>relevance</code> (pick one)</h2>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Rule</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>direct</code></td>
+<td>The law names domestic violence, intimate partner / dating violence or family violence, or amends a provision whose only or main subject is DV (e.g. the Domestic Violence Prevention Act, Fam. Code §6200 et seq.; Pen. Code §273.5; DV restraining orders; batterer intervention programs).</td>
+<td>DVRO procedure; DV shelter funding; coercive control as abuse.</td>
+</tr>
+<tr>
+<td><code>indirect</code></td>
+<td>The law does not need to mention DV, but it <strong>materially changes what a survivor can get or what risks they face</strong> in at least one impact area below, <em>and</em> survivors are a group it clearly reaches more than incidentally.</td>
+<td>Expanding eligibility for U-visa certifications; lease termination rights for crime victims; firearm relinquishment procedures; court interpreter access in family court; address confidentiality; services offered regardless of immigration status; rules on service of process or ex parte divorce; jurisdiction in custody cases that cross state or national borders; funding for culturally specific organizations.</td>
+</tr>
+<tr>
+<td><code>none</code></td>
+<td>Neither. A passing mention of "victims" in a broad bill does not make it <code>indirect</code> unless the change would matter to a survivor's safety, housing, status, income, children or access to courts.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Tie-breakers:</p>
+<ul>
+<li>Bills covering several crimes (e.g. "victims of domestic violence, sexual assault, stalking or human trafficking") that name DV are <code>direct</code>.</li>
+<li>Elder / dependent adult abuse and child abuse alone are <code>indirect</code> only if they apply within a family or household relationship that would meet Fam. Code §6211; otherwise <code>none</code>.</li>
+<li>Spot bills or bills whose text is only intent language: code what the digest says the bill would do; add <code>spot bill</code> in <code>notes</code>.</li>
+<li>Abuse by in-laws or other family members counts as DV when the relationship meets Fam. Code §6211, which covers more than spouses. Transnational marriage abandonment is usually carried out by the husband <em>and</em> his family (Bhandari 2025).</li>
+<li>A law can hurt survivors. Code it <code>direct</code> or <code>indirect</code> all the same, and say in <code>notes</code> that the effect is harmful. Examples: a law that makes interpreters harder to get, or a law that lets an abuser use a protective order or a false abuse claim against the survivor.</li>
+</ul>
+<h2>2. <code>areas</code> (any that apply, separated by <code>;</code>)</h2>
+<p>Code every area the law <em>changes</em> for survivors. Use these exact codes so they
+can be compared with the tool's predictions:</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>immigration</code></td>
+<td>Immigration status, U/T visa certification, VAWA, cooperation with federal immigration enforcement, access to services regardless of status.</td>
+</tr>
+<tr>
+<td><code>housing</code></td>
+<td>Tenancy, eviction, lease termination, shelters, homelessness services, housing assistance.</td>
+</tr>
+<tr>
+<td><code>custody</code></td>
+<td>Custody, visitation, child support, dissolution, family court procedure.</td>
+</tr>
+<tr>
+<td><code>firearms</code></td>
+<td>Firearm and ammunition prohibitions, relinquishment, GVROs, APPS.</td>
+</tr>
+<tr>
+<td><code>benefits</code></td>
+<td>CalWORKs, CalFresh, Medi-Cal, unemployment, victim compensation, other cash or in-kind aid.</td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>Interpreters, translation, language access.</td>
+</tr>
+<tr>
+<td><code>courts</code></td>
+<td>Protective orders, criminal procedure, evidence and privilege, legal aid, remote appearance, sentencing and diversion.</td>
+</tr>
+<tr>
+<td><code>privacy</code></td>
+<td>Address confidentiality (Safe at Home), personal data, tracking and stalkerware, records sealing.</td>
+</tr>
+<tr>
+<td><code>employment</code></td>
+<td>Leave, workplace protections, job-related accommodations.</td>
+</tr>
+<tr>
+<td><code>health</code></td>
+<td>Health care, mental health, reproductive health, forensic exams, mandated reporting by health workers.</td>
+</tr>
+<tr>
+<td><code>services</code></td>
+<td>Funding and rules for DV programs, hotlines, advocates (Cal OES etc.).</td>
+</tr>
+<tr>
+<td><code>child_welfare</code></td>
+<td>Child welfare, dependency, foster care, juvenile court.</td>
+</tr>
+<tr>
+<td><code>education</code></td>
+<td>Schools, campuses, Title IX.</td>
+</tr>
+<tr>
+<td><code>financial</code></td>
+<td>Coerced debt, economic abuse, credit, banking.</td>
+</tr>
+</tbody>
+</table>
+<p>Add a new code only if none fits; record it in <code>notes</code> and add matching terms
+to <code>lexicon.csv</code> afterwards.</p>
+<h2>2b. <code>abuse_forms</code> (any the law responds to, separated by <code>;</code>)</h2>
+<p>The kinds of abuse the law addresses. A law about restraining orders in general
+gets <code>general</code>. The list follows the Learning Network's typology (Tabibi et al.
+2018) plus two forms documented among South Asian women in the U.S.
+(Bhandari 2025).</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>general</code></td>
+<td>Abuse in general, with no form singled out.</td>
+</tr>
+<tr>
+<td><code>physical</code></td>
+<td>Hitting, choking or strangulation, withholding hormones or medication.</td>
+</tr>
+<tr>
+<td><code>sexual</code></td>
+<td>Sexual assault, reproductive coercion, forced abortion, refusal to use protection.</td>
+</tr>
+<tr>
+<td><code>psychological</code></td>
+<td>Isolation, threats, coercive control, threats to "out" a partner, harm to pets or service animals.</td>
+</tr>
+<tr>
+<td><code>economic</code></td>
+<td>Control of money or accounts, coerced debt, dowry demands, keeping a partner from working.</td>
+</tr>
+<tr>
+<td><code>technology</code></td>
+<td>Monitoring, tracking, stalkerware, intimate images, abuse through devices and social media.</td>
+</tr>
+<tr>
+<td><code>neglect</code></td>
+<td>Withholding food, care, medication or mobility aids.</td>
+</tr>
+<tr>
+<td><code>forced_marriage</code></td>
+<td>Forcing someone into marriage, or keeping them in one.</td>
+</tr>
+<tr>
+<td><code>immigration_related</code></td>
+<td>Threats about status or deportation, withholding or destroying passports and visas, refusing to file or withdrawing a sponsorship, keeping a partner from learning English.</td>
+</tr>
+<tr>
+<td><code>transnational_abandonment</code></td>
+<td>Leaving a spouse stranded abroad, cancelling her visa or tickets, locking her out after migration, serving divorce ex parte in another country (Bhandari 2025).</td>
+</tr>
+<tr>
+<td><code>child_related</code></td>
+<td>Using children to control: abduction, alienation, false abuse claims, fights over custody jurisdiction.</td>
+</tr>
+<tr>
+<td><code>faith_misuse</code></td>
+<td>Using religion or a faith leader to justify abuse or keep a survivor from leaving (Tabibi et al. 2018).</td>
+</tr>
+</tbody>
+</table>
+<h2>3. <code>populations</code> (any that apply)</h2>
+<p>Survivors the law specifically reaches. Tag a realm only when the law itself
+reaches that group; don't infer from who tends to use a program.</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>immigrant_vawa</code></td>
+<td>Immigration status, VAWA self-petitions, U/T visas, asylum, refugees, noncitizens, public charge.</td>
+</tr>
+<tr>
+<td><code>women_gender</code></td>
+<td>Women, gender, gender-based violence, pregnancy, reproductive health, forced or coerced marriage.</td>
+</tr>
+<tr>
+<td><code>faith</code></td>
+<td>Religion, places of worship, clergy, faith-based organizations, but only where faith changes something for survivors. Examples: shelters or services that meet religious and spiritual needs, religious discrimination in victim services, immigration enforcement at places of worship, and the role of faith leaders, who can help a survivor or side with the abuser (Bhandari 2025). A passing mention in a list of protected traits doesn't count.</td>
+</tr>
+<tr>
+<td><code>language_access</code></td>
+<td>Interpreters, translation, limited English proficiency. In <code>notes</code>, name any language the law lists.</td>
+</tr>
+<tr>
+<td><code>military</code></td>
+<td>Service members, veterans and their partners; military protective orders.</td>
+</tr>
+<tr>
+<td><code>youth</code>, <code>elder_dependent_adult</code>, <code>disability</code>, <code>tribal</code>, <code>lgbtq</code>, <code>rural</code></td>
+<td>As named.</td>
+</tr>
+</tbody>
+</table>
+<p>No 2025–26 bill names a religion, ethnicity or South Asian language. Muslim and
+South Asian survivors are therefore not separate codes. Their concerns are
+tracked through the realms above and through <code>abuse_forms</code>.</p>
+<p><strong>Caution against "culturalizing" violence.</strong> Code what the law does, not
+assumptions about a community. Violence against women happens in every
+culture. Treating it as a product of one community's culture, rather than of
+structural inequality, is itself a harm (Tabibi et al. 2018). A forced-marriage
+law is <code>women_gender</code> and <code>forced_marriage</code>. It isn't tagged to any religion or
+ethnicity. This is how the coding handles the main risk
+named in the proposal: indirect laws that matter mostly to a specific group.</p>
+<h2>4. <code>notes</code></h2>
+<p>One line: why it is <code>indirect</code> (what changes for survivors), or why a close
+call went to <code>none</code>. These notes are what you'll use to revise the lexicon.</p>
+<h2>Procedure</h2>
+<ol>
+<li>Code blind: use <code>coding/coding_sheet.csv</code> only, never <code>sample_key.csv</code>.</li>
+<li>
+<p>After two weeks, re-code a random 15% of rows in a fresh copy of the sheet
+   and run <code>evaluate.py --recode</code> for intra-coder agreement (Cohen's kappa).</p>
+</li>
+<li>
+<p>Keep a log of rule changes; if a rule changes, re-check rows already coded.</p>
+</li>
+</ol>
+<h2>The federal layer</h2>
+<p>Federal law sets a floor that California builds on, and many state bills only
+make sense next to it. <code>reference/federal_statutes_womenslaw.csv</code> lists the 71
+federal statutes and regulations on WomensLaw's Selected Federal Statutes page.
+Each is marked <code>dv_specific</code>:</p>
+<ul>
+<li>
+<p><code>yes</code> (12): about DV, e.g. VAWA housing (34 U.S.C. §12491), VAWA
+  confidentiality (8 U.S.C. §1367), UCMJ Art. 128b.</p>
+</li>
+<li>
+<p><code>partly</code> (24): a general law with a DV provision, e.g. the gun bans in 18 U.S.C.
+  §922(g)(8)–(9), U visas, VAWA self-petitions.</p>
+</li>
+<li>
+<p><code>no</code> (35): listed for context only, e.g. asylum filing, T visas, penalties.</p>
+</li>
+</ul>
+<p>Federal statutes are not coded in the index. Code a <strong>California</strong> bill against
+them like this:</p>
+<ul>
+<li>
+<p>A bill that adopts, extends or fills a gap in a federal protection is
+  <code>indirect</code> at least. Examples: VAWA-style housing rights for state-funded or
+  private housing, which VAWA itself doesn't cover; U-visa certification rules
+  (Pen. Code §679.10); recognition of military or tribal protection orders.
+  Note the federal law in <code>notes</code>.</p>
+</li>
+<li>
+<p>A bill on <code>military</code> survivors: tag the population <code>military</code>. Military
+  protective orders, the Family Advocacy Program and restricted reporting are
+  federal, so state bills mostly concern recognizing and enforcing MPOs (e.g.
+  SB 99).</p>
+</li>
+<li>
+<p>A bill that changes state custody jurisdiction (Fam. Code §3400 et seq., the
+  UCCJEA): <code>custody</code>, with <code>child_related</code> in <code>abuse_forms</code>.</p>
+</li>
+</ul>
+<p>Federal terms are in <code>lexicon.csv</code> (Section 8 vouchers, lease bifurcation,
+emergency transfers, self-petitions, U/T nonimmigrant, military protective
+orders, full faith and credit). In 2025–26 only two bills use any of them
+(AB 1753 on foreign protection orders, SB 99 on military protective orders).
+Both were already flagged.</p>
+<h2>What the index can't capture</h2>
+<ul>
+<li>
+<p>Federal law and policy (e.g. expedited removal, enforcement priorities,
+  federal immigration relief). These change what Californians can use but never
+  show up as California bills; see the federal layer above for context.</p>
+</li>
+<li>
+<p>County and city ordinances, court rules (Judicial Council), and agency regulations.</p>
+</li>
+<li>Laws whose effect on survivors depends on implementation or funding, not text.</li>
+<li>
+<p>Bills where DV relevance is only clear from committee analyses or advocates'
+  positions, not from the digest or text.</p>
+</li>
+<li>
+<p>Problems that cross borders. In transnational abandonment, the husband files
+  in one country while the wife is in another, so no single state's law reaches
+  the whole case (Bhandari 2025). Remedies sit mostly in federal immigration law
+  (VAWA self-petitions, work permits for dependent-visa holders such as H-4) and
+  in other countries' laws.</p>
+</li>
+<li>
+<p>Gaps. An index of what passed can't show what was never introduced. The
+  2025–26 session has no bill that mentions dowry, transnational or marriage
+  abandonment, immigration-related abuse, international child abduction or the
+  Hague Convention, culturally specific services, or faith leaders. Report
+  these absences as findings.</p>
+</li>
+</ul>
+<h2>Sources</h2>
+<ul>
+<li>
+<p>Bhandari, S. (2025). Experiences of transnational abandonment in the lives of
+  abused South Asian women in the United States. <em>Journal of Family Violence</em>,
+  40, 1079–1089. https://doi.org/10.1007/s10896-024-00683-2</p>
+</li>
+<li>
+<p>WomensLaw.org (National Network to End Domestic Violence), Legal Information:
+  Federal. <em>Selected Federal Statutes</em> (updated Dec. 17, 2025), <em>VAWA Housing
+  Protections</em>, <em>Federal Gun Laws</em>, <em>Domestic Violence in the Military</em>.
+  Accessed Nov. 15, 2026.</p>
+</li>
+<li>
+<p>Tabibi, J., Ahmad, S., Baker, L., &amp; Lalonde, D. (2018). <em>Intimate partner
+  violence against immigrant and refugee women</em>. Learning Network Issue 26.
+  Centre for Research &amp; Education on Violence Against Women &amp; Children, Western
+  University. (A Canadian source; its barriers and recommendations were used to
+  pick impact areas, not to describe California law.)</p>
+</li>
+</ul>

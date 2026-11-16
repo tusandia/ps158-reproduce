@@ -65,3 +65,10 @@ Note: the two PNGs committed here were not drawn by `plot.py`. matplotlib could
 not be installed in the environment that built them, so they were drawn from the
 same CSV with a stand-in SVG renderer. Running `plot.py` writes over them at the
 same paths, with slightly different styling.
+
+## California DV Law Index
+
+`dv_index/` is a separate POLISCI 158 project: a pipeline that finds California
+bills affecting domestic violence survivors. `web/` is its self-updating
+website (Next.js), refreshed every morning by
+`.github/workflows/daily-update.yml`. See `dv_index/README.md` and `web/README.md`.
