@@ -32,7 +32,9 @@ no server or database: `next build` bakes the JSON into static pages in `web/out
    repository's default branch. Merge this branch into it, or make this branch
    the default in Settings → General → Default branch.
 2. **Turn on GitHub Pages.** Settings → Pages → Build and deployment → Source:
-   **GitHub Actions**. (Pages on a private repository needs GitHub Pro, which is
+   **GitHub Actions**. A repository has one Pages site. In `tusandia/ps158-reproduce`
+   Pages already serves the Campaign Trail game, so switching the source would
+   replace it. Use a separate repository for this site, or Vercel (below). (Pages on a private repository needs GitHub Pro, which is
    free for students through GitHub Education. Otherwise make the repository
    public, or use Vercel below.)
 3. **Allow the workflow to push.** Settings → Actions → General → Workflow
